@@ -398,27 +398,27 @@
     <!-- Gate: criar/desbloquear senha do app -->
     <div id="gate" class="modal">
       <div class="glass p-6 w-full max-w-sm rounded-lg">
-        <h3 class="font-bold text-lg mb-2">Senha do app</h3>
+        <h3 class="font-bold text-lg mb-2">App password</h3>
 
         <div id="gateCreateView">
-          <p class="small-muted">Crie uma senha para bloquear/desbloquear sua carteira neste dispositivo.</p>
-          <label class="block mt-3">Senha
+          <p class="small-muted">Create a password to lock/unlock your wallet on this device.</p>
+          <label class="block mt-3">Password
             <input id="newPass" type="password" class="mt-2 p-3 rounded bg-[#071219] w-full" autocomplete="new-password">
           </label>
-          <label class="block mt-3">Confirmar senha
+          <label class="block mt-3">Confirm password
             <input id="newPass2" type="password" class="mt-2 p-3 rounded bg-[#071219] w-full" autocomplete="new-password">
           </label>
           <div class="mt-4 flex gap-2">
-            <button id="gateCreateBtn" class="btn-accent w-full">Criar senha</button>
+            <button id="gateCreateBtn" class="btn-accent w-full">Create password</button>
           </div>
           <div id="gateMsg" class="small-muted mt-2"></div>
         </div>
 
         <div id="gateUnlockView" class="hidden">
-          <p class="small-muted">Digite sua senha para continuar.</p>
+          <p class="small-muted">Enter your password to continue.</p>
           <input id="gatePass" type="password" class="mt-3 p-3 rounded bg-[#071219] w-full" autocomplete="current-password">
           <div class="mt-4 flex gap-2">
-            <button id="gateBtn" class="btn-accent w-full">Desbloquear</button>
+            <button id="gateBtn" class="btn-accent w-full">Unlock</button>
           </div>
           <div id="gateMsg2" class="small-muted mt-2"></div>
         </div>
@@ -428,12 +428,12 @@
     <!-- Auth: confirmar ações críticas (enviar/logout) -->
     <div id="authModal" class="modal">
       <div class="glass p-6 w-full max-w-sm rounded-lg">
-        <h3 id="authTitle" class="font-bold text-lg mb-2">Confirmar ação</h3>
-        <p id="authHint" class="small-muted">Digite sua senha para continuar.</p>
+        <h3 id="authTitle" class="font-bold text-lg mb-2">Confirm action</h3>
+        <p id="authHint" class="small-muted">Enter your password to continue.</p>
         <input id="authPass" type="password" class="mt-3 p-3 rounded bg-[#071219] w-full" autocomplete="current-password">
         <div class="mt-4 flex gap-2">
-          <button id="authCancel" class="btn-muted w-1/2">Cancelar</button>
-          <button id="authOk" class="btn-accent w-1/2">Confirmar</button>
+          <button id="authCancel" class="btn-muted w-1/2">Cancel</button>
+          <button id="authOk" class="btn-accent w-1/2">Confirm</button>
         </div>
         <div id="authMsg" class="small-muted mt-2"></div>
       </div>
