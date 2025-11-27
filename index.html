@@ -231,7 +231,7 @@
           <div class="glass p-3 rounded text-right w-full md:w-[340px]">
             <div class="text-xs small-muted">Total balance</div>
             <div id="topBalance" class="text-2xl font-bold mono">0.00 FONE</div>
-            <div id="topBreakdown" class="text-xs small-muted mt-1">On-chain: 0.00 • Credits: 0.00</div>
+            <div id="topBreakdown" class="text-xs small-muted mt-1">Available: 0.00 FONE</div>
             <div class="text-xs small-muted mt-2">Address</div>
             <div id="topAddr" class="mono text-sm break-words">—</div>
           </div>
@@ -333,13 +333,14 @@
           <div class="glass p-5 md:p-6 max-w-5xl">
             <h2 class="font-bold">Aposta</h2>
             <p class="text-sm small-muted">
-              Bet up to 100 FONE analyzing cases from other users. If you follow the majority, you receive your bet + 75%.            </p>
+              Bet up to 100 FONE analyzing cases from other users. If you follow the majority, you receive your bet + 75%.
+            </p>
             <div class="mt-3 text-sm small-muted">
-              Your Credits: <strong class="mono" id="apostaCredits">0.00</strong> FONE
+              Your balance: <strong class="mono" id="apostaCredits">0.00</strong> FONE
             </div>
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" id="apostaList"></div>
             <div class="mt-4 small-muted">
-              Note: Bets use Local Credits. On-chain shipping uses only the on-chain balance.
+              Note: Bets use your FONE balance.
             </div>
           </div>
         </div>
@@ -348,22 +349,8 @@
           <div class="glass p-5 md:p-6 max-w-2xl">
             <h2 class="font-bold">Take out / Send FONE</h2>
             <div class="mt-2 text-sm small-muted">
-              <div>Available for shipping (on-chain): <strong id="sendAvail" class="mono">0.00</strong> FONE</div>
-              <div class="mt-1">Credits: <strong id="creditsInfo" class="mono">0.00</strong> FONE</div>
+              <div>Available balance: <strong id="sendAvail" class="mono">0.00</strong> FONE</div>
               <div class="mt-1" id="feeInfo">Network fee: —</div>
-            </div>
-            <div class="mt-3 glass p-4">
-              <div class="font-semibold">Convert Credits to On-chain</div>
-              <div class="text-xs small-muted mt-1">Necessary to withdraw/send FONE.</div>
-              <div class="mt-2 text-sm small-muted">
-                Créditos: <strong id="convCredits" class="mono">0.00</strong> • On-chain available: <strong id="convOnAvail" class="mono">0.00</strong>
-              </div>
-              <div class="mt-2 flex items-center gap-2">
-                <input id="convAmt" type="number" step="0.01" inputmode="decimal" class="flex-1 p-3 rounded app-input mono" placeholder="Value to convert (FONE)" />
-                <button id="btnConvMax" class="btn-ghost px-3 py-2">MAX</button>
-                <button id="btnConvert" class="btn-accent">Convert</button>
-              </div>
-              <div id="convErrors" class="mt-2 text-xs text-red-300"></div>
             </div>
 
             <label class="block mt-4">Destination address
@@ -392,7 +379,7 @@
                 <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded app-input mono" />
                 <button id="btnMax" class="btn-ghost px-3 py-2">MAX</button>
               </div>
-              <div class="mt-1 text-xs small-muted">Você pode enviar até o saldo on-chain disponível.</div>
+              <div class="mt-1 text-xs small-muted">Você pode enviar até o saldo disponível.</div>
             </label>
 
             <label class="block mt-3">Message (optional)
@@ -722,21 +709,18 @@
       $('newPass2')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('gateCreateBtn')?.click(); });
     }
     function initPasswordLock() {
-      // 1) Se ainda não existe senha, exibe criação
       if (!isPasswordSet()) {
         showGate(true);
         bindGateUI();
         return;
       }
 
-      // 2) Se já está desbloqueado nesta sessão (mesma aba), não mostra o gate
       if (isUnlocked()) {
         showGate(false);
-        ensureSdkConfigured(); // mantém o fluxo normal
+        ensureSdkConfigured();
         return;
       }
 
-      // 3) Senha existe, mas a sessão ainda não está desbloqueada → pede senha
       showGate(true);
       bindGateUI();
     }
@@ -759,7 +743,7 @@
           vested: 0,
           total: 0
         },
-        credits: 0,
+        credits: 0,         // mantido, mas não é mais usado pra conversão
         totalUI: 0,
         disponivelUI: 0
       },
@@ -838,8 +822,9 @@
     }
 
     function updateUI() {
-      $('topBalance').innerText = `${Number(State.balance.totalUI || 0).toFixed(2)} FONE`;
-      $('topBreakdown').innerText = `On-chain: ${Number(State.balance.onchain.total || 0).toFixed(2)} • Créditos: ${Number(State.balance.credits || 0).toFixed(2)}`;
+      const total = Number(State.balance.onchain.total || 0);
+      $('topBalance').innerText = `${total.toFixed(2)} FONE`;
+      $('topBreakdown').innerText = `Available: ${Number(State.balance.onchain.available || 0).toFixed(2)} FONE`;
       const addr = getActiveAddress() || '—';
       $('topAddr').innerText = addr;
       $('walletAddressDisplay').innerText = addr;
@@ -847,9 +832,6 @@
       $('sidebarRep').innerText = State.reputation || 0;
       $('repScore').innerText = State.reputation || 0;
       $('sendAvail').innerText = Number(State.balance.onchain.available || 0).toFixed(2);
-      $('creditsInfo').innerText = Number(State.balance.credits || 0).toFixed(2);
-      $('convCredits').innerText = Number(State.balance.credits || 0).toFixed(2);
-      $('convOnAvail').innerText = Number(State.balance.onchain.available || 0).toFixed(2);
 
       const hasWallet = !!getActiveAddress();
       if ($('logoutBtn')) $('logoutBtn').style.display = hasWallet ? 'block' : 'none';
@@ -1085,14 +1067,12 @@
       const dest = ($('inputDest')?.value || '').trim();
       const amt = Number($('inputAmt')?.value);
       const onAvail = Number(State.balance?.onchain?.available || 0);
-      const credits = Number(State.balance?.credits || 0);
       const errs = [];
       if (!dest) errs.push('Informe o endereço de destino.');
       else if (!isValidFoneAddress(dest)) errs.push('Endereço inválido.');
       if (!amt || !Number.isFinite(amt) || amt <= 0) errs.push('Informe um valor válido.');
       if (Number.isFinite(amt) && amt > 0 && amt > onAvail) {
-        if (credits > 0) errs.push('Você possui créditos locais; converta para on-chain antes de enviar.');
-        else errs.push('Saldo on-chain insuficiente.');
+        errs.push('Saldo insuficiente.');
       }
       if (getActiveAddress() && dest === getActiveAddress()) errs.push('Não envie para o próprio endereço.');
       return { ok: errs.length === 0, dest, amt, errors: errs };
@@ -1234,8 +1214,12 @@
         State.reputation = Number(State.reputation || 0) + repAdd;
         const me = getActiveAddress() || 'anonymous';
         State.leaderboard[me] = Number(State.leaderboard[me] || 0) + repAdd;
-        State.balance.credits = Number(State.balance.credits || 0) + Number(m.reward || 0);
+
+        const reward = Number(m.reward || 0);
+        State.balance.onchain.available = Number(State.balance.onchain.available || 0) + reward;
+        State.balance.onchain.total = Number(State.balance.onchain.total || 0) + reward;
         recalcTotals();
+
         $('missionDetails').innerHTML = `
           <div>ID: <span class="mono">${m.id}</span></div>
           <div>Mission: ${m.title}</div>
@@ -1272,7 +1256,7 @@
     function renderApostaPage() {
       const wrap = $('apostaList');
       if (!wrap) return;
-      $('apostaCredits').innerText = Number(State.balance.credits || 0).toFixed(2);
+      $('apostaCredits').innerText = Number(State.balance.onchain.available || 0).toFixed(2);
       wrap.innerHTML = '';
       if (!State.reviewQueue.length) {
         wrap.innerHTML = '<div class="small-muted">— No cases to review —</div>';
@@ -1298,9 +1282,9 @@
           <div class="text-xs small-muted">Recompensa: ${item.reward} FONE • Sent by <span class="mono">${item.submitter}</span></div>
           <div class="mt-3"><img src="${item.image}" alt="proof" class="thumb" /></div>
           <div class="mt-2 small-muted">${item.report}</div>
-          <div class="mt-3 text-xs small-muted">Bet up to 100 FONE (Credits)</div>
+          <div class="mt-3 text-xs small-muted">Bet up to 100 FONE</div>
           <div class="mt-1 flex items-center gap-2">
-            <input id="bet-${item.id}" type="number" min="1" max="100" step="1" class="p-2 rounded app-input mono w-24" ${disabled} value="${Math.min(10, Math.floor((State.balance?.credits || 0) / 2))}">
+            <input id="bet-${item.id}" type="number" min="1" max="100" step="1" class="p-2 rounded app-input mono w-24" ${disabled} value="${Math.min(10, Math.floor((State.balance?.onchain?.available || 0) / 2))}">
             <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
             <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Fail</button>
           </div>
@@ -1319,9 +1303,10 @@
       const amount = Number(inp?.value || 0);
       if (!Number.isFinite(amount) || amount <= 0) return toast('Informe um valor válido.', 2500);
       if (amount > 100) return toast('Aposta máxima é 100 FONE.', 3000);
-      const credits = Number(State.balance?.credits || 0);
-      if (amount > credits) return toast('Créditos insuficientes.', 3000);
-      State.balance.credits = credits - amount;
+      const avail = Number(State.balance?.onchain?.available || 0);
+      if (amount > avail) return toast('Saldo insuficiente para apostar.', 3000);
+      State.balance.onchain.available = avail - amount;
+      State.balance.onchain.total = Math.max(0, Number(State.balance.onchain.total || 0) - amount);
       recalcTotals();
       State.bets[id] = { amount, decision, status: 'pending', createdAt: Date.now() };
       savePersistentForAddress(getActiveAddress());
@@ -1337,7 +1322,8 @@
       const userWin = (bet.decision === majority);
       const payout = userWin ? bet.amount * 1.75 : 0;
       if (payout > 0) {
-        State.balance.credits = Number(State.balance.credits || 0) + payout;
+        State.balance.onchain.available = Number(State.balance.onchain.available || 0) + payout;
+        State.balance.onchain.total = Number(State.balance.onchain.total || 0) + payout;
         recalcTotals();
       }
       bet.status = 'settled';
@@ -1569,35 +1555,7 @@
       a.download = 'fone-address-qr.png';
       a.click();
     });
-    $('btnConvMax')?.addEventListener('click', () => {
-      const credits = Number(State.balance?.credits || 0);
-      $('convAmt').value = credits.toFixed(2);
-      $('convErrors').innerText = '';
-    });
-    $('btnConvert')?.addEventListener('click', () => {
-      const input = $('convAmt');
-      const err = $('convErrors');
-      const amount = Number(input.value);
-      const credits = Number(State.balance?.credits || 0);
-      if (!Number.isFinite(amount) || amount <= 0) {
-        err.innerText = 'Enter a valid value.';
-        return;
-      }
-      if (amount > credits) {
-        err.innerText = 'Insufficient credits.';
-        return;
-      }
-      State.balance.credits = credits - amount;
-      State.balance.onchain.available = Number(State.balance.onchain.available || 0) + amount;
-      State.balance.onchain.total = Number(State.balance.onchain.total || 0) + amount;
-      recalcTotals();
-      State.history.push(`[${new Date().toLocaleString()}] Converted ${amount} Credits -> On-chain`);
-      savePersistentForAddress(getActiveAddress());
-      err.innerText = '';
-      input.value = '';
-      updateUI();
-      toast('Conversion carried out.', 3000);
-    });
+
     document.addEventListener('input', (e) => {
       if (e.target && (e.target.id === 'inputDest' || e.target.id === 'inputAmt')) {
         applySendValidationUI();
@@ -1623,7 +1581,6 @@
         if (!ok) return;
       }
 
-      // Mantém o prompt para chave privada (até migrar para assinatura local)
       const pk = (prompt('Cole sua CHAVE PRIVADA... (NÃO SERÁ SALVA)') || '').trim();
       if (!pk) return;
 
@@ -1669,7 +1626,7 @@
       recalcTotals();
       updateUI();
 
-      lockApp(); // volta para a tela de senha
+      lockApp();
       showModal('loginModal', true);
       $('welcomeModal')?.classList.remove('show');
       toast('Logout feito.', 2000);
@@ -1766,7 +1723,7 @@
         showModal('loginModal', true);
       }
       window.addEventListener('load', () => {
-        initPasswordLock();  // novo gate por senha
+        initPasswordLock();
         bindSaveCfgWatcher();
       });
       window.Eco = { State, api, syncAll, showPage };
