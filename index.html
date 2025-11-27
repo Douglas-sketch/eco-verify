@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
@@ -9,29 +9,179 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
-    :root { --accent:#06f30a; --accent-2:#00e676; --glass-border:rgba(255,255,255,.08); --bg:linear-gradient(180deg,#05010a,#071022); --card-bg:rgba(12,12,20,.5); --muted:#9aa6bf; color-scheme:dark; }
-    [data-theme="light"]{ --accent:#06c755; --accent-2:#00e676; --glass-border:rgba(2,6,23,.06); --bg:linear-gradient(180deg,#EEF1F5,#E6EAEE); --card-bg:rgba(255,255,255,.85); --muted:#475569; color-scheme:light; }
-    html,body{height:100%;margin:0;background:var(--bg);color:#e6eef8;font-family:Inter,system-ui,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
-    body.light{color:#041124;}
-    .glass{background:var(--card-bg);border:1px solid var(--glass-border);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;transition:transform .18s ease,box-shadow .18s ease,border-color .25s ease;}
-    .glass:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.16);}
-    .btn-accent{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021124;padding:.6rem .9rem;border-radius:.65rem;font-weight:800;border:none;box-shadow:0 8px 20px rgba(0,230,118,.18);}
-    .btn-muted{background:rgba(255,255,255,.08);color:#cbd5e1;padding:.5rem .9rem;border-radius:.65rem;border:1px solid rgba(255,255,255,.12);}
-    .btn-ghost{background:transparent;border:1px dashed rgba(255,255,255,.18);padding:.45rem .85rem;border-radius:.65rem;color:var(--muted);}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace;word-break:break-word;overflow-wrap:anywhere;}
-    .small-muted{font-size:.9rem;color:var(--muted);}
-    .thumb{width:100%;max-height:260px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.06);}
-    .nav-link{display:flex;align-items:center;gap:10px;padding:11px;border-radius:10px;color:var(--muted);cursor:pointer;}
-    .nav-link.active{background:rgba(6,199,85,.12);color:var(--accent);font-weight:700;}
-    @media (max-width:900px){#sidebar{position:fixed;left:0;top:0;height:100vh;z-index:70;transform:translateX(-110%);transition:transform .22s ease;width:82%;max-width:360px;padding:16px;overflow-y:auto;-webkit-overflow-scrolling:touch;}#sidebar.open{transform:translateX(0);}main{padding:12px;margin-left:0;}}
-    @media (min-width:901px){#sidebar{position:fixed;left:0;top:0;width:300px;padding:24px;height:100vh;overflow-y:auto;}main{margin-left:340px;padding:22px;}}
-    #sidebarBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60;display:none;}
-    .modal{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.7);padding:16px;}
+    :root {
+      --accent:#06f30a;
+      --accent-2:#00e676;
+      --glass-border:rgba(255,255,255,.08);
+      --bg:linear-gradient(180deg,#05010a,#071022);
+      --card-bg:rgba(12,12,20,.5);
+      --muted:#9aa6bf;
+      --surface:#0b1220;
+      --input-bg:#071219;
+      --input-text:#e6eef8;
+      --code-bg:#0b1220;
+      --body-text:#e6eef8;
+      color-scheme:dark;
+    }
+    :root[data-theme="light"]{
+      --accent:#06c755;
+      --accent-2:#00e676;
+      --glass-border:rgba(2,6,23,.06);
+      --bg:#ffffff;
+      --card-bg:#ffffff;
+      --muted:#475569;
+      --surface:#f3f4f6;
+      --input-bg:#ffffff;
+      --input-text:#020617;
+      --code-bg:#f3f4f6;
+      --body-text:#020617;
+      color-scheme:light;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:var(--body-text);
+      font-family:Inter,system-ui,Roboto,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+    }
+    .glass{
+      background:var(--card-bg);
+      border:1px solid var(--glass-border);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      border-radius:12px;
+      transition:transform .18s ease,box-shadow .18s ease,border-color .25s ease;
+    }
+    .glass:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 24px rgba(0,0,0,.16);
+    }
+    .btn-accent{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#021124;
+      padding:.6rem .9rem;
+      border-radius:.65rem;
+      font-weight:800;
+      border:none;
+      box-shadow:0 8px 20px rgba(0,230,118,.18);
+    }
+    .btn-muted{
+      background:rgba(255,255,255,.08);
+      color:#cbd5e1;
+      padding:.5rem .9rem;
+      border-radius:.65rem;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .btn-ghost{
+      background:transparent;
+      border:1px dashed rgba(255,255,255,.18);
+      padding:.45rem .85rem;
+      border-radius:.65rem;
+      color:var(--muted);
+    }
+    .mono{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+    }
+    .small-muted{
+      font-size:.9rem;
+      color:var(--muted);
+    }
+    .thumb{
+      width:100%;
+      max-height:260px;
+      object-fit:cover;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .nav-link{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:11px;
+      border-radius:10px;
+      color:var(--muted);
+      cursor:pointer;
+    }
+    .nav-link.active{
+      background:rgba(6,199,85,.12);
+      color:var(--accent);
+      font-weight:700;
+    }
+    @media (max-width:900px){
+      #sidebar{
+        position:fixed;
+        left:0;
+        top:0;
+        height:100vh;
+        z-index:70;
+        transform:translateX(-110%);
+        transition:transform .22s ease;
+        width:82%;
+        max-width:360px;
+        padding:16px;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+      }
+      #sidebar.open{transform:translateX(0);}
+      main{padding:12px;margin-left:0;}
+    }
+    @media (min-width:901px){
+      #sidebar{
+        position:fixed;
+        left:0;
+        top:0;
+        width:300px;
+        padding:24px;
+        height:100vh;
+        overflow-y:auto;
+      }
+      main{margin-left:340px;padding:22px;}
+    }
+    #sidebarBackdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      z-index:60;
+      display:none;
+    }
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:95;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.7);
+      padding:16px;
+    }
     .modal.show{display:flex;}
-    pre{white-space:pre-wrap;word-break:break-word;background:#0b1220;padding:12px;border-radius:8px;border:1px solid #1f2937;}
+    pre{
+      white-space:pre-wrap;
+      word-break:break-word;
+      background:var(--code-bg);
+      padding:12px;
+      border-radius:8px;
+      border:1px solid #1f2937;
+    }
+    .app-input{
+      background:var(--input-bg);
+      color:var(--input-text);
+      border-radius:0.5rem;
+    }
+    .app-input::placeholder{
+      color:rgba(148,163,184,.8);
+    }
+    .app-surface{
+      background:var(--surface);
+      color:var(--input-text);
+    }
     html, body, #app, .glass {
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
   </style>
 </head>
 <body>
@@ -106,7 +256,7 @@
                   </div>
                 </div>
                 <div class="text-right">
-                  <button id="openWalletHistory" class="btn-accent">Extract</button>
+                  <button id="openWalletHistory" class="btn-accent">History</button>
                   <div class="mt-2"><button id="btnSyncAll" class="btn-muted text-sm w-full md:w-auto">Sync Balance</button></div>
                   <div class="text-xs small-muted mt-2">Reputation: <strong id="repScore">0</strong></div>
                 </div>
@@ -135,7 +285,7 @@
             <div class="glass p-4">
               <h4 class="font-bold">Quick actions</h4>
               <div class="mt-3 grid gap-3">
-                <button data-route="missions" class="btn-accent w-full">Send Proof</button>
+                <button data-route="missions" class="btn-accent w-full">Complete mission</button>
                 <button data-route="leaderboard" class="btn-muted w-full">See Ranking</button>
                 <button data-route="send" class="btn-muted w-full">Take out/Send</button>
                 <button data-route="receive" class="btn-muted w-full">Receive (QR)</button>
@@ -152,24 +302,24 @@
         <div id="page-missions" class="hidden">
           <div class="glass p-5 md:p-6">
             <h2 class="font-bold">Missions</h2>
-            <p class="text-sm small-muted">Click Validate to send photo + report.</p>
+            <p class="text-sm small-muted">Click Complete to send photo + report.</p>
             <div id="missionsList" class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
           </div>
         </div>
 
         <div id="page-upload" class="hidden">
           <div class="glass p-5 md:p-6 max-w-3xl">
-            <h2 class="font-bold">Send Proof</h2>
+            <h2 class="font-bold">Complete mission</h2>
             <div class="text-sm small-muted mt-1" id="uploadMissionTitle">Mission</div>
             <label class="block mt-4">Photo (attach):
               <input id="fileInput" accept="image/*" type="file" class="mt-2 w-full" />
             </label>
             <div id="previewWrap" class="mt-4 hidden"><img id="previewImg" class="thumb" src="" alt="preview" /></div>
             <label class="block mt-4">Report:
-              <textarea id="reportText" rows="5" class="w-full mt-2 p-3 rounded bg-[#071219] text-white"></textarea>
+              <textarea id="reportText" rows="5" class="w-full mt-2 p-3 rounded app-input"></textarea>
             </label>
             <div class="mt-4 flex flex-col sm:flex-row gap-3">
-              <button id="btnSubmitProof" class="btn-accent">Send Proof and Validate</button>
+              <button id="btnSubmitProof" class="btn-accent">Send proof and complete mission</button>
               <button id="btnCancelUpload" class="btn-muted">Cancel</button>
             </div>
             <div id="missionNotice" class="hidden mt-4 glass p-4">
@@ -209,7 +359,7 @@
                 Créditos: <strong id="convCredits" class="mono">0.00</strong> • On-chain available: <strong id="convOnAvail" class="mono">0.00</strong>
               </div>
               <div class="mt-2 flex items-center gap-2">
-                <input id="convAmt" type="number" step="0.01" inputmode="decimal" class="flex-1 p-3 rounded bg-[#071219] text-white mono" placeholder="Value to convert (FONE)" />
+                <input id="convAmt" type="number" step="0.01" inputmode="decimal" class="flex-1 p-3 rounded app-input mono" placeholder="Value to convert (FONE)" />
                 <button id="btnConvMax" class="btn-ghost px-3 py-2">MAX</button>
                 <button id="btnConvert" class="btn-accent">Convert</button>
               </div>
@@ -218,7 +368,7 @@
 
             <label class="block mt-4">Destination address
   <div class="flex gap-2 mt-2">
-    <input id="inputDest" list="contactsData" class="flex-1 p-3 rounded bg-[#071219] text-white mono" placeholder="FONE address (f..., 0x..., ...)" />
+    <input id="inputDest" list="contactsData" class="flex-1 p-3 rounded app-input mono" placeholder="FONE address (f..., 0x..., ...)" />
     <button id="btnScanQR" type="button" class="btn-muted">Scan QR</button>
     <button id="btnSaveContact" type="button" class="btn-ghost">Save</button>
   </div>
@@ -239,18 +389,18 @@
 </div>
             <label class="block mt-3">Value (FONE)
               <div class="flex items-center gap-2 mt-2">
-                <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded bg-[#071219] text-white mono" />
+                <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded app-input mono" />
                 <button id="btnMax" class="btn-ghost px-3 py-2">MAX</button>
               </div>
               <div class="mt-1 text-xs small-muted">Você pode enviar até o saldo on-chain disponível.</div>
             </label>
 
             <label class="block mt-3">Message (optional)
-              <input id="inputMsg" maxlength="100" class="w-full mt-2 p-3 rounded bg-[#071219] text-white" />
+              <input id="inputMsg" maxlength="100" class="w-full mt-2 p-3 rounded app-input" />
               <div class="mt-1 text-xs small-muted">This field is optional and limited to 100 characters.</div>
             </label>
 
-            <div id="sendPreview" class="mt-4 hidden p-3 rounded bg-[#071219] text-sm"></div>
+            <div id="sendPreview" class="mt-4 hidden p-3 rounded app-surface text-sm"></div>
             <div id="sendErrors" class="mt-3 text-sm text-red-300"></div>
 
             <div class="mt-4 flex flex-col sm:flex-row gap-3">
@@ -309,28 +459,28 @@
             <div class="mt-4 grid md:grid-cols-2 gap-4">
               <div>
                 <label class="block">Language
-                  <select id="selLang" class="mt-2 p-2 rounded bg-[#071219]">
+                  <select id="selLang" class="mt-2 p-2 rounded app-input">
                     <option value="en">English (US)</option>
                     <option value="pt">Portuguese (pt-BR)</option>
                   </select>
                 </label>
                 <label class="block mt-4">Theme
-                  <select id="selTheme" class="mt-2 p-2 rounded bg-[#071219]">
+                  <select id="selTheme" class="mt-2 p-2 rounded app-input">
                     <option value="dark">Dark</option>
                     <option value="light">Clear</option>
                   </select>
                 </label>
                 <label class="block mt-4">Privacy Policy
-                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded bg-[#071219] text-sm small-muted">Private keys are NEVER saved. You are only asked to sign transactions in this browser.</textarea>
+                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-sm small-muted">Private keys are NEVER saved. You are only asked to sign transactions in this browser.</textarea>
                 </label>
               </div>
               <div>
                 <h3 class="font-bold">Fone API</h3>
                 <label class="block mt-2">SDK Key
-                  <input id="cfgSdk" class="mt-2 p-2 rounded bg-[#071219] mono w-full" type="password" placeholder="cole sua SDK key (apenas teste)" />
+                  <input id="cfgSdk" class="mt-2 p-2 rounded app-input mono w-full" type="password" placeholder="cole sua SDK key (apenas teste)" />
                 </label>
                 <label class="block mt-2">Base URL
-                  <input id="cfgBase" class="mt-2 p-2 rounded bg-[#071219] mono w-full" value="https://fonenetwork.ddns.net:8543" />
+                  <input id="cfgBase" class="mt-2 p-2 rounded app-input mono w-full" value="https://fonenetwork.ddns.net:8543" />
                 </label>
                 <div class="mt-3 flex gap-2">
                   <button id="btnSaveCfg" class="btn-accent">Save</button>
@@ -362,7 +512,7 @@
           <div>
             <h3 class="font-bold">Import wallet</h3>
             <p class="text-sm small-muted">Paste your private key.</p>
-            <input id="inputPrivate" class="mt-2 p-3 rounded bg-[#071219] mono w-full" type="password" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Private key..." />
+            <input id="inputPrivate" class="mt-2 p-3 rounded app-input mono w-full" type="password" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Private key..." />
             <div class="mt-3 flex gap-3"><button id="btnImportWallet" class="btn-muted w-full">Import</button></div>
             <div id="importResult" class="mt-3 text-sm mono small-muted"></div>
           </div>
@@ -377,7 +527,7 @@
       <div class="glass p-6 w-full max-w-lg rounded-lg">
         <h3 class="font-bold text-lg">⚠️ Save your private key</h3>
         <p class="mt-2 text-sm small-muted">This is the only time the private key will be displayed.</p>
-        <pre id="privText" class="mono mt-3 p-3 bg-[#071219] rounded text-sm small-muted"></pre>
+        <pre id="privText" class="mono mt-3 p-3 rounded text-sm small-muted"></pre>
         <div class="mt-4 flex gap-3">
           <button id="btnCopyPriv" class="btn-accent">Copy</button>
           <button id="btnPrivSaved" class="btn-muted">I already saved — continue</button>
@@ -403,10 +553,10 @@
         <div id="gateCreateView">
           <p class="small-muted">Create a password to lock/unlock your wallet on this device.</p>
           <label class="block mt-3">Password
-            <input id="newPass" type="password" class="mt-2 p-3 rounded bg-[#071219] w-full" autocomplete="new-password">
+            <input id="newPass" type="password" class="mt-2 p-3 rounded app-input w-full" autocomplete="new-password">
           </label>
           <label class="block mt-3">Confirm password
-            <input id="newPass2" type="password" class="mt-2 p-3 rounded bg-[#071219] w-full" autocomplete="new-password">
+            <input id="newPass2" type="password" class="mt-2 p-3 rounded app-input w-full" autocomplete="new-password">
           </label>
           <div class="mt-4 flex gap-2">
             <button id="gateCreateBtn" class="btn-accent w-full">Create password</button>
@@ -416,7 +566,7 @@
 
         <div id="gateUnlockView" class="hidden">
           <p class="small-muted">Enter your password to continue.</p>
-          <input id="gatePass" type="password" class="mt-3 p-3 rounded bg-[#071219] w-full" autocomplete="current-password">
+          <input id="gatePass" type="password" class="mt-3 p-3 rounded app-input w-full" autocomplete="current-password">
           <div class="mt-4 flex gap-2">
             <button id="gateBtn" class="btn-accent w-full">Unlock</button>
           </div>
@@ -430,7 +580,7 @@
       <div class="glass p-6 w-full max-w-sm rounded-lg">
         <h3 id="authTitle" class="font-bold text-lg mb-2">Confirm action</h3>
         <p id="authHint" class="small-muted">Enter your password to continue.</p>
-        <input id="authPass" type="password" class="mt-3 p-3 rounded bg-[#071219] w-full" autocomplete="current-password">
+        <input id="authPass" type="password" class="mt-3 p-3 rounded app-input w-full" autocomplete="current-password">
         <div class="mt-4 flex gap-2">
           <button id="authCancel" class="btn-muted w-1/2">Cancel</button>
           <button id="authOk" class="btn-accent w-1/2">Confirm</button>
@@ -441,7 +591,6 @@
   </div>
 
   <script>
-            
     const LS_LAST_WALLET = 'ev_last_wallet';
     const LS_WALLET_PREFIX = 'ev_wallet_';
     const LS_THEME = 'ev_theme';
@@ -573,24 +722,24 @@
       $('newPass2')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('gateCreateBtn')?.click(); });
     }
     function initPasswordLock() {
-  // 1) Se ainda não existe senha, exibe criação
-  if (!isPasswordSet()) {
-    showGate(true);
-    bindGateUI();
-    return;
-  }
+      // 1) Se ainda não existe senha, exibe criação
+      if (!isPasswordSet()) {
+        showGate(true);
+        bindGateUI();
+        return;
+      }
 
-  // 2) Se já está desbloqueado nesta sessão (mesma aba), não mostra o gate
-  if (isUnlocked()) {
-    showGate(false);
-    ensureSdkConfigured(); // mantém o fluxo normal
-    return;
-  }
+      // 2) Se já está desbloqueado nesta sessão (mesma aba), não mostra o gate
+      if (isUnlocked()) {
+        showGate(false);
+        ensureSdkConfigured(); // mantém o fluxo normal
+        return;
+      }
 
-  // 3) Senha existe, mas a sessão ainda não está desbloqueada → pede senha
-  showGate(true);
-  bindGateUI();
-}
+      // 3) Senha existe, mas a sessão ainda não está desbloqueada → pede senha
+      showGate(true);
+      bindGateUI();
+    }
     function lockApp() {
       setUnlocked(false);
       showGate(true);
@@ -625,20 +774,28 @@
     };
     const $ = (id) => document.getElementById(id);
 
-function toast(msg, time = 3200, type = 'info') {
-  const colors = {
-    success: 'border-emerald-500 text-emerald-200',
-    error: 'border-rose-500 text-rose-200',
-    warning: 'border-amber-500 text-amber-200',
-    info: 'border-sky-500 text-sky-200'
-  };
-  const el = document.createElement('div');
-  el.className = `glass p-3 border ${colors[type] || colors.info}`;
-  el.style.minWidth = '220px';
-  el.innerHTML = `<div class="font-medium">${msg}</div>`;
-  $('toast')?.appendChild(el);
-  setTimeout(() => el.remove(), time);
-}
+    function applyTheme(theme) {
+      const t = theme === 'light' ? 'light' : 'dark';
+      const root = document.documentElement;
+      root.setAttribute('data-theme', t);
+      const app = $('app');
+      if (app) app.setAttribute('data-theme', t);
+    }
+
+    function toast(msg, time = 3200, type = 'info') {
+      const colors = {
+        success: 'border-emerald-500 text-emerald-200',
+        error: 'border-rose-500 text-rose-200',
+        warning: 'border-amber-500 text-amber-200',
+        info: 'border-sky-500 text-sky-200'
+      };
+      const el = document.createElement('div');
+      el.className = `glass p-3 border ${colors[type] || colors.info}`;
+      el.style.minWidth = '220px';
+      el.innerHTML = `<div class="font-medium">${msg}</div>`;
+      $('toast')?.appendChild(el);
+      setTimeout(() => el.remove(), time);
+    }
 
     function showModal(id, show = true) {
       const el = $(id);
@@ -693,6 +850,12 @@ function toast(msg, time = 3200, type = 'info') {
       $('creditsInfo').innerText = Number(State.balance.credits || 0).toFixed(2);
       $('convCredits').innerText = Number(State.balance.credits || 0).toFixed(2);
       $('convOnAvail').innerText = Number(State.balance.onchain.available || 0).toFixed(2);
+
+      const hasWallet = !!getActiveAddress();
+      if ($('logoutBtn')) $('logoutBtn').style.display = hasWallet ? 'block' : 'none';
+      if ($('openLoginBtn')) $('openLoginBtn').style.display = hasWallet ? 'none' : 'inline-flex';
+      if ($('mobileLoginBtn')) $('mobileLoginBtn').style.display = hasWallet ? 'none' : 'inline-flex';
+
       renderMiniMissions();
       renderMissionsPage();
       renderLeaderboard();
@@ -988,7 +1151,11 @@ function toast(msg, time = 3200, type = 'info') {
       side.innerHTML = '';
       const available = State.missions.filter(m => !State.completedMissionIds.includes(m.id));
       available.slice(0, 4).forEach(m => {
-        el.innerHTML += `<div class="p-4 rounded bg-[#071216]"> <div class="font-semibold">${m.title}</div> <div class="text-sm small-muted">${m.location} • ${m.reward} FONE</div> <div class="mt-3"><button class="btn-accent" onclick="openMission('${m.id}')">Send</button></div> </div>`;
+        el.innerHTML += `<div class="p-4 rounded app-surface">
+          <div class="font-semibold">${m.title}</div>
+          <div class="text-sm small-muted">${m.location} • ${m.reward} FONE</div>
+          <div class="mt-3"><button class="btn-accent" onclick="openMission('${m.id}')">Complete mission</button></div>
+        </div>`;
       });
       State.missions.forEach(m => {
         if (!State.completedMissionIds.includes(m.id)) side.innerHTML += `<li class="flex justify-between"><span>${m.title}</span><span class="text-sm small-muted">${m.reward} F</span></li>`;
@@ -1005,7 +1172,22 @@ function toast(msg, time = 3200, type = 'info') {
         const rep = repFor(m.difficulty);
         const card = document.createElement('div');
         card.className = 'glass p-4';
-        card.innerHTML = ` <div class="font-semibold">${m.title}</div> <div class="text-sm small-muted mt-1">${m.description}</div> <div class="text-xs small-muted mt-2">${m.location} • Recompensa: <strong>${m.reward} FONE</strong> • <em>${m.difficulty.toUpperCase()}</em></div> <div class="mt-3"> <div class="w-full h-2.5 bg-black/20 rounded overflow-hidden"> <div class="h-2.5 rounded" style="width:${prog}%; background:linear-gradient(90deg, var(--accent), var(--accent-2))"></div> </div> <div class="mt-2 flex items-center gap-2"> <div class="text-sm small-muted">${prog}% completed</div> <div class="ml-auto">${done ? '<span class="small-muted">Concluída ✅</span>' : `<button class="btn-accent" onclick="openMission('${m.id}')">VALIDATE</button>`}</div> </div> </div> <div class="mt-3 text-xs small-muted">Reputation Points: ${rep}</div>`;
+        card.innerHTML = `
+          <div class="font-semibold">${m.title}</div>
+          <div class="text-sm small-muted mt-1">${m.description}</div>
+          <div class="text-xs small-muted mt-2">${m.location} • Recompensa: <strong>${m.reward} FONE</strong> • <em>${m.difficulty.toUpperCase()}</em></div>
+          <div class="mt-3">
+            <div class="w-full h-2.5 bg-black/20 rounded overflow-hidden">
+              <div class="h-2.5 rounded" style="width:${prog}%; background:linear-gradient(90deg, var(--accent), var(--accent-2))"></div>
+            </div>
+            <div class="mt-2 flex items-center gap-2">
+              <div class="text-sm small-muted">${prog}% completed</div>
+              <div class="ml-auto">
+                ${done ? '<span class="small-muted">Concluída ✅</span>' : `<button class="btn-accent" onclick="openMission('${m.id}')">Complete mission</button>`}
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 text-xs small-muted">Reputation Points: ${rep}</div>`;
         list.appendChild(card);
       });
     }
@@ -1054,7 +1236,11 @@ function toast(msg, time = 3200, type = 'info') {
         State.leaderboard[me] = Number(State.leaderboard[me] || 0) + repAdd;
         State.balance.credits = Number(State.balance.credits || 0) + Number(m.reward || 0);
         recalcTotals();
-        $('missionDetails').innerHTML = ` <div>ID: <span class="mono">${m.id}</span></div> <div>Mission: ${m.title}</div> <div>Reward credited: <strong>${m.reward} FONE</strong></div> <div>Reputation: +${repAdd} pts</div>`;
+        $('missionDetails').innerHTML = `
+          <div>ID: <span class="mono">${m.id}</span></div>
+          <div>Mission: ${m.title}</div>
+          <div>Reward credited: <strong>${m.reward} FONE</strong></div>
+          <div>Reputation: +${repAdd} pts</div>`;
         $('missionNotice').classList.remove('hidden');
         savePersistentForAddress(getActiveAddress());
         await syncAll();
@@ -1107,7 +1293,18 @@ function toast(msg, time = 3200, type = 'info') {
         const disabled = bet && (bet.status === 'pending' || bet.status === 'settled') ? 'disabled' : '';
         const div = document.createElement('div');
         div.className = 'glass p-4 rounded';
-        div.innerHTML = ` <div class="font-semibold">${item.title}</div> <div class="text-xs small-muted">Recompensa: ${item.reward} FONE • Sent by <span class="mono">${item.submitter}</span></div> <div class="mt-3"><img src="${item.image}" alt="proof" class="thumb" /></div> <div class="mt-2 small-muted">${item.report}</div> <div class="mt-3 text-xs small-muted">Bet up to 100 FONE (Credits)</div> <div class="mt-1 flex items-center gap-2"> <input id="bet-${item.id}" type="number" min="1" max="100" step="1" class="p-2 rounded bg-[#071219] mono w-24" ${disabled} value="${Math.min(10, Math.floor((State.balance?.credits || 0) / 2))}"> <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button> <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Fail</button> </div> ${statusLine}`;
+        div.innerHTML = `
+          <div class="font-semibold">${item.title}</div>
+          <div class="text-xs small-muted">Recompensa: ${item.reward} FONE • Sent by <span class="mono">${item.submitter}</span></div>
+          <div class="mt-3"><img src="${item.image}" alt="proof" class="thumb" /></div>
+          <div class="mt-2 small-muted">${item.report}</div>
+          <div class="mt-3 text-xs small-muted">Bet up to 100 FONE (Credits)</div>
+          <div class="mt-1 flex items-center gap-2">
+            <input id="bet-${item.id}" type="number" min="1" max="100" step="1" class="p-2 rounded app-input mono w-24" ${disabled} value="${Math.min(10, Math.floor((State.balance?.credits || 0) / 2))}">
+            <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
+            <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Fail</button>
+          </div>
+          ${statusLine}`;
         wrap.appendChild(div);
       });
       try {
@@ -1158,79 +1355,79 @@ function toast(msg, time = 3200, type = 'info') {
     }
 
     const LS_CONTACTS = 'ev_contacts';
-function getContacts() {
-  try { return JSON.parse(localStorage.getItem(LS_CONTACTS) || '[]'); } catch { return []; }
-}
-function setContacts(list) {
-  localStorage.setItem(LS_CONTACTS, JSON.stringify(list));
-}
-function renderContactsDatalist() {
-  const data = getContacts();
-  const dl = $('contactsData'); if (!dl) return;
-  dl.innerHTML = '';
-  data.forEach(c => {
-    const o = document.createElement('option');
-    o.value = c.address;
-    o.label = c.label || c.address;
-    dl.appendChild(o);
-  });
-}
-function saveContact(address, label) {
-  if (!address) return;
-  const list = getContacts();
-  if (!list.find(c => c.address === address)) {
-    list.push({ address, label: label || '' });
-    setContacts(list);
+    function getContacts() {
+      try { return JSON.parse(localStorage.getItem(LS_CONTACTS) || '[]'); } catch { return []; }
+    }
+    function setContacts(list) {
+      localStorage.setItem(LS_CONTACTS, JSON.stringify(list));
+    }
+    function renderContactsDatalist() {
+      const data = getContacts();
+      const dl = $('contactsData'); if (!dl) return;
+      dl.innerHTML = '';
+      data.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c.address;
+        o.label = c.label || c.address;
+        dl.appendChild(o);
+      });
+    }
+    function saveContact(address, label) {
+      if (!address) return;
+      const list = getContacts();
+      if (!list.find(c => c.address === address)) {
+        list.push({ address, label: label || '' });
+        setContacts(list);
+        renderContactsDatalist();
+        toast('Contato salvo.', 1400, 'success');
+      } else {
+        toast('Contato já existe.', 1600, 'info');
+      }
+    }
+
+    let qrInstance = null;
+    function openScan() {
+      showModal('scanModal', true);
+      const el = $('qr-reader');
+      if (!el) return;
+      if (qrInstance) return;
+      qrInstance = new Html5Qrcode('qr-reader');
+      qrInstance.start(
+        { facingMode: 'environment' },
+        { fps: 10, qrbox: 220 },
+        (decodedText) => {
+          $('inputDest').value = decodedText.trim();
+          applySendValidationUI();
+          closeScan();
+          toast('Endereço preenchido pelo QR.', 1600, 'success');
+        },
+        () => {}
+      ).catch(err => {
+        toast('Erro ao iniciar câmera: ' + err, 3000, 'error');
+      });
+    }
+    function closeScan() {
+      if (qrInstance) {
+        qrInstance.stop().then(() => {
+          qrInstance.clear(); qrInstance = null;
+        }).catch(()=>{});
+      }
+      showModal('scanModal', false);
+    }
+    $('btnScanQR')?.addEventListener('click', openScan);
+    $('qrClose')?.addEventListener('click', closeScan);
+
+    // salvar contato
+    $('btnSaveContact')?.addEventListener('click', () => {
+      const addr = ($('inputDest')?.value || '').trim();
+      if (!addr) return toast('Informe um endereço para salvar.', 1800, 'warning');
+      if (!isValidFoneAddress(addr)) return toast('Endereço inválido.', 1800, 'error');
+      const label = prompt('Apelido para este endereço (opcional):') || '';
+      saveContact(addr, label.trim());
+    });
+
+    // renderizar datalist no init
     renderContactsDatalist();
-    toast('Contato salvo.', 1400, 'success');
-  } else {
-    toast('Contato já existe.', 1600, 'info');
-  }
-}
-
-let qrInstance = null;
-function openScan() {
-  showModal('scanModal', true);
-  const el = $('qr-reader');
-  if (!el) return;
-  if (qrInstance) return;
-  qrInstance = new Html5Qrcode('qr-reader');
-  qrInstance.start(
-    { facingMode: 'environment' },
-    { fps: 10, qrbox: 220 },
-    (decodedText) => {
-      $('inputDest').value = decodedText.trim();
-      applySendValidationUI();
-      closeScan();
-      toast('Endereço preenchido pelo QR.', 1600, 'success');
-    },
-    () => {}
-  ).catch(err => {
-    toast('Erro ao iniciar câmera: ' + err, 3000, 'error');
-  });
-}
-function closeScan() {
-  if (qrInstance) {
-    qrInstance.stop().then(() => {
-      qrInstance.clear(); qrInstance = null;
-    }).catch(()=>{});
-  }
-  showModal('scanModal', false);
-}
-$('btnScanQR')?.addEventListener('click', openScan);
-$('qrClose')?.addEventListener('click', closeScan);
-
-// salvar contato
-$('btnSaveContact')?.addEventListener('click', () => {
-  const addr = ($('inputDest')?.value || '').trim();
-  if (!addr) return toast('Informe um endereço para salvar.', 1800, 'warning');
-  if (!isValidFoneAddress(addr)) return toast('Endereço inválido.', 1800, 'error');
-  const label = prompt('Apelido para este endereço (opcional):') || '';
-  saveContact(addr, label.trim());
-});
-
-// renderizar datalist no init
-renderContactsDatalist();
 
     function renderHistory() {
       const el = $('historyList');
@@ -1312,15 +1509,13 @@ renderContactsDatalist();
     $('themeToggle')?.addEventListener('click', () => {
       const cur = localStorage.getItem(LS_THEME) || 'dark';
       const next = cur === 'light' ? 'dark' : 'light';
-      if (next === 'light') $('app')?.setAttribute('data-theme', 'light');
-      else $('app')?.setAttribute('data-theme', 'dark');
+      applyTheme(next);
       localStorage.setItem(LS_THEME, next);
       updateUI();
     });
     $('selTheme')?.addEventListener('change', (e) => {
       const v = e.target.value;
-      if (v === 'light') $('app')?.setAttribute('data-theme', 'light');
-      else $('app')?.setAttribute('data-theme', 'dark');
+      applyTheme(v);
       localStorage.setItem(LS_THEME, v);
       updateUI();
     });
@@ -1554,8 +1749,10 @@ renderContactsDatalist();
       buildReviewQueueAposta();
       recalcTotals();
       const savedTheme = localStorage.getItem(LS_THEME) || 'dark';
-      if (savedTheme === 'light') $('app')?.setAttribute('data-theme', 'light');
-      else $('app')?.setAttribute('data-theme', 'dark');
+      applyTheme(savedTheme);
+      const sel = $('selTheme');
+      if (sel) sel.value = savedTheme;
+
       if (State.persistedWalletAddress) {
         State.leaderboard[State.persistedWalletAddress] = Number(State.leaderboard[State.persistedWalletAddress] || State.reputation || 0);
       }
@@ -1566,7 +1763,7 @@ renderContactsDatalist();
         setTimeout(() => { try { syncAll(); } catch (e) {} }, 600);
       } else {
         $('welcomeModal')?.classList.remove('show');
-        showModal('loginModal', true); 
+        showModal('loginModal', true);
       }
       window.addEventListener('load', () => {
         initPasswordLock();  // novo gate por senha
@@ -1576,5 +1773,5 @@ renderContactsDatalist();
     })();
   </script>
   <script src="https://unpkg.com/html5-qrcode"></script>
-  </body>
+</body>
 </html>
