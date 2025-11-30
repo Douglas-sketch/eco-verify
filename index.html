@@ -261,7 +261,9 @@
                 </div>
                 <div class="text-right">
                   <button id="openWalletHistory" class="btn-accent">History</button>
-                  <div class="mt-2"><button id="btnSyncAll" class="btn-muted text-sm w-full md:w-auto">Sync balance</button></div>
+                  <div class="mt-2">
+                    <button id="btnSyncAll" class="btn-muted text-sm w-full md:w-auto">Sync balance</button>
+                  </div>
                   <div class="text-xs small-muted mt-2">Reputation: <strong id="repScore">0</strong></div>
                 </div>
               </div>
@@ -279,9 +281,14 @@
               <h3 class="font-bold">How it works</h3>
               <ol class="text-sm small-muted list-decimal list-inside mt-2 space-y-2">
                 <li>Create or import your FONE wallet (save your private key).</li>
-                <li>Complete missions to earn Reputation (simulated rewards).</li>
-                <li>Manage and use your on-chain FONE balance to send/receive.</li>
+                <li>Complete missions to earn Reputation and simulated rewards (local “credits”).</li>
+                <li>Manage and use your on-chain FONE balance to send/receive real FONE.</li>
               </ol>
+              <div class="mt-3 text-xs small-muted">
+                Important: only your <strong>on-chain balance</strong> is real FONE. Rewards from missions
+                and balances used in Betting are <strong>local, simulated “credits”</strong> and do not
+                automatically exist on-chain (they may become redeemable in the future).
+              </div>
             </div>
           </div>
 
@@ -342,14 +349,16 @@
           <div class="glass p-5 md:p-6 max-w-5xl">
             <h2 class="font-bold">Betting</h2>
             <p class="text-sm small-muted">
-              Bet up to 100 demo FONE by reviewing other users’ cases. If you follow the majority, you receive your stake + 75%.
+              Bet up to 100 demo FONE by reviewing other users’ cases. If you follow the majority,
+              you receive your stake + 75%.
             </p>
             <div class="mt-3 text-sm small-muted">
-              Demo balance (simulated): <strong class="mono" id="apostaCredits">1000.00</strong> FONE
+              Demo balance (simulated “credits”): <strong class="mono" id="apostaCredits">1000.00</strong> FONE
             </div>
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" id="apostaList"></div>
-            <div class="mt-4 small-muted">
-              Note: bets are fully simulated and do not affect your real on-chain balance.
+            <div class="mt-4 small-muted text-xs">
+              Note: bets use a <strong>local, simulated balance</strong> (“credits” / demo FONE) and do not
+              affect your real on-chain FONE.
             </div>
           </div>
         </div>
@@ -362,6 +371,16 @@
               <div>Available on-chain: <strong id="sendAvail" class="mono">0.00</strong> FONE</div>
               <div class="mt-1" id="feeInfo">Network fee: —</div>
             </div>
+
+            <!-- AVISO IMPORTANTE -->
+            <div class="mt-2 text-xs small-muted">
+              Important: only the <strong>on-chain balance</strong> shown above is real FONE that can be
+              sent or withdrawn. Any rewards from missions or balances used in Betting (local
+              “credits” / demo FONE) are <strong>simulated values stored only on this device</strong> and
+              do not automatically exist on-chain. They may become redeemable in the future, but
+              are not withdrawable as FONE yet.
+            </div>
+            <!-- FIM AVISO -->
 
             <label class="block mt-4">Destination address
               <div class="flex gap-2 mt-2">
@@ -605,7 +624,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
     const USE_PROXY = true;
 
     // Backend URL (Render)
-    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com'; // replace with your Render backend URL
+    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com';
 
     // App password verifier
     const PASS_SALT = 'ev_pass_salt';
@@ -754,7 +773,6 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
     }
     function lockApp() {
       setUnlocked(false);
-      // Do not show gate on logout; user will see it only on reload if needed
     }
 
     // ---------- GLOBAL STATE ----------
@@ -775,7 +793,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       reviewQueue: [],
       bets: {},
       syncing: false,
-      demoBetBalance: 1000 // saldo demo para Betting (simulado)
+      demoBetBalance: 1000 // local, simulated "credits" for betting
     };
     const $ = (id) => document.getElementById(id);
 
@@ -1194,7 +1212,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
         card.innerHTML = `
           <div class="font-semibold">${m.title}</div>
           <div class="text-sm small-muted mt-1">${m.description}</div>
-          <div class="text-xs small-muted mt-2">${m.location} • Reward: <strong>${m.reward} FONE</strong> • <em>${m.difficulty.toUpperCase()}</em></div>
+          <div class="text-xs small-muted mt-2">${m.location} • Reward: <strong>${m.reward} FONE</strong> (simulated) • <em>${m.difficulty.toUpperCase()}</em></div>
           <div class="mt-3">
             <div class="w-full h-2.5 bg-black/20 rounded overflow-hidden">
               <div class="h-2.5 rounded" style="width:${prog}%; background:linear-gradient(90deg, var(--accent), var(--accent-2))"></div>
@@ -1215,7 +1233,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       const m = State.missions.find(x => x.id === id);
       if (!m) return toast('Mission not found.', 2500, 'error');
       if (!getActiveAddress()) return toast('Connect your wallet first.', 2500, 'warning');
-      $('uploadMissionTitle').innerText = `${m.title} • Reward: ${m.reward} FONE`;
+      $('uploadMissionTitle').innerText = `${m.title} • Reward: ${m.reward} FONE (simulated)`;
       sessionStorage.setItem('currentMission', JSON.stringify(m));
       $('fileInput').value = '';
       $('reportText').value = '';
@@ -1262,7 +1280,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
         $('missionDetails').innerHTML = `
           <div>ID: <span class="mono">${m.id}</span></div>
           <div>Mission: ${m.title}</div>
-          <div>Reward (simulated): <strong>${m.reward} FONE</strong></div>
+          <div>Reward (simulated, local “credits”): <strong>${m.reward} FONE</strong></div>
           <div>Reputation: +${repAdd} pts</div>`;
         $('missionNotice').classList.remove('hidden');
         savePersistentForAddress(getActiveAddress());
@@ -1327,10 +1345,10 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
         div.className = 'glass p-4 rounded';
         div.innerHTML = `
           <div class="font-semibold">${item.title}</div>
-          <div class="text-xs small-muted">Reward: ${item.reward} FONE • Submitted by <span class="mono">${item.submitter}</span></div>
+          <div class="text-xs small-muted">Reward (simulated): ${item.reward} FONE • Submitted by <span class="mono">${item.submitter}</span></div>
           <div class="mt-3"><img src="${item.image}" alt="proof" class="thumb" /></div>
           <div class="mt-2 small-muted">${item.report}</div>
-          <div class="mt-3 text-xs small-muted">Bet up to 100 demo FONE (simulated)</div>
+          <div class="mt-3 text-xs small-muted">Bet up to 100 demo FONE (local simulated “credits”)</div>
           <div class="mt-1 flex items-center gap-2">
             <input id="bet-${item.id}" type="number" min="1" max="100" step="1"
               class="p-2 rounded app-input mono w-24" ${disabled}
