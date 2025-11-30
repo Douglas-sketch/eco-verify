@@ -26,14 +26,14 @@
     :root[data-theme="light"]{
       --accent:#06c755;
       --accent-2:#00e676;
-      --glass-border:rgba(2,6,23,.06);
-      --bg:#ffffff;
+      --glass-border:rgba(15,23,42,.12);
+      --bg:#f3f4f6;
       --card-bg:#ffffff;
       --muted:#475569;
-      --surface:#f3f4f6;
+      --surface:#ffffff;
       --input-bg:#ffffff;
       --input-text:#020617;
-      --code-bg:#f3f4f6;
+      --code-bg:#e5e7eb;
       --body-text:#020617;
       color-scheme:light;
     }
@@ -181,6 +181,30 @@
     }
     html, body, #app, .glass {
       transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* Ajustes de contraste para o tema claro */
+    [data-theme="light"] .glass{
+      background:var(--card-bg);
+      border-color:var(--glass-border);
+      box-shadow:0 1px 2px rgba(15,23,42,.06);
+    }
+    [data-theme="light"] .btn-muted{
+      background:#e5e7eb;
+      color:#111827;
+      border-color:#cbd5e1;
+    }
+    [data-theme="light"] .btn-ghost{
+      background:transparent;
+      border-color:#cbd5e1;
+      color:#475569;
+    }
+    [data-theme="light"] .app-surface{
+      background:#ffffff;
+      color:#020617;
+    }
+    [data-theme="light"] pre{
+      border-color:#e5e7eb;
     }
   </style>
 </head>
