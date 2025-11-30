@@ -198,9 +198,9 @@
         <div class="nav-link active" data-route="dashboard"><i data-lucide="home" class="w-4 h-4"></i> Dashboard</div>
         <div class="nav-link" data-route="missions"><i data-lucide="map-pin" class="w-4 h-4"></i> Missions</div>
         <div class="nav-link" data-route="leaderboard"><i data-lucide="award" class="w-4 h-4"></i> Leaderboard</div>
-        <div class="nav-link" data-route="aposta"><i data-lucide="coins" class="w-4 h-4"></i> Bet</div>
-        <div class="nav-link" data-route="send"><i data-lucide="send" class="w-4 h-4"></i> Take out/Send</div>
-        <div class="nav-link" data-route="receive"><i data-lucide="qr-code" class="w-4 h-4"></i> To receive</div>
+        <div class="nav-link" data-route="aposta"><i data-lucide="coins" class="w-4 h-4"></i> Betting</div>
+        <div class="nav-link" data-route="send"><i data-lucide="send" class="w-4 h-4"></i> Send/Withdraw</div>
+        <div class="nav-link" data-route="receive"><i data-lucide="qr-code" class="w-4 h-4"></i> Receive</div>
         <div class="nav-link" data-route="history"><i data-lucide="clock" class="w-4 h-4"></i> History</div>
         <div class="nav-link" data-route="settings"><i data-lucide="settings" class="w-4 h-4"></i> Settings</div>
       </nav>
@@ -253,7 +253,7 @@
               <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
                   <h2 class="font-bold">Wallet</h2>
-                  <div class="text-sm small-muted">Manage your wallet and history</div>
+                  <div class="text-sm small-muted">Manage your wallet and history.</div>
                   <div class="mt-3">
                     <div class="mono break-all" id="walletAddressDisplay">—</div>
                     <div class="mt-2 text-xs small-muted">Status: <span id="uiMode">online</span></div>
@@ -261,7 +261,7 @@
                 </div>
                 <div class="text-right">
                   <button id="openWalletHistory" class="btn-accent">History</button>
-                  <div class="mt-2"><button id="btnSyncAll" class="btn-muted text-sm w-full md:w-auto">Sync Balance</button></div>
+                  <div class="mt-2"><button id="btnSyncAll" class="btn-muted text-sm w-full md:w-auto">Sync balance</button></div>
                   <div class="text-xs small-muted mt-2">Reputation: <strong id="repScore">0</strong></div>
                 </div>
               </div>
@@ -276,11 +276,11 @@
             </div>
 
             <div class="glass p-5 md:p-6">
-              <h3 class="font-bold">How it works?</h3>
+              <h3 class="font-bold">How it works</h3>
               <ol class="text-sm small-muted list-decimal list-inside mt-2 space-y-2">
-                <li>Create or import your FONE wallet (save the private key).</li>
-                <li>Validate missions and accumulate Credits and Reputation.</li>
-                <li>Convert Credits into on-chain balance and send/receive FONE</li>
+                <li>Create or import your FONE wallet (save your private key).</li>
+                <li>Complete missions to earn Credits and Reputation.</li>
+                <li>Convert Credits into on-chain FONE and send/receive.</li>
               </ol>
             </div>
           </div>
@@ -289,15 +289,15 @@
             <div class="glass p-4">
               <h4 class="font-bold">Quick actions</h4>
               <div class="mt-3 grid gap-3">
-                <button data-route="missions" class="btn-accent w-full">Complete mission</button>
-                <button data-route="leaderboard" class="btn-muted w-full">See Ranking</button>
-                <button data-route="send" class="btn-muted w-full">Take out/Send</button>
+                <button data-route="missions" class="btn-accent w-full">Complete a mission</button>
+                <button data-route="leaderboard" class="btn-muted w-full">View ranking</button>
+                <button data-route="send" class="btn-muted w-full">Send/Withdraw</button>
                 <button data-route="receive" class="btn-muted w-full">Receive (QR)</button>
               </div>
             </div>
 
             <div class="glass p-4">
-              <h4 class="font-bold">Missions (fast)</h4>
+              <h4 class="font-bold">Quick missions</h4>
               <ul id="sideMissionList" class="mt-3 text-sm small-muted space-y-2"></ul>
             </div>
           </aside>
@@ -307,7 +307,7 @@
         <div id="page-missions" class="hidden">
           <div class="glass p-5 md:p-6">
             <h2 class="font-bold">Missions</h2>
-            <p class="text-sm small-muted">Click Complete to send photo + report.</p>
+            <p class="text-sm small-muted">Click “Complete mission” to submit a photo and report.</p>
             <div id="missionsList" class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
           </div>
         </div>
@@ -327,7 +327,7 @@
               <textarea id="reportText" rows="5" class="w-full mt-2 p-3 rounded app-input"></textarea>
             </label>
             <div class="mt-4 flex flex-col sm:flex-row gap-3">
-              <button id="btnSubmitProof" class="btn-accent">Send proof and complete mission</button>
+              <button id="btnSubmitProof" class="btn-accent">Submit proof and complete mission</button>
               <button id="btnCancelUpload" class="btn-muted">Cancel</button>
             </div>
             <div id="missionNotice" class="hidden mt-4 glass p-4">
@@ -337,19 +337,19 @@
           </div>
         </div>
 
-        <!-- BET -->
+        <!-- BETTING -->
         <div id="page-aposta" class="hidden">
           <div class="glass p-5 md:p-6 max-w-5xl">
-            <h2 class="font-bold">Aposta</h2>
+            <h2 class="font-bold">Betting</h2>
             <p class="text-sm small-muted">
-              Bet up to 100 FONE analyzing cases from other users. If you follow the majority, you receive your bet + 75%.
+              Bet up to 100 FONE by reviewing other users’ cases. If you follow the majority, you receive your stake + 75%.
             </p>
             <div class="mt-3 text-sm small-muted">
               Your credits: <strong class="mono" id="apostaCredits">0.00</strong> FONE
             </div>
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" id="apostaList"></div>
             <div class="mt-4 small-muted">
-              Note: Bets use your credits balance (off-chain).
+              Note: bets use your Credits balance (off-chain).
             </div>
           </div>
         </div>
@@ -357,9 +357,9 @@
         <!-- SEND -->
         <div id="page-send" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
-            <h2 class="font-bold">Take out / Send FONE</h2>
+            <h2 class="font-bold">Send / Withdraw FONE</h2>
             <div class="mt-2 text-sm small-muted">
-              <div>Available balance: <strong id="sendAvail" class="mono">0.00</strong> FONE</div>
+              <div>Available on-chain: <strong id="sendAvail" class="mono">0.00</strong> FONE</div>
               <div class="mt-1" id="feeInfo">Network fee: —</div>
             </div>
 
@@ -370,40 +370,40 @@
                 <button id="btnSaveContact" type="button" class="btn-ghost">Save</button>
               </div>
               <datalist id="contactsData"></datalist>
-              <div id="helpDest" class="mt-1 text-xs small-muted">Scan a QR or choose from your contacts.</div>
+              <div id="helpDest" class="mt-1 text-xs small-muted">Scan a QR or choose from your saved contacts.</div>
             </label>
 
-            <!-- Modal do scanner -->
+            <!-- QR scanner modal -->
             <div id="scanModal" class="modal">
               <div class="glass p-4 w-full max-w-md rounded-lg">
                 <div class="flex items-center justify-between mb-3">
                   <h3 class="font-bold">Scan QR</h3>
-                  <button id="qrClose" class="btn-muted">Fechar</button>
+                  <button id="qrClose" class="btn-muted">Close</button>
                 </div>
                 <div id="qr-reader" style="width:100%;"></div>
-                <div class="small-muted mt-2">Permita o acesso à câmera.</div>
+                <div class="small-muted mt-2">Allow camera access.</div>
               </div>
             </div>
 
-            <label class="block mt-3">Value (FONE)
+            <label class="block mt-3">Amount (FONE)
               <div class="flex items-center gap-2 mt-2">
                 <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded app-input mono" />
                 <button id="btnMax" class="btn-ghost px-3 py-2">MAX</button>
               </div>
-              <div class="mt-1 text-xs small-muted">Você pode enviar até o saldo disponível (on-chain).</div>
+              <div class="mt-1 text-xs small-muted">You can send up to your available on-chain balance.</div>
             </label>
 
             <label class="block mt-3">Message (optional)
               <input id="inputMsg" maxlength="100" class="w-full mt-2 p-3 rounded app-input" />
-              <div class="mt-1 text-xs small-muted">This field is optional and limited to 100 characters.</div>
+              <div class="mt-1 text-xs small-muted">Optional, up to 100 characters.</div>
             </label>
 
             <div id="sendPreview" class="mt-4 hidden p-3 rounded app-surface text-sm"></div>
             <div id="sendErrors" class="mt-3 text-sm text-red-300"></div>
 
             <div class="mt-4 flex flex-col sm:flex-row gap-3">
-              <button id="btnSendTx" class="btn-accent" disabled>Send (sign) — use your private key</button>
-              <button id="btnSyncBal" class="btn-muted">Sync Balance</button>
+              <button id="btnSendTx" class="btn-accent" disabled>Send (sign)</button>
+              <button id="btnSyncBal" class="btn-muted">Sync balance</button>
             </div>
             <pre id="sendResult" class="mt-4 text-sm mono small-muted"></pre>
           </div>
@@ -412,14 +412,14 @@
         <!-- RECEIVE -->
         <div id="page-receive" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
-            <h2 class="font-bold">To receive FONE</h2>
-            <p class="text-sm small-muted mt-1">Share your address or QR to receive FONE.</p>
+            <h2 class="font-bold">Receive FONE</h2>
+            <p class="text-sm small-muted mt-1">Share your address or QR code to receive FONE.</p>
             <div class="mt-4">
               <div class="text-xs small-muted">Your address</div>
               <div id="receiveAddr" class="mono mt-1 break-all">—</div>
               <div class="mt-3 flex flex-wrap gap-2">
                 <button id="btnCopyAddr" class="btn-accent">Copy address</button>
-                <button id="btnShareAddr" class="btn-muted">To share</button>
+                <button id="btnShareAddr" class="btn-muted">Share</button>
                 <button id="btnDownloadQR" class="btn-muted">Download QR</button>
               </div>
             </div>
@@ -432,7 +432,7 @@
             </div>
 
             <div class="mt-5 text-sm small-muted">
-              Send only FONE to this address. Deposits from other networks/tokens may be lost.
+              Only send FONE to this address. Deposits from other networks/tokens may be lost.
             </div>
           </div>
         </div>
@@ -469,21 +469,22 @@
                 <label class="block mt-4">Theme
                   <select id="selTheme" class="mt-2 p-2 rounded app-input">
                     <option value="dark">Dark</option>
-                    <option value="light">Clear</option>
+                    <option value="light">Light</option>
                   </select>
                 </label>
                 <label class="block mt-4">Privacy Policy
-                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-sm small-muted">Private keys are NEVER saved on servers. You are only asked to sign transactions in this browser.</textarea>
+                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-sm small-muted">
+Private keys are NEVER saved on servers. You are only asked to sign transactions in this browser.</textarea>
                 </label>
               </div>
               <div>
-                <h3 class="font-bold">Fone API</h3>
+                <h3 class="font-bold">Fone API (backend)</h3>
                 <p class="mt-2 text-sm small-muted">
                   The node URL and SDK key are configured only on the backend (.env) and are never
-                  exposed to the browser.
+                  exposed to this site.
                 </p>
                 <div class="mt-3 flex gap-2">
-                  <button id="btnTestCfg" class="btn-muted">Test connection</button>
+                  <button id="btnTestCfg" class="btn-muted">Test backend connection</button>
                 </div>
                 <div id="cfgMsg" class="small-muted mt-2"></div>
               </div>
@@ -501,18 +502,18 @@
       <div class="glass p-6 w-full max-w-2xl rounded-lg">
         <div class="flex items-center justify-between mb-4">
           <h2 class="font-bold text-xl">Create or Import Wallet</h2>
-          <div class="text-sm small-muted">Private key is sensitive — don't share.</div>
+          <div class="text-sm small-muted">Your private key is sensitive — never share it.</div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <h3 class="font-bold">Create new wallet</h3>
-            <p class="text-sm small-muted">Generates address and private key (displays once).</p>
-            <div class="mt-3 flex gap-3"><button id="btnCreateWallet" class="btn-accent w-full">Create Wallet</button></div>
+            <p class="text-sm small-muted">Generates an address and private key (shown once).</p>
+            <div class="mt-3 flex gap-3"><button id="btnCreateWallet" class="btn-accent w-full">Create wallet</button></div>
             <div id="createdResult" class="mt-3 text-sm mono small-muted"></div>
           </div>
           <div>
             <h3 class="font-bold">Import wallet</h3>
-            <p class="text-sm small-muted">Paste your private key.</p>
+            <p class="text-sm small-muted">Paste your existing private key.</p>
             <input id="inputPrivate" class="mt-2 p-3 rounded app-input mono w-full" type="password" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Private key..." />
             <div class="mt-3 flex gap-3"><button id="btnImportWallet" class="btn-muted w-full">Import</button></div>
             <div id="importResult" class="mt-3 text-sm mono small-muted"></div>
@@ -532,7 +533,7 @@
         <pre id="privText" class="mono mt-3 p-3 rounded text-sm small-muted"></pre>
         <div class="mt-4 flex gap-3">
           <button id="btnCopyPriv" class="btn-accent">Copy</button>
-          <button id="btnPrivSaved" class="btn-muted">I already saved — continue</button>
+          <button id="btnPrivSaved" class="btn-muted">I have saved it — continue</button>
         </div>
       </div>
     </div>
@@ -541,9 +542,9 @@
     <div id="welcomeModal" class="modal">
       <div class="glass p-6 w-full max-w-lg rounded-lg text-center">
         <h3 class="font-bold text-xl mb-2">Welcome to Eco-Verify</h3>
-        <p class="text-sm small-muted">Connect real-world stocks and send/receive FONE to your wallet.</p>
+        <p class="text-sm small-muted">Connect real-world actions and send/receive FONE in your wallet.</p>
         <div class="mt-5 flex gap-3 justify-center">
-          <button id="btnStart" class="btn-accent">To start</button>
+          <button id="btnStart" class="btn-accent">Get started</button>
         </div>
       </div>
     </div>
@@ -568,7 +569,7 @@
         </div>
 
         <div id="gateUnlockView" class="hidden">
-          <p class="small-muted">Enter your password to continue.</p>
+          <p class="small-muted">Enter your app password to continue.</p>
           <input id="gatePass" type="password" class="mt-3 p-3 rounded app-input w-full" autocomplete="current-password">
           <div class="mt-4 flex gap-2">
             <button id="gateBtn" class="btn-accent w-full">Unlock</button>
@@ -594,31 +595,30 @@
   </div>
 
   <script>
-    // ---------- CONSTANTES ----------
+    // ---------- CONSTANTS ----------
     const LS_LAST_WALLET = 'ev_last_wallet';
     const LS_WALLET_PREFIX = 'ev_wallet_';
     const LS_THEME = 'ev_theme';
     const LS_WELCOME = 'ev_welcome_seen';
-    const PASS_HASH = 'ev_pass_hash'; // legado
+    const PASS_HASH = 'ev_pass_hash'; // legacy
     const GATE_FLAG = 'ev_gate_ok';
     const USE_PROXY = true;
 
-    // URL pública do backend (Render)
-    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com'; 
+    // Backend URL (Render)
+    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com'; // replace with your Render backend URL
 
-    // App Password (armazenamento de verificador)
+    // App password verifier
     const PASS_SALT = 'ev_pass_salt';
     const PASS_VER = 'ev_pass_ver';
     const PASS_ITER = 'ev_pass_iter';
 
-    
+    // Prefix to store private key in SESSION (not persistent across tabs)
     const SS_PK_PREFIX = 'ev_pk_';
 
-    // Config: pedir senha para enviar e para sair
     const REQUIRE_PWD_FOR_SEND = true;
     const REQUIRE_PWD_FOR_LOGOUT = true;
 
-    // Helpers senha
+    // Password helpers
     const enc = new TextEncoder();
     const toHex = (u8) => Array.from(u8).map(b => b.toString(16).padStart(2,'0')).join('');
     const fromHex = (hex) => new Uint8Array((hex.match(/.{2}/g)||[]).map(h => parseInt(h,16)));
@@ -670,7 +670,7 @@
         const m = $('authMsg'); if (m) m.textContent='';
       }
     }
-    function requireActionPassword({ title = 'Confirmar ação', hint = 'Digite sua senha para continuar.' } = {}) {
+    function requireActionPassword({ title = 'Confirm action', hint = 'Enter your password to continue.' } = {}) {
       return new Promise((resolve) => {
         $('authTitle').textContent = title;
         $('authHint').textContent = hint;
@@ -678,11 +678,11 @@
 
         const onOk = async () => {
           const pass = ($('authPass')?.value || '').trim();
-          if (!pass) { $('authMsg').textContent = 'Informe a senha.'; return; }
+          if (!pass) { $('authMsg').textContent = 'Please enter your password.'; return; }
           if (await verifyAppPassword(pass)) {
             showAuthModal(false); resolve(true);
           } else {
-            $('authMsg').textContent = 'Senha incorreta.'; $('authPass')?.select();
+            $('authMsg').textContent = 'Incorrect password.'; $('authPass')?.select();
           }
         };
         const onCancel = () => { showAuthModal(false); resolve(false); };
@@ -706,26 +706,26 @@
         const p1 = ($('newPass')?.value || '').trim();
         const p2 = ($('newPass2')?.value || '').trim();
         const msg = $('gateMsg');
-        if (p1.length < 6) { msg.textContent = 'Use pelo menos 6 caracteres.'; return; }
-        if (p1 !== p2) { msg.textContent = 'As senhas não conferem.'; return; }
+        if (p1.length < 6) { msg.textContent = 'Use at least 6 characters.'; return; }
+        if (p1 !== p2) { msg.textContent = 'Passwords do not match.'; return; }
         await setAppPassword(p1);
         setUnlocked(true);
         showGate(false);
         ensureSdkConfigured();
-        toast('Senha criada. App desbloqueado.', 1800);
+        toast('Password created. App unlocked.', 1800);
       });
 
       $('gateBtn')?.addEventListener('click', async () => {
         const pass = ($('gatePass')?.value || '').trim();
         const msg = $('gateMsg2');
-        if (!pass) { msg.textContent = 'Informe a senha.'; return; }
+        if (!pass) { msg.textContent = 'Please enter your password.'; return; }
         if (await verifyAppPassword(pass)) {
           setUnlocked(true);
           showGate(false);
           ensureSdkConfigured();
-          toast('Desbloqueado 👌', 1500);
+          toast('Unlocked 👌', 1500);
         } else {
-          msg.textContent = 'Senha incorreta.'; $('gatePass')?.select();
+          msg.textContent = 'Incorrect password.'; $('gatePass')?.select();
         }
       });
 
@@ -754,10 +754,10 @@
     }
     function lockApp() {
       setUnlocked(false);
-      // não forçar o gate ao fazer logout; só será mostrado em novo load se necessário
+      // Do not show gate on logout; user will see it only on reload if needed
     }
 
-    // ---------- ESTADO GLOBAL ----------
+    // ---------- GLOBAL STATE ----------
     const State = {
       settings: {},
       wallet: null,
@@ -839,7 +839,7 @@
       }
     }
 
-    // guardar chave privada somente na sessão (não persiste entre abas/fechamentos)
+    // Private key only in session (not persisted)
     function savePrivateKeySession(addr, pk) {
       if (!addr || !pk) return;
       try {
@@ -865,7 +865,6 @@
       const onTotal = Number(State.balance.onchain.total || 0);
       const onAvail = Number(State.balance.onchain.available || 0);
       const credits = Number(State.balance.credits || 0);
-
       State.balance.totalUI = onTotal + credits;
       State.balance.disponivelUI = onAvail + credits;
     }
@@ -917,14 +916,14 @@
       if (nav) nav.classList.add('active');
       const map = {
         dashboard: 'Dashboard',
-        missions: 'Missões',
-        send: 'Sacar/Enviar',
-        receive: 'Receber',
-        history: 'Histórico',
-        settings: 'Configurações',
-        upload: 'Enviar Prova',
+        missions: 'Missions',
+        send: 'Send / Withdraw',
+        receive: 'Receive',
+        history: 'History',
+        settings: 'Settings',
+        upload: 'Complete mission',
         leaderboard: 'Leaderboard',
-        aposta: 'Aposta'
+        aposta: 'Betting'
       };
       $('pageTitle').innerText = map[name] || 'Eco-Verify';
     }
@@ -963,38 +962,37 @@
       try {
         const data = await api('/api/fone/wallet/create', 'POST');
         const addr = data.address, priv = data.privateKey;
-        if (!addr || !priv) throw new Error('Falha ao criar carteira.');
+        if (!addr || !priv) throw new Error('Failed to create wallet.');
         State.wallet = { address: addr };
         State.persistedWalletAddress = addr;
         localStorage.setItem(LS_LAST_WALLET, addr);
 
-        // guarda chave privada na sessão (para não pedir em todo envio)
         savePrivateKeySession(addr, priv);
 
         State.balance.credits = 0;
         recalcTotals();
-        $('createdResult').innerText = `Endereço: ${addr}`;
+        $('createdResult').innerText = `Address: ${addr}`;
         showModal('privModal', true);
         $('privText').innerText = priv;
         await syncAll();
         updateUI();
         showModal('loginModal', false);
-        toast('Carteira criada.', 2200);
+        toast('Wallet created.', 2200);
       } catch (e) {
-        $('createdResult').innerText = 'Erro: ' + e.message;
+        $('createdResult').innerText = 'Error: ' + e.message;
       }
     }
 
     async function importWalletFlow(pk) {
       pk = String(pk || '').trim();
       if (!pk || pk.length < 6) {
-        $('importResult').innerText = 'Chave inválida';
+        $('importResult').innerText = 'Invalid private key.';
         return;
       }
       try {
         const data = await api('/api/fone/wallet/import', 'POST', { privateKey: pk });
         const addr = data.address;
-        if (!addr) throw new Error('Resposta sem endereço.');
+        if (!addr) throw new Error('Response without address.');
         const persisted = loadPersistentForAddress(addr);
         if (persisted) {
           State.persistedWalletAddress = addr;
@@ -1029,16 +1027,15 @@
         State.wallet = { address: addr };
         localStorage.setItem(LS_LAST_WALLET, addr);
 
-        // guarda chave privada na sessão
         savePrivateKeySession(addr, pk);
 
-        $('importResult').innerText = `Carteira importada: ${addr}`;
+        $('importResult').innerText = `Wallet imported: ${addr}`;
         await syncAll();
         updateUI();
         showModal('loginModal', false);
-        toast('Carteira importada.', 2200);
+        toast('Wallet imported.', 2200);
       } catch (e) {
-        $('importResult').innerText = 'Erro: ' + e.message;
+        $('importResult').innerText = 'Error: ' + e.message;
       }
     }
 
@@ -1046,9 +1043,9 @@
       const when = new Date(tx.timestamp).toLocaleString();
       const isOut = (tx.sender || '').toLowerCase() === (me || '').toLowerCase();
       const peer = isOut ? tx.recipient : tx.sender;
-      const dir = isOut ? 'Enviado' : 'Recebido';
+      const dir = isOut ? 'Sent' : 'Received';
       const msg = tx.message ? ` (${tx.message})` : '';
-      const st = tx.status === 1 ? ' [pendente]' : '';
+      const st = tx.status === 1 ? ' [pending]' : '';
       return `[${when}] ${dir} ${tx.amount} FONE ${isOut ? '->' : '<-'} ${peer}${msg}${st}`;
     }
 
@@ -1073,7 +1070,7 @@
           data.balance ??
           0;
 
-        // Se o nó retornar em WEI, descomente:
+        // If the node returns WEI, uncomment:
         // balRaw = Number(balRaw) / 1e18;
 
         let balNum = Number(balRaw);
@@ -1096,7 +1093,7 @@
         });
 
       } catch (e) {
-        toast('Falha ao sincronizar: ' + e.message, 2600);
+        toast('Failed to sync: ' + e.message, 2600, 'error');
       }
 
       State.syncing = false;
@@ -1114,13 +1111,13 @@
       const amt = Number($('inputAmt')?.value);
       const onAvail = Number(State.balance?.onchain?.available || 0);
       const errs = [];
-      if (!dest) errs.push('Informe o endereço de destino.');
-      else if (!isValidFoneAddress(dest)) errs.push('Endereço inválido.');
-      if (!amt || !Number.isFinite(amt) || amt <= 0) errs.push('Informe um valor válido.');
+      if (!dest) errs.push('Destination address is required.');
+      else if (!isValidFoneAddress(dest)) errs.push('Invalid address.');
+      if (!amt || !Number.isFinite(amt) || amt <= 0) errs.push('Enter a valid amount.');
       if (Number.isFinite(amt) && amt > 0 && amt > onAvail) {
-        errs.push('Saldo on-chain insuficiente.');
+        errs.push('Insufficient on-chain balance.');
       }
-      if (getActiveAddress() && dest === getActiveAddress()) errs.push('Não envie para o próprio endereço.');
+      if (getActiveAddress() && dest === getActiveAddress()) errs.push('Do not send to your own address.');
       return { ok: errs.length === 0, dest, amt, errors: errs };
     }
 
@@ -1134,7 +1131,7 @@
       if (prev) {
         if (res.ok) {
           prev.classList.remove('hidden');
-          prev.innerHTML = `<div class="small-muted">Resumo</div><div class="mt-1">You will send <strong>${res.amt}</strong> FONE for <span class="mono">${res.dest}</span></div>`;
+          prev.innerHTML = `<div class="small-muted">Summary</div><div class="mt-1">You will send <strong>${res.amt}</strong> FONE to <span class="mono">${res.dest}</span></div>`;
         } else {
           prev.classList.add('hidden');
           prev.innerHTML = '';
@@ -1152,17 +1149,17 @@
       return res;
     }
 
-    // ----- MISSÕES / APOSTAS (mesmo que antes, apenas usando credits) -----
+    // ----- MISSIONS / BETTING (unchanged logic, text in English) -----
     function buildMissions() {
       if (State.missions && State.missions.length) return;
       State.missions = [
-        { id: 'M1', title: 'Check recyclable bins -Parque Jaqueira', difficulty: 'easy', reward: 20, location: 'Recife, PE', description: 'Take a photo of the trash bin with separated materials.' },
-        { id: 'M2', title: 'Photograph planted trees -Rua X', difficulty: 'medium', reward: 30, location: 'Recife, PE', description: 'Display the tree with identification or a sign.' },
-        { id: 'M3', title: 'Electronic disposal -Official point', difficulty: 'medium', reward: 25, location: 'Olinda, PE', description: 'Photo of the disposal point and ticket.' },
-        { id: 'M4', title: 'Water saving record', difficulty: 'easy', reward: 12, location: 'Casa', description: 'Photo of the meter before/after or repaired tap.' },
-        { id: 'M5', title: 'Used oil collection delivered', difficulty: 'medium', reward: 18, location: 'Point', description: 'Photo of the container at the collection point with label.' },
-        { id: 'M6', title: 'Clothes donation report', difficulty: 'easy', reward: 15, location: 'ONG local', description: 'Photo of the receipt or location of the donation.' },
-        { id: 'M7', title: 'Community cleaning', difficulty: 'hard', reward: 22, location: 'Central square', description: 'Show before and after cleaning.' }
+        { id: 'M1', title: 'Check recycling bins — Jaqueira Park', difficulty: 'easy', reward: 20, location: 'Recife, PE', description: 'Take a photo of the trash bin with separated materials.' },
+        { id: 'M2', title: 'Photograph planted trees — Rua X', difficulty: 'medium', reward: 30, location: 'Recife, PE', description: 'Show the tree with identification or a sign.' },
+        { id: 'M3', title: 'Electronic waste drop-off — Official point', difficulty: 'medium', reward: 25, location: 'Olinda, PE', description: 'Photo of the drop-off point and ticket or proof.' },
+        { id: 'M4', title: 'Water saving record', difficulty: 'easy', reward: 12, location: 'Home', description: 'Photo of the meter before/after or a fixed leaking tap.' },
+        { id: 'M5', title: 'Used cooking oil delivery', difficulty: 'medium', reward: 18, location: 'Collection point', description: 'Photo of the container at the collection point with a label.' },
+        { id: 'M6', title: 'Clothes donation proof', difficulty: 'easy', reward: 15, location: 'Local NGO', description: 'Photo of the receipt or donation location.' },
+        { id: 'M7', title: 'Community cleanup', difficulty: 'hard', reward: 22, location: 'Central square', description: 'Show before and after the cleanup.' }
       ];
     }
 
@@ -1204,28 +1201,28 @@
         card.innerHTML = `
           <div class="font-semibold">${m.title}</div>
           <div class="text-sm small-muted mt-1">${m.description}</div>
-          <div class="text-xs small-muted mt-2">${m.location} • Recompensa: <strong>${m.reward} FONE</strong> • <em>${m.difficulty.toUpperCase()}</em></div>
+          <div class="text-xs small-muted mt-2">${m.location} • Reward: <strong>${m.reward} FONE</strong> • <em>${m.difficulty.toUpperCase()}</em></div>
           <div class="mt-3">
             <div class="w-full h-2.5 bg-black/20 rounded overflow-hidden">
               <div class="h-2.5 rounded" style="width:${prog}%; background:linear-gradient(90deg, var(--accent), var(--accent-2))"></div>
             </div>
             <div class="mt-2 flex items-center gap-2">
-              <div class="text-sm small-muted">${prog}% completed</div>
+              <div class="text-sm small-muted">${prog}% complete</div>
               <div class="ml-auto">
-                ${done ? '<span class="small-muted">Concluída ✅</span>' : `<button class="btn-accent" onclick="openMission('${m.id}')">Complete mission</button>`}
+                ${done ? '<span class="small-muted">Completed ✅</span>' : `<button class="btn-accent" onclick="openMission('${m.id}')">Complete mission</button>`}
               </div>
             </div>
           </div>
-          <div class="mt-3 text-xs small-muted">Reputation Points: ${rep}</div>`;
+          <div class="mt-3 text-xs small-muted">Reputation points: ${rep}</div>`;
         list.appendChild(card);
       });
     }
 
     window.openMission = function openMission(id) {
       const m = State.missions.find(x => x.id === id);
-      if (!m) return toast('Missão não encontrada', 2500);
-      if (!getActiveAddress()) return toast('Conecte sua carteira primeiro.', 2500);
-      $('uploadMissionTitle').innerText = `${m.title} • Recompensa: ${m.reward} FONE`;
+      if (!m) return toast('Mission not found.', 2500, 'error');
+      if (!getActiveAddress()) return toast('Connect your wallet first.', 2500, 'warning');
+      $('uploadMissionTitle').innerText = `${m.title} • Reward: ${m.reward} FONE`;
       sessionStorage.setItem('currentMission', JSON.stringify(m));
       $('fileInput').value = '';
       $('reportText').value = '';
@@ -1250,13 +1247,13 @@
     $('btnSubmitProof')?.addEventListener('click', async () => {
       if (missionSubmitting) return;
       const m = JSON.parse(sessionStorage.getItem('currentMission') || 'null');
-      if (!m) return toast('Session expired', 2500);
+      if (!m) return toast('Session expired. Open the mission again.', 2500, 'error');
       const file = $('fileInput').files[0];
       const report = $('reportText').value.trim();
-      if (!file) return alert('Selecione uma foto');
-      if (!report || report.length < 10) return toast('Write a report with at least 10 characters');
+      if (!file) return alert('Select a photo.');
+      if (!report || report.length < 10) return toast('Write a report with at least 10 characters.', 2500, 'warning');
       missionSubmitting = true;
-      toast('Validating mission…', 1800);
+      toast('Validating mission…', 1800, 'info');
       try {
         await uploadStaging();
         await new Promise(r => setTimeout(r, 800));
@@ -1279,10 +1276,10 @@
         $('missionNotice').classList.remove('hidden');
         savePersistentForAddress(getActiveAddress());
 
-        toast('Mission approved! Credits added.', 3000);
+        toast('Mission approved! Credits added.', 3000, 'success');
         showPage('dashboard');
       } catch (e) {
-        toast('Erro: ' + e.message, 3000);
+        toast('Error: ' + e.message, 3000, 'error');
       } finally {
         missionSubmitting = false;
       }
@@ -1296,10 +1293,10 @@
     function buildReviewQueueAposta() {
       if (State.reviewQueue && State.reviewQueue.length) return;
       State.reviewQueue = [
-        { id: 'R1', title: 'Community cleaning — Central square', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r1/640/360', report: 'Before and after visible. Bags collected and team identified.', reward: 22, isValid: true },
-        { id: 'R2', title: 'Electronic disposal — Official point', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r2/640/360', report: 'Photo of a generic box, without proof of official point.', reward: 25, isValid: false },
-        { id: 'R3', title: 'Trees planted — Rua X', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r3/640/360', report: 'Changes with identification and plate, date and location informed.', reward: 30, isValid: true },
-        { id: 'R4', title: 'Recycling — Park', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r4/640/360', report: 'Blurred image and no visible separation of materials.', reward: 20, isValid: false }
+        { id: 'R1', title: 'Community cleanup — Central square', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r1/640/360', report: 'Before and after are visible. Collected bags and identified team.', reward: 22, isValid: true },
+        { id: 'R2', title: 'Electronic disposal — Official point', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r2/640/360', report: 'Photo of a generic box without proof of official drop-off.', reward: 25, isValid: false },
+        { id: 'R3', title: 'Trees planted — Rua X', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r3/640/360', report: 'Seedlings with identification plate, date and location informed.', reward: 30, isValid: true },
+        { id: 'R4', title: 'Recycling — Park', submitter: randAddr(), image: 'https://picsum.photos/seed/eco-r4/640/360', report: 'Blurred image and no clear separation of materials.', reward: 20, isValid: false }
       ];
     }
 
@@ -1323,8 +1320,8 @@
           if (bet.status === 'pending') {
             return `<div class="mt-2 text-xs small-muted"><span class="inline-flex items-center gap-2"> <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>Waiting for majority…</span></div>`;
           }
-          const maj = bet.majority === 'approve' ? 'APPROVED' : 'FAIL';
-          const res = bet.win ? 'You Win 🎉' : 'You Lose';
+          const maj = bet.majority === 'approve' ? 'APPROVED' : 'REJECTED';
+          const res = bet.win ? 'You win 🎉' : 'You lose';
           const delta = bet.win
             ? `+${(bet.payout - bet.amount).toFixed(2)} FONE`
             : `-${bet.amount.toFixed(2)} FONE`;
@@ -1336,7 +1333,7 @@
         div.className = 'glass p-4 rounded';
         div.innerHTML = `
           <div class="font-semibold">${item.title}</div>
-          <div class="text-xs small-muted">Recompensa: ${item.reward} FONE • Sent by <span class="mono">${item.submitter}</span></div>
+          <div class="text-xs small-muted">Reward: ${item.reward} FONE • Submitted by <span class="mono">${item.submitter}</span></div>
           <div class="mt-3"><img src="${item.image}" alt="proof" class="thumb" /></div>
           <div class="mt-2 small-muted">${item.report}</div>
           <div class="mt-3 text-xs small-muted">Bet up to 100 FONE</div>
@@ -1345,7 +1342,7 @@
               class="p-2 rounded app-input mono w-24" ${disabled}
               value="${Math.min(10, Math.floor(credAvail / 2))}">
             <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
-            <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Fail</button>
+            <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Reject</button>
           </div>
           ${statusLine}`;
         wrap.appendChild(div);
@@ -1358,16 +1355,16 @@
 
     window.placeBet = function placeBet(id, decision) {
       const item = State.reviewQueue.find(x => x.id === id);
-      if (!item) return toast('Item não encontrado', 2500);
-      if (State.bets[id]) return toast('Você já apostou neste item.', 2500);
+      if (!item) return toast('Review item not found.', 2500, 'error');
+      if (State.bets[id]) return toast('You already bet on this item.', 2500, 'info');
 
       const inp = $('bet-' + id);
       const amount = Number(inp?.value || 0);
-      if (!Number.isFinite(amount) || amount <= 0) return toast('Informe um valor válido.', 2500);
-      if (amount > 100) return toast('Aposta máxima é 100 FONE.', 3000);
+      if (!Number.isFinite(amount) || amount <= 0) return toast('Enter a valid bet amount.', 2500, 'warning');
+      if (amount > 100) return toast('Maximum bet is 100 FONE.', 3000, 'warning');
 
       const avail = Number(State.balance?.credits || 0);
-      if (amount > avail) return toast('Créditos insuficientes para apostar.', 3000);
+      if (amount > avail) return toast('Not enough credits to place this bet.', 3000, 'error');
 
       State.balance.credits = avail - amount;
       recalcTotals();
@@ -1397,11 +1394,11 @@
       bet.payout = payout;
       bet.win = userWin;
 
-      const votedStr = bet.decision === 'approve' ? 'APPROVE' : 'FAIL';
-      const majStr = majority === 'approve' ? 'APPROVED' : 'FAIL';
+      const votedStr = bet.decision === 'approve' ? 'APPROVE' : 'REJECT';
+      const majStr = majority === 'approve' ? 'APPROVED' : 'REJECTED';
       const gain = userWin
-        ? `It won +${(payout - bet.amount).toFixed(2)} FONE (return ${payout.toFixed(2)})`
-        : `Lose ${bet.amount.toFixed(2)} FONE`;
+        ? `Won +${(payout - bet.amount).toFixed(2)} FONE (received ${payout.toFixed(2)})`
+        : `Lost ${bet.amount.toFixed(2)} FONE`;
 
       State.history.push(
         `[${new Date().toLocaleString()}] Bet: ${item.title} — vote ${votedStr}. ${gain} • majority: ${majStr}`
@@ -1412,12 +1409,12 @@
       toast(
         userWin
           ? `You won the bet! +${(payout - bet.amount).toFixed(2)} FONE`
-          : `You lose: -${bet.amount.toFixed(2)} FONE`,
+          : `You lost the bet: -${bet.amount.toFixed(2)} FONE`,
         3800
       );
     }
 
-    // ---------- CONTATOS E QR SCAN ----------
+    // ---------- CONTACTS & QR SCAN ----------
     const LS_CONTACTS = 'ev_contacts';
     function getContacts() {
       try { return JSON.parse(localStorage.getItem(LS_CONTACTS) || '[]'); } catch { return []; }
@@ -1443,9 +1440,9 @@
         list.push({ address, label: label || '' });
         setContacts(list);
         renderContactsDatalist();
-        toast('Contato salvo.', 1400, 'success');
+        toast('Contact saved.', 1400, 'success');
       } else {
-        toast('Contato já existe.', 1600, 'info');
+        toast('Contact already exists.', 1600, 'info');
       }
     }
 
@@ -1463,11 +1460,11 @@
           $('inputDest').value = decodedText.trim();
           applySendValidationUI();
           closeScan();
-          toast('Endereço preenchido pelo QR.', 1600, 'success');
+          toast('Address filled from QR.', 1600, 'success');
         },
         () => {}
       ).catch(err => {
-        toast('Erro ao iniciar câmera: ' + err, 3000, 'error');
+        toast('Error starting camera: ' + err, 3000, 'error');
       });
     }
     function closeScan() {
@@ -1483,9 +1480,9 @@
 
     $('btnSaveContact')?.addEventListener('click', () => {
       const addr = ($('inputDest')?.value || '').trim();
-      if (!addr) return toast('Informe um endereço para salvar.', 1800, 'warning');
-      if (!isValidFoneAddress(addr)) return toast('Endereço inválido.', 1800, 'error');
-      const label = prompt('Apelido para este endereço (opcional):') || '';
+      if (!addr) return toast('Enter an address to save.', 1800, 'warning');
+      if (!isValidFoneAddress(addr)) return toast('Invalid address.', 1800, 'error');
+      const label = prompt('Label for this address (optional):') || '';
       saveContact(addr, label.trim());
     });
 
@@ -1497,7 +1494,7 @@
       if (!el) return;
       el.innerHTML = '';
       if (!State.history?.length) {
-        el.innerHTML = '<div class="small-muted">— No activity —</div>';
+        el.innerHTML = '<div class="small-muted">— No activity yet —</div>';
         return;
       }
       State.history.slice().reverse().forEach(line => {
@@ -1517,7 +1514,7 @@
       if (me && !arr.find(x => x.addr === me)) arr.push({ addr: me, rep: State.reputation || 0 });
       arr.sort((a, b) => b.rep - a.rep);
       if (!arr.length) {
-        el.innerHTML = '<div class="small-muted">— no players —</div>';
+        el.innerHTML = '<div class="small-muted">— No players yet —</div>';
         return;
       }
       arr.forEach((u, idx) => {
@@ -1551,7 +1548,7 @@
       }
     }
 
-    // ---------- NAV ----------
+    // ---------- NAV & UI EVENTS ----------
     document.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', () => {
       const r = a.dataset.route;
       showPage(r);
@@ -1596,32 +1593,32 @@
     });
     $('btnCopyPriv')?.addEventListener('click', () => {
       const txt = $('privText')?.innerText || '';
-      navigator.clipboard.writeText(txt).then(() => toast('Copied Key', 1800));
+      navigator.clipboard.writeText(txt).then(() => toast('Private key copied.', 1800, 'success'));
     });
     $('btnPrivSaved')?.addEventListener('click', () => showModal('privModal', false));
     $('btnSyncAll')?.addEventListener('click', async () => {
       await syncAll();
-      toast('Balance/Statement synchronized.', 2000);
+      toast('Balance and history synced.', 2000, 'success');
     });
     $('btnSyncBal')?.addEventListener('click', async () => {
       await syncAll();
-      toast('Balance/Statement synchronized.', 2000);
+      toast('Balance and history synced.', 2000, 'success');
     });
     $('btnCopyAddr')?.addEventListener('click', () => {
       const addr = getActiveAddress();
-      if (!addr) return toast('Wallet not connected', 2000);
-      navigator.clipboard.writeText(addr).then(() => toast('Copied address ✅', 1800));
+      if (!addr) return toast('Wallet not connected.', 2000, 'warning');
+      navigator.clipboard.writeText(addr).then(() => toast('Address copied.', 1800, 'success'));
     });
     $('btnShareAddr')?.addEventListener('click', async () => {
       const addr = getActiveAddress();
-      if (!addr) return toast('Wallet not connected', 2000);
+      if (!addr) return toast('Wallet not connected.', 2000, 'warning');
       if (navigator.share) {
         try {
-          await navigator.share({ title: 'My address FONE', text: addr });
+          await navigator.share({ title: 'My FONE address', text: addr });
         } catch {}
       } else {
         navigator.clipboard.writeText(addr);
-        toast('Copied address (not supported sharing)', 2200);
+        toast('Address copied (share not supported).', 2200, 'info');
       }
     });
     $('btnDownloadQR')?.addEventListener('click', () => {
@@ -1631,7 +1628,7 @@
       const canvas = wrap.querySelector('canvas');
       const dataUrl = img?.src || (canvas ? canvas.toDataURL('image/png') : null);
       if (!dataUrl) {
-        toast('QR unavailable', 2000);
+        toast('QR not available.', 2000, 'error');
         return;
       }
       const a = document.createElement('a');
@@ -1651,19 +1648,19 @@
       applySendValidationUI();
     });
 
-    // Envio: pede apenas a senha do app; usa chave privada guardada na sessão
+    // SEND: ask only for app password; use private key from session
     $('btnSendTx')?.addEventListener('click', async () => {
       const v = validateSendForm();
       if (!v.ok) return applySendValidationUI();
 
       const msg = ($('inputMsg')?.value || '').trim();
-      const sure = confirm(`Confirmar envio de ${v.amt} FONE para\n${v.dest}${msg ? `\n\nMensagem: ${msg}` : ''}`);
+      const sure = confirm(`Confirm sending ${v.amt} FONE to\n${v.dest}${msg ? `\n\nMessage: ${msg}` : ''}`);
       if (!sure) return;
 
       if (REQUIRE_PWD_FOR_SEND) {
         const ok = await requireActionPassword({
-          title: 'Confirmar envio',
-          hint: 'Digite sua senha do app para autorizar o envio.'
+          title: 'Confirm send',
+          hint: 'Enter your app password to authorize this transaction.'
         });
         if (!ok) return;
       }
@@ -1671,26 +1668,26 @@
       const addr = getActiveAddress();
       const pk = getPrivateKeySession(addr);
       if (!pk) {
-        toast('Chave privada não está disponível nesta sessão. Importe ou crie a carteira novamente neste navegador.', 4500, 'error');
+        toast('Private key is not available in this session. Please import or create the wallet again in this browser.', 4500, 'error');
         return;
       }
 
       try {
         const r = await sendTransactionFlow(pk, v.dest, v.amt, msg);
         $('sendResult').innerText = JSON.stringify(r, null, 2);
-        toast('Transação enviada. Sincronizando...', 2500);
+        toast('Transaction sent. Syncing...', 2500, 'success');
         setTimeout(syncAll, 1200);
         showPage('history');
       } catch (err) {
-        alert('Erro ao enviar: ' + (err.message || err));
+        alert('Error sending transaction: ' + (err.message || err));
       }
     });
 
     $('logoutBtn')?.addEventListener('click', async () => {
-      if (!confirm('Deseja realmente sair?')) return;
+      if (!confirm('Do you really want to logout?')) return;
 
       if (REQUIRE_PWD_FOR_LOGOUT) {
-        const ok = await requireActionPassword({ title: 'Confirmar logout', hint: 'Digite sua senha para sair.' });
+        const ok = await requireActionPassword({ title: 'Confirm logout', hint: 'Enter your app password to logout.' });
         if (!ok) return;
       }
 
@@ -1722,7 +1719,7 @@
       lockApp();
       showModal('loginModal', true);
       $('welcomeModal')?.classList.remove('show');
-      toast('Logout feito.', 2000);
+      toast('Logged out.', 2000, 'info');
     });
 
     function bindSaveCfgWatcher() {
@@ -1730,16 +1727,16 @@
 
       if (btnTest) {
         btnTest.addEventListener('click', async () => {
-          $('cfgMsg').innerText = 'Testando conexão com backend...';
+          $('cfgMsg').innerText = 'Testing backend connection...';
 
           try {
             await api('/api/fone/wallet/create', 'POST');
-            $('cfgMsg').innerText = 'Backend OK (consegue criar carteira de teste).';
-            toast('Conexão OK', 1600, 'success');
+            $('cfgMsg').innerText = 'Backend OK (can create a test wallet).';
+            toast('Backend connection OK.', 1600, 'success');
           } catch (e) {
             $('cfgMsg').innerText =
-              'Failed: ' + e.message + ' (verifique backend / CORS)';
-            toast('Falha ao conectar.', 2000, 'error');
+              'Failed: ' + e.message + ' (check backend / CORS)';
+            toast('Failed to connect to backend.', 2000, 'error');
           }
         });
       }
