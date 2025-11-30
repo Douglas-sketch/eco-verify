@@ -473,7 +473,7 @@
                   </select>
                 </label>
                 <label class="block mt-4">Privacy Policy
-                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-sm small-muted">Private keys are NEVER saved. You are only asked to sign transactions in this browser.</textarea>
+                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-sm small-muted">Private keys are NEVER saved on servers. You are only asked to sign transactions in this browser.</textarea>
                 </label>
               </div>
               <div>
@@ -594,7 +594,7 @@
   </div>
 
   <script>
-    // ---------- CONSTANTES DE STORAGE / APP ----------
+    // ---------- CONSTANTES ----------
     const LS_LAST_WALLET = 'ev_last_wallet';
     const LS_WALLET_PREFIX = 'ev_wallet_';
     const LS_THEME = 'ev_theme';
@@ -603,13 +603,16 @@
     const GATE_FLAG = 'ev_gate_ok';
     const USE_PROXY = true;
 
-    
-    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com';
+    // URL pública do backend (Render)
+    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com'; 
 
-    
+    // App Password (armazenamento de verificador)
     const PASS_SALT = 'ev_pass_salt';
     const PASS_VER = 'ev_pass_ver';
     const PASS_ITER = 'ev_pass_iter';
+
+    
+    const SS_PK_PREFIX = 'ev_pk_';
 
     // Config: pedir senha para enviar e para sair
     const REQUIRE_PWD_FOR_SEND = true;
@@ -751,12 +754,12 @@
     }
     function lockApp() {
       setUnlocked(false);
-      showGate(true);
+      // não forçar o gate ao fazer logout; só será mostrado em novo load se necessário
     }
 
     // ---------- ESTADO GLOBAL ----------
     const State = {
-      settings: {}, // SDK/base ficam só no backend
+      settings: {},
       wallet: null,
       persistedWalletAddress: localStorage.getItem(LS_LAST_WALLET) || null,
       balance: {
@@ -784,7 +787,6 @@
       if (app) app.setAttribute('data-theme', t);
     }
 
-    // No front não há nada para configurar; tudo está no backend (.env)
     function ensureSdkConfigured() {}
 
     function toast(msg, time = 3200, type = 'info') {
@@ -835,6 +837,28 @@
       } catch {
         return null;
       }
+    }
+
+    // guardar chave privada somente na sessão (não persiste entre abas/fechamentos)
+    function savePrivateKeySession(addr, pk) {
+      if (!addr || !pk) return;
+      try {
+        sessionStorage.setItem(SS_PK_PREFIX + addr, pk);
+      } catch {}
+    }
+    function getPrivateKeySession(addr) {
+      if (!addr) return null;
+      try {
+        return sessionStorage.getItem(SS_PK_PREFIX + addr) || null;
+      } catch {
+        return null;
+      }
+    }
+    function clearPrivateKeySession(addr) {
+      if (!addr) return;
+      try {
+        sessionStorage.removeItem(SS_PK_PREFIX + addr);
+      } catch {}
     }
 
     function recalcTotals() {
@@ -943,6 +967,10 @@
         State.wallet = { address: addr };
         State.persistedWalletAddress = addr;
         localStorage.setItem(LS_LAST_WALLET, addr);
+
+        // guarda chave privada na sessão (para não pedir em todo envio)
+        savePrivateKeySession(addr, priv);
+
         State.balance.credits = 0;
         recalcTotals();
         $('createdResult').innerText = `Endereço: ${addr}`;
@@ -956,13 +984,15 @@
         $('createdResult').innerText = 'Erro: ' + e.message;
       }
     }
+
     async function importWalletFlow(pk) {
+      pk = String(pk || '').trim();
       if (!pk || pk.length < 6) {
         $('importResult').innerText = 'Chave inválida';
         return;
       }
       try {
-        const data = await api('/api/fone/wallet/import', 'POST', { privateKey: String(pk).trim() });
+        const data = await api('/api/fone/wallet/import', 'POST', { privateKey: pk });
         const addr = data.address;
         if (!addr) throw new Error('Resposta sem endereço.');
         const persisted = loadPersistentForAddress(addr);
@@ -998,6 +1028,10 @@
         }
         State.wallet = { address: addr };
         localStorage.setItem(LS_LAST_WALLET, addr);
+
+        // guarda chave privada na sessão
+        savePrivateKeySession(addr, pk);
+
         $('importResult').innerText = `Carteira importada: ${addr}`;
         await syncAll();
         updateUI();
@@ -1118,6 +1152,7 @@
       return res;
     }
 
+    // ----- MISSÕES / APOSTAS (mesmo que antes, apenas usando credits) -----
     function buildMissions() {
       if (State.missions && State.missions.length) return;
       State.missions = [
@@ -1616,6 +1651,7 @@
       applySendValidationUI();
     });
 
+    // Envio: pede apenas a senha do app; usa chave privada guardada na sessão
     $('btnSendTx')?.addEventListener('click', async () => {
       const v = validateSendForm();
       if (!v.ok) return applySendValidationUI();
@@ -1625,12 +1661,19 @@
       if (!sure) return;
 
       if (REQUIRE_PWD_FOR_SEND) {
-        const ok = await requireActionPassword({ title: 'Confirmar envio', hint: 'Digite sua senha para autorizar o envio.' });
+        const ok = await requireActionPassword({
+          title: 'Confirmar envio',
+          hint: 'Digite sua senha do app para autorizar o envio.'
+        });
         if (!ok) return;
       }
 
-      const pk = (prompt('Cole sua CHAVE PRIVADA... (NÃO SERÁ SALVA)') || '').trim();
-      if (!pk) return;
+      const addr = getActiveAddress();
+      const pk = getPrivateKeySession(addr);
+      if (!pk) {
+        toast('Chave privada não está disponível nesta sessão. Importe ou crie a carteira novamente neste navegador.', 4500, 'error');
+        return;
+      }
 
       try {
         const r = await sendTransactionFlow(pk, v.dest, v.amt, msg);
@@ -1650,6 +1693,9 @@
         const ok = await requireActionPassword({ title: 'Confirmar logout', hint: 'Digite sua senha para sair.' });
         if (!ok) return;
       }
+
+      const oldAddr = getActiveAddress();
+      if (oldAddr) clearPrivateKeySession(oldAddr);
 
       State.wallet = null;
       State.persistedWalletAddress = null;
