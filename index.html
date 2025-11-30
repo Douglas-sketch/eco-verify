@@ -188,8 +188,11 @@
   <div id="app" class="min-h-screen" data-theme="dark">
     <aside id="sidebar" class="glass md:block">
       <div class="flex items-center gap-3 mb-6">
-        <img src="image.png" alt="ecoverify-logo" width="50px" height="50px" style="border-radius:12px;"/>
-        <div><div class="font-bold">Eco-Verify</div><div class="small-muted">FONE • DePIN</div></div>
+        <img src="image.png" alt="ecoverify-logo" width="50" height="50" style="border-radius:12px;"/>
+        <div>
+          <div class="font-bold">Eco-Verify</div>
+          <div class="small-muted">FONE • DePIN</div>
+        </div>
       </div>
       <nav class="flex flex-col gap-2 mb-6">
         <div class="nav-link active" data-route="dashboard"><i data-lucide="home" class="w-4 h-4"></i> Dashboard</div>
@@ -212,7 +215,7 @@
 
     <header class="md:hidden p-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="image.png" alt="ecoverify-logo" width="150px" height="150px" style="border-radius:12px;"/>
+        <img src="image.png" alt="ecoverify-logo" width="150" height="150" style="border-radius:12px;"/>
         <div class="font-bold">Eco-Verify</div>
       </div>
       <div class="flex items-center gap-2">
@@ -229,9 +232,9 @@
         </div>
         <div class="flex items-stretch md:items-center gap-3 w-full md:w-auto">
           <div class="glass p-3 rounded text-right w-full md:w-[340px]">
-            <div class="text-xs small-muted">Total balance</div>
+            <div class="text-xs small-muted">Total balance (on-chain + credits)</div>
             <div id="topBalance" class="text-2xl font-bold mono">0.00 FONE</div>
-            <div id="topBreakdown" class="text-xs small-muted mt-1">Available: 0.00 FONE</div>
+            <div id="topBreakdown" class="text-xs small-muted mt-1">On-chain: 0.00 • Credits: 0.00 FONE</div>
             <div class="text-xs small-muted mt-2">Address</div>
             <div id="topAddr" class="mono text-sm break-words">—</div>
           </div>
@@ -243,6 +246,7 @@
       </div>
 
       <section id="pages" class="p-3 md:p-0">
+        <!-- DASHBOARD -->
         <div id="page-dashboard" class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           <div class="lg:col-span-2 space-y-4">
             <div class="glass p-5 md:p-6">
@@ -299,6 +303,7 @@
           </aside>
         </div>
 
+        <!-- MISSIONS -->
         <div id="page-missions" class="hidden">
           <div class="glass p-5 md:p-6">
             <h2 class="font-bold">Missions</h2>
@@ -307,6 +312,7 @@
           </div>
         </div>
 
+        <!-- COMPLETE MISSION -->
         <div id="page-upload" class="hidden">
           <div class="glass p-5 md:p-6 max-w-3xl">
             <h2 class="font-bold">Complete mission</h2>
@@ -314,7 +320,9 @@
             <label class="block mt-4">Photo (attach):
               <input id="fileInput" accept="image/*" type="file" class="mt-2 w-full" />
             </label>
-            <div id="previewWrap" class="mt-4 hidden"><img id="previewImg" class="thumb" src="" alt="preview" /></div>
+            <div id="previewWrap" class="mt-4 hidden">
+              <img id="previewImg" class="thumb" src="" alt="preview" />
+            </div>
             <label class="block mt-4">Report:
               <textarea id="reportText" rows="5" class="w-full mt-2 p-3 rounded app-input"></textarea>
             </label>
@@ -329,6 +337,7 @@
           </div>
         </div>
 
+        <!-- BET -->
         <div id="page-aposta" class="hidden">
           <div class="glass p-5 md:p-6 max-w-5xl">
             <h2 class="font-bold">Aposta</h2>
@@ -336,15 +345,16 @@
               Bet up to 100 FONE analyzing cases from other users. If you follow the majority, you receive your bet + 75%.
             </p>
             <div class="mt-3 text-sm small-muted">
-              Your balance: <strong class="mono" id="apostaCredits">0.00</strong> FONE
+              Your credits: <strong class="mono" id="apostaCredits">0.00</strong> FONE
             </div>
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" id="apostaList"></div>
             <div class="mt-4 small-muted">
-              Note: Bets use your FONE balance.
+              Note: Bets use your credits balance (off-chain).
             </div>
           </div>
         </div>
 
+        <!-- SEND -->
         <div id="page-send" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
             <h2 class="font-bold">Take out / Send FONE</h2>
@@ -354,32 +364,33 @@
             </div>
 
             <label class="block mt-4">Destination address
-  <div class="flex gap-2 mt-2">
-    <input id="inputDest" list="contactsData" class="flex-1 p-3 rounded app-input mono" placeholder="FONE address (f..., 0x..., ...)" />
-    <button id="btnScanQR" type="button" class="btn-muted">Scan QR</button>
-    <button id="btnSaveContact" type="button" class="btn-ghost">Save</button>
-  </div>
-  <datalist id="contactsData"></datalist>
-  <div id="helpDest" class="mt-1 text-xs small-muted">Scan a QR or choose from your contacts.</div>
-</label>
+              <div class="flex gap-2 mt-2">
+                <input id="inputDest" list="contactsData" class="flex-1 p-3 rounded app-input mono" placeholder="FONE address (f..., 0x..., ...)" />
+                <button id="btnScanQR" type="button" class="btn-muted">Scan QR</button>
+                <button id="btnSaveContact" type="button" class="btn-ghost">Save</button>
+              </div>
+              <datalist id="contactsData"></datalist>
+              <div id="helpDest" class="mt-1 text-xs small-muted">Scan a QR or choose from your contacts.</div>
+            </label>
 
-<!-- Modal do scanner -->
-<div id="scanModal" class="modal">
-  <div class="glass p-4 w-full max-w-md rounded-lg">
-    <div class="flex items-center justify-between mb-3">
-      <h3 class="font-bold">Scan QR</h3>
-      <button id="qrClose" class="btn-muted">Fechar</button>
-    </div>
-    <div id="qr-reader" style="width:100%;"></div>
-    <div class="small-muted mt-2">Permita o acesso à câmera.</div>
-  </div>
-</div>
+            <!-- Modal do scanner -->
+            <div id="scanModal" class="modal">
+              <div class="glass p-4 w-full max-w-md rounded-lg">
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-bold">Scan QR</h3>
+                  <button id="qrClose" class="btn-muted">Fechar</button>
+                </div>
+                <div id="qr-reader" style="width:100%;"></div>
+                <div class="small-muted mt-2">Permita o acesso à câmera.</div>
+              </div>
+            </div>
+
             <label class="block mt-3">Value (FONE)
               <div class="flex items-center gap-2 mt-2">
                 <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded app-input mono" />
                 <button id="btnMax" class="btn-ghost px-3 py-2">MAX</button>
               </div>
-              <div class="mt-1 text-xs small-muted">Você pode enviar até o saldo disponível.</div>
+              <div class="mt-1 text-xs small-muted">Você pode enviar até o saldo disponível (on-chain).</div>
             </label>
 
             <label class="block mt-3">Message (optional)
@@ -398,6 +409,7 @@
           </div>
         </div>
 
+        <!-- RECEIVE -->
         <div id="page-receive" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
             <h2 class="font-bold">To receive FONE</h2>
@@ -425,6 +437,7 @@
           </div>
         </div>
 
+        <!-- LEADERBOARD -->
         <div id="page-leaderboard" class="hidden">
           <div class="glass p-5 md:p-6 max-w-3xl">
             <h2 class="font-bold">Leaderboard — Reputation</h2>
@@ -433,6 +446,7 @@
           </div>
         </div>
 
+        <!-- HISTORY -->
         <div id="page-history" class="hidden">
           <div class="glass p-5 md:p-6">
             <h2 class="font-bold">History</h2>
@@ -440,6 +454,7 @@
           </div>
         </div>
 
+        <!-- SETTINGS -->
         <div id="page-settings" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
             <h2 class="font-bold">Settings</h2>
@@ -463,14 +478,11 @@
               </div>
               <div>
                 <h3 class="font-bold">Fone API</h3>
-                <label class="block mt-2">SDK Key
-                  <input id="cfgSdk" class="mt-2 p-2 rounded app-input mono w-full" type="password" placeholder="cole sua SDK key (apenas teste)" />
-                </label>
-                <label class="block mt-2">Base URL
-                  <input id="cfgBase" class="mt-2 p-2 rounded app-input mono w-full" value="https://fonenetwork.ddns.net:8543" />
-                </label>
+                <p class="mt-2 text-sm small-muted">
+                  The node URL and SDK key are configured only on the backend (.env) and are never
+                  exposed to the browser.
+                </p>
                 <div class="mt-3 flex gap-2">
-                  <button id="btnSaveCfg" class="btn-accent">Save</button>
                   <button id="btnTestCfg" class="btn-muted">Test connection</button>
                 </div>
                 <div id="cfgMsg" class="small-muted mt-2"></div>
@@ -481,8 +493,10 @@
       </section>
     </main>
 
+    <!-- TOAST -->
     <div id="toast" style="position:fixed;right:12px;bottom:12px;z-index:90;display:flex;flex-direction:column;gap:8px;max-width:90vw;"></div>
 
+    <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal">
       <div class="glass p-6 w-full max-w-2xl rounded-lg">
         <div class="flex items-center justify-between mb-4">
@@ -510,6 +524,7 @@
       </div>
     </div>
 
+    <!-- PRIVATE KEY MODAL -->
     <div id="privModal" class="modal">
       <div class="glass p-6 w-full max-w-lg rounded-lg">
         <h3 class="font-bold text-lg">⚠️ Save your private key</h3>
@@ -522,6 +537,7 @@
       </div>
     </div>
 
+    <!-- WELCOME MODAL -->
     <div id="welcomeModal" class="modal">
       <div class="glass p-6 w-full max-w-lg rounded-lg text-center">
         <h3 class="font-bold text-xl mb-2">Welcome to Eco-Verify</h3>
@@ -532,7 +548,7 @@
       </div>
     </div>
 
-    <!-- Gate: criar/desbloquear senha do app -->
+    <!-- GATE PASSWORD MODAL -->
     <div id="gate" class="modal">
       <div class="glass p-6 w-full max-w-sm rounded-lg">
         <h3 class="font-bold text-lg mb-2">App password</h3>
@@ -562,7 +578,7 @@
       </div>
     </div>
 
-    <!-- Auth: confirmar ações críticas (enviar/logout) -->
+    <!-- AUTH MODAL -->
     <div id="authModal" class="modal">
       <div class="glass p-6 w-full max-w-sm rounded-lg">
         <h3 id="authTitle" class="font-bold text-lg mb-2">Confirm action</h3>
@@ -578,17 +594,19 @@
   </div>
 
   <script>
+    // ---------- CONSTANTES DE STORAGE / APP ----------
     const LS_LAST_WALLET = 'ev_last_wallet';
     const LS_WALLET_PREFIX = 'ev_wallet_';
     const LS_THEME = 'ev_theme';
     const LS_WELCOME = 'ev_welcome_seen';
-    const LS_SDK = 'ev_sdk';
-    const LS_BASE = 'ev_base';
-    const PASS_HASH = 'ev_pass_hash'; // não usado mais (mantido por compat)
+    const PASS_HASH = 'ev_pass_hash'; // legado
     const GATE_FLAG = 'ev_gate_ok';
-    const USE_PROXY = false;
+    const USE_PROXY = true;
 
-    // App Password (armazenamento de verificador)
+    
+    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com'; 
+
+    
     const PASS_SALT = 'ev_pass_salt';
     const PASS_VER = 'ev_pass_ver';
     const PASS_ITER = 'ev_pass_iter';
@@ -668,7 +686,10 @@
 
         $('authOk').onclick = onOk;
         $('authCancel').onclick = onCancel;
-        $('authPass').onkeydown = (e) => { if (e.key === 'Enter') onOk(); if (e.key === 'Escape') onCancel(); };
+        $('authPass').onkeydown = (e) => {
+          if (e.key === 'Enter') onOk();
+          if (e.key === 'Escape') onCancel();
+        };
       });
     }
     function bindGateUI() {
@@ -705,8 +726,12 @@
         }
       });
 
-      $('gatePass')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('gateBtn')?.click(); });
-      $('newPass2')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('gateCreateBtn')?.click(); });
+      $('gatePass')?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') $('gateBtn')?.click();
+      });
+      $('newPass2')?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') $('gateCreateBtn')?.click();
+      });
     }
     function initPasswordLock() {
       if (!isPasswordSet()) {
@@ -729,21 +754,14 @@
       showGate(true);
     }
 
+    // ---------- ESTADO GLOBAL ----------
     const State = {
-      settings: {
-        baseUrl: localStorage.getItem(LS_BASE) || 'https://fonenetwork.ddns.net:8543',
-        sdkKey: localStorage.getItem(LS_SDK) || ''
-      },
+      settings: {}, // SDK/base ficam só no backend
       wallet: null,
       persistedWalletAddress: localStorage.getItem(LS_LAST_WALLET) || null,
       balance: {
-        onchain: {
-          available: 0,
-          staked: 0,
-          vested: 0,
-          total: 0
-        },
-        credits: 0,         // mantido, mas não é mais usado pra conversão
+        onchain: { available: 0, staked: 0, vested: 0, total: 0 },
+        credits: 0,
         totalUI: 0,
         disponivelUI: 0
       },
@@ -765,6 +783,9 @@
       const app = $('app');
       if (app) app.setAttribute('data-theme', t);
     }
+
+    // No front não há nada para configurar; tudo está no backend (.env)
+    function ensureSdkConfigured() {}
 
     function toast(msg, time = 3200, type = 'info') {
       const colors = {
@@ -817,21 +838,32 @@
     }
 
     function recalcTotals() {
-      State.balance.totalUI = Number(State.balance.onchain.total || 0) + Number(State.balance.credits || 0);
-      State.balance.disponivelUI = Number(State.balance.onchain.available || 0) + Number(State.balance.credits || 0);
+      const onTotal = Number(State.balance.onchain.total || 0);
+      const onAvail = Number(State.balance.onchain.available || 0);
+      const credits = Number(State.balance.credits || 0);
+
+      State.balance.totalUI = onTotal + credits;
+      State.balance.disponivelUI = onAvail + credits;
     }
 
     function updateUI() {
-      const total = Number(State.balance.onchain.total || 0);
-      $('topBalance').innerText = `${total.toFixed(2)} FONE`;
-      $('topBreakdown').innerText = `Available: ${Number(State.balance.onchain.available || 0).toFixed(2)} FONE`;
+      const onTotal = Number(State.balance.onchain.total || 0);
+      const onAvail = Number(State.balance.onchain.available || 0);
+      const credits = Number(State.balance.credits || 0);
+      const totalUI = Number(State.balance.totalUI || (onTotal + credits));
+
+      $('topBalance').innerText = `${totalUI.toFixed(2)} FONE`;
+      $('topBreakdown').innerText =
+        `On-chain: ${onTotal.toFixed(2)} • Credits: ${credits.toFixed(2)} FONE`;
+
       const addr = getActiveAddress() || '—';
       $('topAddr').innerText = addr;
       $('walletAddressDisplay').innerText = addr;
       $('sidebarAddr').innerText = addr;
       $('sidebarRep').innerText = State.reputation || 0;
       $('repScore').innerText = State.reputation || 0;
-      $('sendAvail').innerText = Number(State.balance.onchain.available || 0).toFixed(2);
+
+      $('sendAvail').innerText = onAvail.toFixed(2);
 
       const hasWallet = !!getActiveAddress();
       if ($('logoutBtn')) $('logoutBtn').style.display = hasWallet ? 'block' : 'none';
@@ -846,6 +878,7 @@
       if ($('page-receive') && !$('page-receive').classList.contains('hidden')) renderReceivePage();
       applySendValidationUI();
       savePersistentForAddress(getActiveAddress());
+
       try {
         lucide.createIcons();
       } catch {}
@@ -876,72 +909,35 @@
       return State.wallet?.address || State.persistedWalletAddress || null;
     }
 
-    function normBase(u) {
+    function normBackendBase(u) {
       return (u || '').replace(/\/+$/, '');
     }
+
     async function api(path, method = 'GET', body) {
-      if (!USE_PROXY) {
-        const base = State.settings.baseUrl || localStorage.getItem(LS_BASE) || 'https://fonenetwork.ddns.net:8543';
-        const sdk = State.settings.sdkKey || localStorage.getItem(LS_SDK) || '';
-        if (!sdk) throw new Error('SDK key não configurada — abra Configurações > Fone API');
-        const url = normBase(base) + path;
-        const headers = {
-          'api-key': sdk,
-          'Accept': 'application/json'
-        };
-        if (body) headers['Content-Type'] = 'application/json';
-        let res;
-        try {
-          res = await fetch(url, {
-            method,
-            headers,
-            body: body ? JSON.stringify(body) : undefined
-          });
-        } catch (e) {
-          if (base.includes(':8543')) {
-            const alt = base.replace(':8543', '');
-            res = await fetch(normBase(alt) + path, {
-              method,
-              headers,
-              body: body ? JSON.stringify(body) : undefined
-            });
-          } else {
-            throw new Error('Falha de rede/CORS. Ajuste a Base URL nas Configurações.');
-          }
-        }
-        const txt = await res.text();
-        let data;
-        try {
-          data = txt ? JSON.parse(txt) : {};
-        } catch {
-          data = { raw: txt || '' };
-        }
-        if (!res.ok) throw new Error(data?.error || res.statusText || `HTTP ${res.status}`);
-        return data;
-      } else {
-        const mapped = path
-          .replace(/^\/v1\/wallet\/create$/, '/api/wallet/create')
-          .replace(/^\/v1\/wallet\/import$/, '/api/wallet/import')
-          .replace(/^\/v1\/transaction\/send$/, '/api/transaction/send')
-          .replace(/^\/v1\/transaction\//, '/api/transaction/')
-          .replace(/^\/v1\/wallet\/([^/]+)\/balance$/, '/api/wallet/$1/balance')
-          .replace(/^\/v1\/wallet\/([^/]+)\/transactions(.*)$/, '/api/wallet/$1/transactions$2');
-        const res = await fetch(mapped, {
-          method,
-          headers: body ? { 'Content-Type': 'application/json' } : {},
-          body: body ? JSON.stringify(body) : undefined
-        });
-        const txt = await res.text();
-        let data;
-        try { data = txt ? JSON.parse(txt) : {}; }
-        catch { data = { raw: txt || '' }; }
-        if (!res.ok) throw new Error(data?.error || res.statusText || `HTTP ${res.status}`);
-        return data;
+      const url = normBackendBase(BACKEND_BASE) + path;
+      const headers = { 'Accept': 'application/json' };
+      if (body) headers['Content-Type'] = 'application/json';
+
+      const res = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : undefined
+      });
+
+      const txt = await res.text();
+      let data;
+      try { data = txt ? JSON.parse(txt) : {}; }
+      catch { data = { raw: txt }; }
+
+      if (!res.ok) {
+        throw new Error(data.error || res.statusText || `HTTP ${res.status}`);
       }
+      return data;
     }
+
     async function createWalletFlow() {
       try {
-        const data = await api('/v1/wallet/create', 'POST');
+        const data = await api('/api/fone/wallet/create', 'POST');
         const addr = data.address, priv = data.privateKey;
         if (!addr || !priv) throw new Error('Falha ao criar carteira.');
         State.wallet = { address: addr };
@@ -966,7 +962,7 @@
         return;
       }
       try {
-        const data = await api('/v1/wallet/import', 'POST', { privateKey: String(pk).trim() });
+        const data = await api('/api/fone/wallet/import', 'POST', { privateKey: String(pk).trim() });
         const addr = data.address;
         if (!addr) throw new Error('Resposta sem endereço.');
         const persisted = loadPersistentForAddress(addr);
@@ -1011,17 +1007,6 @@
         $('importResult').innerText = 'Erro: ' + e.message;
       }
     }
-    async function syncBalance() {
-      const addr = getActiveAddress();
-      if (!addr) return;
-      const b = await api(`/v1/wallet/${encodeURIComponent(addr)}/balance`, 'GET');
-      const bal = b?.balance || {};
-      State.balance.onchain.available = Number(bal.available || 0);
-      State.balance.onchain.total = Number(bal.total || bal.available || 0);
-      State.balance.onchain.staked = Number(bal.staked || 0);
-      State.balance.onchain.vested = Number(bal.vested || 0);
-      recalcTotals();
-    }
 
     function txLine(tx, me) {
       const when = new Date(tx.timestamp).toLocaleString();
@@ -1032,27 +1017,54 @@
       const st = tx.status === 1 ? ' [pendente]' : '';
       return `[${when}] ${dir} ${tx.amount} FONE ${isOut ? '->' : '<-'} ${peer}${msg}${st}`;
     }
-    async function syncTransactions() {
+
+    async function syncAll() {
       const addr = getActiveAddress();
       if (!addr) return;
-      const data = await api(`/v1/wallet/${encodeURIComponent(addr)}/transactions`, 'GET');
-      const txs = data?.addressData?.addressTransactions || [];
-      const known = new Set(State.history || []);
-      txs.forEach(tx => {
-        const line = txLine(tx, addr);
-        if (!known.has(line)) State.history.push(line);
-      });
-    }
-    async function syncAll() {
-      if (!getActiveAddress()) return;
+
       State.syncing = true;
       updateUI();
+
       try {
-        await syncBalance();
-        await syncTransactions();
+        const data = await api(
+          `/api/fone/wallet/${encodeURIComponent(addr)}/transactions`,
+          'GET'
+        );
+
+        const addrData = data?.addressData || data || {};
+
+        let balRaw =
+          addrData.addressBalance ??
+          addrData.balance ??
+          data.balance ??
+          0;
+
+        // Se o nó retornar em WEI, descomente:
+        // balRaw = Number(balRaw) / 1e18;
+
+        let balNum = Number(balRaw);
+        if (!Number.isFinite(balNum)) balNum = 0;
+
+        State.balance.onchain.available = balNum;
+        State.balance.onchain.total = balNum;
+        State.balance.onchain.staked = 0;
+        State.balance.onchain.vested = 0;
+        recalcTotals();
+
+        const txs =
+          addrData.addressTransactions ||
+          data.transactions ||
+          [];
+        const known = new Set(State.history || []);
+        txs.forEach(tx => {
+          const line = txLine(tx, addr);
+          if (!known.has(line)) State.history.push(line);
+        });
+
       } catch (e) {
         toast('Falha ao sincronizar: ' + e.message, 2600);
       }
+
       State.syncing = false;
       updateUI();
     }
@@ -1072,7 +1084,7 @@
       else if (!isValidFoneAddress(dest)) errs.push('Endereço inválido.');
       if (!amt || !Number.isFinite(amt) || amt <= 0) errs.push('Informe um valor válido.');
       if (Number.isFinite(amt) && amt > 0 && amt > onAvail) {
-        errs.push('Saldo insuficiente.');
+        errs.push('Saldo on-chain insuficiente.');
       }
       if (getActiveAddress() && dest === getActiveAddress()) errs.push('Não envie para o próprio endereço.');
       return { ok: errs.length === 0, dest, amt, errors: errs };
@@ -1102,7 +1114,7 @@
         amount: Number(amount),
         ...(message ? { message } : {})
       };
-      const res = await api('/v1/transaction/send', 'POST', payload);
+      const res = await api('/api/fone/transaction/send', 'POST', payload);
       return res;
     }
 
@@ -1138,7 +1150,9 @@
         </div>`;
       });
       State.missions.forEach(m => {
-        if (!State.completedMissionIds.includes(m.id)) side.innerHTML += `<li class="flex justify-between"><span>${m.title}</span><span class="text-sm small-muted">${m.reward} F</span></li>`;
+        if (!State.completedMissionIds.includes(m.id)) {
+          side.innerHTML += `<li class="flex justify-between"><span>${m.title}</span><span class="text-sm small-muted">${m.reward} F</span></li>`;
+        }
       });
     }
 
@@ -1171,6 +1185,7 @@
         list.appendChild(card);
       });
     }
+
     window.openMission = function openMission(id) {
       const m = State.missions.find(x => x.id === id);
       if (!m) return toast('Missão não encontrada', 2500);
@@ -1184,14 +1199,15 @@
       showPage('upload');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
     $('fileInput')?.addEventListener('change', (ev) => {
       const f = ev.target.files[0];
       if (!f) return;
       $('previewImg').src = URL.createObjectURL(f);
       $('previewWrap').classList.remove('hidden');
     });
-    let missionSubmitting = false;
 
+    let missionSubmitting = false;
     function uploadStaging() {
       return new Promise(r => setTimeout(r, 400));
     }
@@ -1216,19 +1232,18 @@
         State.leaderboard[me] = Number(State.leaderboard[me] || 0) + repAdd;
 
         const reward = Number(m.reward || 0);
-        State.balance.onchain.available = Number(State.balance.onchain.available || 0) + reward;
-        State.balance.onchain.total = Number(State.balance.onchain.total || 0) + reward;
+        State.balance.credits = Number(State.balance.credits || 0) + reward;
         recalcTotals();
+        updateUI();
 
         $('missionDetails').innerHTML = `
           <div>ID: <span class="mono">${m.id}</span></div>
           <div>Mission: ${m.title}</div>
-          <div>Reward credited: <strong>${m.reward} FONE</strong></div>
+          <div>Reward credited: <strong>${m.reward} FONE</strong> (credits)</div>
           <div>Reputation: +${repAdd} pts</div>`;
         $('missionNotice').classList.remove('hidden');
         savePersistentForAddress(getActiveAddress());
-        await syncAll();
-        updateUI();
+
         toast('Mission approved! Credits added.', 3000);
         showPage('dashboard');
       } catch (e) {
@@ -1256,12 +1271,16 @@
     function renderApostaPage() {
       const wrap = $('apostaList');
       if (!wrap) return;
-      $('apostaCredits').innerText = Number(State.balance.onchain.available || 0).toFixed(2);
+
+      const credAvail = Number(State.balance.credits || 0);
+      $('apostaCredits').innerText = credAvail.toFixed(2);
+
       wrap.innerHTML = '';
       if (!State.reviewQueue.length) {
         wrap.innerHTML = '<div class="small-muted">— No cases to review —</div>';
         return;
       }
+
       State.reviewQueue.forEach(item => {
         const bet = State.bets[item.id];
         const statusLine = (() => {
@@ -1271,10 +1290,13 @@
           }
           const maj = bet.majority === 'approve' ? 'APPROVED' : 'FAIL';
           const res = bet.win ? 'You Win 🎉' : 'You Lose';
-          const delta = bet.win ? `+${(bet.payout - bet.amount).toFixed(2)} FONE` : `-${bet.amount.toFixed(2)} FONE`;
+          const delta = bet.win
+            ? `+${(bet.payout - bet.amount).toFixed(2)} FONE`
+            : `-${bet.amount.toFixed(2)} FONE`;
           return `<div class="mt-2 text-xs"><div>Result: <strong>${maj}</strong></div><div>${res} • ${delta}</div></div>`;
         })();
         const disabled = bet && (bet.status === 'pending' || bet.status === 'settled') ? 'disabled' : '';
+
         const div = document.createElement('div');
         div.className = 'glass p-4 rounded';
         div.innerHTML = `
@@ -1284,30 +1306,37 @@
           <div class="mt-2 small-muted">${item.report}</div>
           <div class="mt-3 text-xs small-muted">Bet up to 100 FONE</div>
           <div class="mt-1 flex items-center gap-2">
-            <input id="bet-${item.id}" type="number" min="1" max="100" step="1" class="p-2 rounded app-input mono w-24" ${disabled} value="${Math.min(10, Math.floor((State.balance?.onchain?.available || 0) / 2))}">
+            <input id="bet-${item.id}" type="number" min="1" max="100" step="1"
+              class="p-2 rounded app-input mono w-24" ${disabled}
+              value="${Math.min(10, Math.floor(credAvail / 2))}">
             <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
             <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Fail</button>
           </div>
           ${statusLine}`;
         wrap.appendChild(div);
       });
+
       try {
         lucide.createIcons();
       } catch {}
     }
+
     window.placeBet = function placeBet(id, decision) {
       const item = State.reviewQueue.find(x => x.id === id);
       if (!item) return toast('Item não encontrado', 2500);
       if (State.bets[id]) return toast('Você já apostou neste item.', 2500);
+
       const inp = $('bet-' + id);
       const amount = Number(inp?.value || 0);
       if (!Number.isFinite(amount) || amount <= 0) return toast('Informe um valor válido.', 2500);
       if (amount > 100) return toast('Aposta máxima é 100 FONE.', 3000);
-      const avail = Number(State.balance?.onchain?.available || 0);
-      if (amount > avail) return toast('Saldo insuficiente para apostar.', 3000);
-      State.balance.onchain.available = avail - amount;
-      State.balance.onchain.total = Math.max(0, Number(State.balance.onchain.total || 0) - amount);
+
+      const avail = Number(State.balance?.credits || 0);
+      if (amount > avail) return toast('Créditos insuficientes para apostar.', 3000);
+
+      State.balance.credits = avail - amount;
       recalcTotals();
+
       State.bets[id] = { amount, decision, status: 'pending', createdAt: Date.now() };
       savePersistentForAddress(getActiveAddress());
       updateUI();
@@ -1318,28 +1347,42 @@
       const item = State.reviewQueue.find(x => x.id === id);
       const bet = State.bets[id];
       if (!item || !bet || bet.status === 'settled') return;
+
       const majority = item.isValid ? 'approve' : 'reject';
       const userWin = (bet.decision === majority);
       const payout = userWin ? bet.amount * 1.75 : 0;
+
       if (payout > 0) {
-        State.balance.onchain.available = Number(State.balance.onchain.available || 0) + payout;
-        State.balance.onchain.total = Number(State.balance.onchain.total || 0) + payout;
+        State.balance.credits = Number(State.balance.credits || 0) + payout;
         recalcTotals();
       }
+
       bet.status = 'settled';
       bet.majority = majority;
       bet.payout = payout;
       bet.win = userWin;
+
       const votedStr = bet.decision === 'approve' ? 'APPROVE' : 'FAIL';
       const majStr = majority === 'approve' ? 'APPROVED' : 'FAIL';
-      const gain = userWin ? `It won +${(payout - bet.amount).toFixed(2)} FONE (return ${payout.toFixed(2)})` : `Lose ${bet.amount.toFixed(2)} FONE`;
-      State.history.push(`[${new Date().toLocaleString()}] Bet: ${item.title} — vote ${votedStr}. ${gain} • majority: ${majStr}`);
+      const gain = userWin
+        ? `It won +${(payout - bet.amount).toFixed(2)} FONE (return ${payout.toFixed(2)})`
+        : `Lose ${bet.amount.toFixed(2)} FONE`;
+
+      State.history.push(
+        `[${new Date().toLocaleString()}] Bet: ${item.title} — vote ${votedStr}. ${gain} • majority: ${majStr}`
+      );
       savePersistentForAddress(getActiveAddress());
       renderApostaPage();
       updateUI();
-      toast(userWin ? `You won the bet! +${(payout - bet.amount).toFixed(2)} FONE` : `You lose: -${bet.amount.toFixed(2)} FONE`, 3800);
+      toast(
+        userWin
+          ? `You won the bet! +${(payout - bet.amount).toFixed(2)} FONE`
+          : `You lose: -${bet.amount.toFixed(2)} FONE`,
+        3800
+      );
     }
 
+    // ---------- CONTATOS E QR SCAN ----------
     const LS_CONTACTS = 'ev_contacts';
     function getContacts() {
       try { return JSON.parse(localStorage.getItem(LS_CONTACTS) || '[]'); } catch { return []; }
@@ -1403,7 +1446,6 @@
     $('btnScanQR')?.addEventListener('click', openScan);
     $('qrClose')?.addEventListener('click', closeScan);
 
-    // salvar contato
     $('btnSaveContact')?.addEventListener('click', () => {
       const addr = ($('inputDest')?.value || '').trim();
       if (!addr) return toast('Informe um endereço para salvar.', 1800, 'warning');
@@ -1412,9 +1454,9 @@
       saveContact(addr, label.trim());
     });
 
-    // renderizar datalist no init
     renderContactsDatalist();
 
+    // ---------- HISTORY & LEADERBOARD ----------
     function renderHistory() {
       const el = $('historyList');
       if (!el) return;
@@ -1447,7 +1489,12 @@
         const isMe = me && me === u.addr;
         const row = document.createElement('div');
         row.className = 'p-3 glass rounded flex items-center gap-3';
-        row.innerHTML = `<div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#021124">${idx + 1}</div> <div style="flex:1"> <div class="font-semibold">${isMe ? 'You' : (u.addr)}</div> <div class="text-xs small-muted">Reputation: <strong>${u.rep}</strong></div> </div> <div class="text-sm small-muted">${u.rep} pts</div>`;
+        row.innerHTML = `<div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#021124">${idx + 1}</div>
+          <div style="flex:1">
+            <div class="font-semibold">${isMe ? 'You' : (u.addr)}</div>
+            <div class="text-xs small-muted">Reputation: <strong>${u.rep}</strong></div>
+          </div>
+          <div class="text-sm small-muted">${u.rep} pts</div>`;
         el.appendChild(row);
       });
     }
@@ -1468,6 +1515,8 @@
         });
       }
     }
+
+    // ---------- NAV ----------
     document.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', () => {
       const r = a.dataset.route;
       showPage(r);
@@ -1567,7 +1616,6 @@
       applySendValidationUI();
     });
 
-    // Enviar FONE — pede senha do app antes de prosseguir
     $('btnSendTx')?.addEventListener('click', async () => {
       const v = validateSendForm();
       if (!v.ok) return applySendValidationUI();
@@ -1595,7 +1643,6 @@
       }
     });
 
-    // Logout — pede senha do app e corrige typos
     $('logoutBtn')?.addEventListener('click', async () => {
       if (!confirm('Deseja realmente sair?')) return;
 
@@ -1632,60 +1679,31 @@
       toast('Logout feito.', 2000);
     });
 
-    $('cfgSdk').value = State.settings.sdkKey || '';
-    $('cfgBase').value = State.settings.baseUrl || 'https://fonenetwork.ddns.net:8543';
-    $('btnSaveCfg')?.addEventListener('click', () => {
-      State.settings.sdkKey = ($('cfgSdk')?.value || '').trim();
-      State.settings.baseUrl = ($('cfgBase')?.value || '').trim() || State.settings.baseUrl;
-      localStorage.setItem(LS_SDK, State.settings.sdkKey);
-      localStorage.setItem(LS_BASE, State.settings.baseUrl);
-      $('cfgMsg').innerText = 'Saved Settings.';
-      toast('Saved configuration.', 1600);
-    });
-    $('btnTestCfg')?.addEventListener('click', async () => {
-      $('cfgMsg').innerText = 'Testing...';
+    function bindSaveCfgWatcher() {
+      const btnTest = $('btnTestCfg');
 
-      try {
-        await api('/v1/wallet/create', 'POST');
-        $('cfgMsg').innerText = 'Connection OK (test wallet created).';
-        toast('Conexão OK', 1600);
-      } catch (e) {
-        $('cfgMsg').innerText = 'Failed: ' + e.message + ' (check CORS/BASE URL/SDK)';
+      if (btnTest) {
+        btnTest.addEventListener('click', async () => {
+          $('cfgMsg').innerText = 'Testando conexão com backend...';
+
+          try {
+            await api('/api/fone/wallet/create', 'POST');
+            $('cfgMsg').innerText = 'Backend OK (consegue criar carteira de teste).';
+            toast('Conexão OK', 1600, 'success');
+          } catch (e) {
+            $('cfgMsg').innerText =
+              'Failed: ' + e.message + ' (verifique backend / CORS)';
+            toast('Falha ao conectar.', 2000, 'error');
+          }
+        });
       }
-    });
+    }
 
     $('btnStart')?.addEventListener('click', () => {
       $('welcomeModal')?.classList.remove('show');
       showModal('loginModal', true);
       localStorage.setItem(LS_WELCOME, '1');
     });
-
-    function ensureSdkConfigured() {
-      try {
-        const sdk = localStorage.getItem(LS_SDK) || '';
-        const banner = $('sdkBanner');
-        if (!USE_PROXY && !sdk) {
-          if (banner) banner.style.display = 'flex';
-          const btn = $('sdkGoSettings');
-          if (btn) btn.onclick = () => {
-            showPage('settings');
-            $('cfgSdk')?.focus();
-          };
-          toast('Configure your SDK key in Settings → Fone API', 4500);
-          showPage('settings');
-        } else {
-          if (banner) banner.style.display = 'none';
-        }
-      } catch {}
-    }
-
-    function bindSaveCfgWatcher() {
-      const btn = $('btnSaveCfg');
-      if (!btn) return;
-      btn.addEventListener('click', () => {
-        setTimeout(() => ensureSdkConfigured(), 80);
-      });
-    }
 
     (function init() {
       const lastAddr = State.persistedWalletAddress;
@@ -1711,7 +1729,8 @@
       if (sel) sel.value = savedTheme;
 
       if (State.persistedWalletAddress) {
-        State.leaderboard[State.persistedWalletAddress] = Number(State.leaderboard[State.persistedWalletAddress] || State.reputation || 0);
+        State.leaderboard[State.persistedWalletAddress] =
+          Number(State.leaderboard[State.persistedWalletAddress] || State.reputation || 0);
       }
       updateUI();
       if (getActiveAddress()) {
