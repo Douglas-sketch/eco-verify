@@ -232,9 +232,9 @@
         </div>
         <div class="flex items-stretch md:items-center gap-3 w-full md:w-auto">
           <div class="glass p-3 rounded text-right w-full md:w-[340px]">
-            <div class="text-xs small-muted">Total balance (on-chain + credits)</div>
+            <div class="text-xs small-muted">On-chain FONE balance</div>
             <div id="topBalance" class="text-2xl font-bold mono">0.00 FONE</div>
-            <div id="topBreakdown" class="text-xs small-muted mt-1">On-chain: 0.00 • Credits: 0.00 FONE</div>
+            <div id="topBreakdown" class="text-xs small-muted mt-1">On-chain: 0.00 FONE</div>
             <div class="text-xs small-muted mt-2">Address</div>
             <div id="topAddr" class="mono text-sm break-words">—</div>
           </div>
@@ -279,8 +279,8 @@
               <h3 class="font-bold">How it works</h3>
               <ol class="text-sm small-muted list-decimal list-inside mt-2 space-y-2">
                 <li>Create or import your FONE wallet (save your private key).</li>
-                <li>Complete missions to earn Credits and Reputation.</li>
-                <li>Convert Credits into on-chain FONE and send/receive.</li>
+                <li>Complete missions to earn Reputation (simulated rewards).</li>
+                <li>Manage and use your on-chain FONE balance to send/receive.</li>
               </ol>
             </div>
           </div>
@@ -342,14 +342,14 @@
           <div class="glass p-5 md:p-6 max-w-5xl">
             <h2 class="font-bold">Betting</h2>
             <p class="text-sm small-muted">
-              Bet up to 100 FONE by reviewing other users’ cases. If you follow the majority, you receive your stake + 75%.
+              Bet up to 100 demo FONE by reviewing other users’ cases. If you follow the majority, you receive your stake + 75%.
             </p>
             <div class="mt-3 text-sm small-muted">
-              Your credits: <strong class="mono" id="apostaCredits">0.00</strong> FONE
+              Demo balance (simulated): <strong class="mono" id="apostaCredits">1000.00</strong> FONE
             </div>
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" id="apostaList"></div>
             <div class="mt-4 small-muted">
-              Note: bets use your Credits balance (off-chain).
+              Note: bets are fully simulated and do not affect your real on-chain balance.
             </div>
           </div>
         </div>
@@ -764,7 +764,6 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       persistedWalletAddress: localStorage.getItem(LS_LAST_WALLET) || null,
       balance: {
         onchain: { available: 0, staked: 0, vested: 0, total: 0 },
-        credits: 0,
         totalUI: 0,
         disponivelUI: 0
       },
@@ -775,7 +774,8 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       reputation: 0,
       reviewQueue: [],
       bets: {},
-      syncing: false
+      syncing: false,
+      demoBetBalance: 1000 // saldo demo para Betting (simulado)
     };
     const $ = (id) => document.getElementById(id);
 
@@ -822,7 +822,8 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
         leaderboard: State.leaderboard,
         reputation: State.reputation,
         reviewQueue: State.reviewQueue,
-        bets: State.bets
+        bets: State.bets,
+        demoBetBalance: State.demoBetBalance
       };
       try {
         localStorage.setItem(LS_WALLET_PREFIX + addr, JSON.stringify(payload));
@@ -864,20 +865,16 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
     function recalcTotals() {
       const onTotal = Number(State.balance.onchain.total || 0);
       const onAvail = Number(State.balance.onchain.available || 0);
-      const credits = Number(State.balance.credits || 0);
-      State.balance.totalUI = onTotal + credits;
-      State.balance.disponivelUI = onAvail + credits;
+      State.balance.totalUI = onTotal;
+      State.balance.disponivelUI = onAvail;
     }
 
     function updateUI() {
       const onTotal = Number(State.balance.onchain.total || 0);
       const onAvail = Number(State.balance.onchain.available || 0);
-      const credits = Number(State.balance.credits || 0);
-      const totalUI = Number(State.balance.totalUI || (onTotal + credits));
 
-      $('topBalance').innerText = `${totalUI.toFixed(2)} FONE`;
-      $('topBreakdown').innerText =
-        `On-chain: ${onTotal.toFixed(2)} • Credits: ${credits.toFixed(2)} FONE`;
+      $('topBalance').innerText = `${onTotal.toFixed(2)} FONE`;
+      $('topBreakdown').innerText = `On-chain balance: ${onTotal.toFixed(2)} FONE`;
 
       const addr = getActiveAddress() || '—';
       $('topAddr').innerText = addr;
@@ -969,7 +966,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
 
         savePrivateKeySession(addr, priv);
 
-        State.balance.credits = 0;
+        State.demoBetBalance = 1000;
         recalcTotals();
         $('createdResult').innerText = `Address: ${addr}`;
         showModal('privModal', true);
@@ -996,21 +993,19 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
         const persisted = loadPersistentForAddress(addr);
         if (persisted) {
           State.persistedWalletAddress = addr;
-          Object.assign(State, {
-            balance: persisted.balance || State.balance,
-            history: persisted.history || [],
-            missions: persisted.missions || [],
-            completedMissionIds: persisted.completedMissionIds || [],
-            leaderboard: persisted.leaderboard || {},
-            reputation: persisted.reputation || 0,
-            reviewQueue: persisted.reviewQueue || [],
-            bets: persisted.bets || {}
-          });
+          State.balance = persisted.balance || State.balance;
+          State.history = persisted.history || [];
+          State.missions = persisted.missions || [];
+          State.completedMissionIds = persisted.completedMissionIds || [];
+          State.leaderboard = persisted.leaderboard || {};
+          State.reputation = persisted.reputation || 0;
+          State.reviewQueue = persisted.reviewQueue || [];
+          State.bets = persisted.bets || {};
+          State.demoBetBalance = typeof persisted.demoBetBalance === 'number' ? persisted.demoBetBalance : 1000;
         } else {
           State.persistedWalletAddress = addr;
           State.balance = {
             onchain: { available: 0, staked: 0, vested: 0, total: 0 },
-            credits: 0,
             totalUI: 0,
             disponivelUI: 0
           };
@@ -1020,6 +1015,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
           State.reputation = 0;
           State.reviewQueue = [];
           State.bets = {};
+          State.demoBetBalance = 1000;
           buildMissions();
           buildReviewQueueAposta();
           recalcTotals();
@@ -1069,9 +1065,6 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
           addrData.balance ??
           data.balance ??
           0;
-
-        // If the node returns WEI, uncomment:
-        // balRaw = Number(balRaw) / 1e18;
 
         let balNum = Number(balRaw);
         if (!Number.isFinite(balNum)) balNum = 0;
@@ -1149,7 +1142,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       return res;
     }
 
-    // ----- MISSIONS / BETTING (unchanged logic, text in English) -----
+    // ----- MISSIONS / BETTING (simulated) -----
     function buildMissions() {
       if (State.missions && State.missions.length) return;
       State.missions = [
@@ -1253,7 +1246,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       if (!file) return alert('Select a photo.');
       if (!report || report.length < 10) return toast('Write a report with at least 10 characters.', 2500, 'warning');
       missionSubmitting = true;
-      toast('Validating mission…', 1800, 'info');
+      toast('Validating mission… (simulated)', 1800, 'info');
       try {
         await uploadStaging();
         await new Promise(r => setTimeout(r, 800));
@@ -1263,20 +1256,18 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
         const me = getActiveAddress() || 'anonymous';
         State.leaderboard[me] = Number(State.leaderboard[me] || 0) + repAdd;
 
-        const reward = Number(m.reward || 0);
-        State.balance.credits = Number(State.balance.credits || 0) + reward;
         recalcTotals();
         updateUI();
 
         $('missionDetails').innerHTML = `
           <div>ID: <span class="mono">${m.id}</span></div>
           <div>Mission: ${m.title}</div>
-          <div>Reward credited: <strong>${m.reward} FONE</strong> (credits)</div>
+          <div>Reward (simulated): <strong>${m.reward} FONE</strong></div>
           <div>Reputation: +${repAdd} pts</div>`;
         $('missionNotice').classList.remove('hidden');
         savePersistentForAddress(getActiveAddress());
 
-        toast('Mission approved! Credits added.', 3000, 'success');
+        toast('Mission approved! (simulated reward)', 3000, 'success');
         showPage('dashboard');
       } catch (e) {
         toast('Error: ' + e.message, 3000, 'error');
@@ -1304,8 +1295,9 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       const wrap = $('apostaList');
       if (!wrap) return;
 
-      const credAvail = Number(State.balance.credits || 0);
-      $('apostaCredits').innerText = credAvail.toFixed(2);
+      const demo = Number(State.demoBetBalance || 0);
+      const creditsEl = $('apostaCredits');
+      if (creditsEl) creditsEl.innerText = demo.toFixed(2);
 
       wrap.innerHTML = '';
       if (!State.reviewQueue.length) {
@@ -1323,11 +1315,13 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
           const maj = bet.majority === 'approve' ? 'APPROVED' : 'REJECTED';
           const res = bet.win ? 'You win 🎉' : 'You lose';
           const delta = bet.win
-            ? `+${(bet.payout - bet.amount).toFixed(2)} FONE`
-            : `-${bet.amount.toFixed(2)} FONE`;
+            ? `+${(bet.payout - bet.amount).toFixed(2)} demo FONE`
+            : `-${bet.amount.toFixed(2)} demo FONE`;
           return `<div class="mt-2 text-xs"><div>Result: <strong>${maj}</strong></div><div>${res} • ${delta}</div></div>`;
         })();
         const disabled = bet && (bet.status === 'pending' || bet.status === 'settled') ? 'disabled' : '';
+
+        const defaultBet = 10;
 
         const div = document.createElement('div');
         div.className = 'glass p-4 rounded';
@@ -1336,11 +1330,11 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
           <div class="text-xs small-muted">Reward: ${item.reward} FONE • Submitted by <span class="mono">${item.submitter}</span></div>
           <div class="mt-3"><img src="${item.image}" alt="proof" class="thumb" /></div>
           <div class="mt-2 small-muted">${item.report}</div>
-          <div class="mt-3 text-xs small-muted">Bet up to 100 FONE</div>
+          <div class="mt-3 text-xs small-muted">Bet up to 100 demo FONE (simulated)</div>
           <div class="mt-1 flex items-center gap-2">
             <input id="bet-${item.id}" type="number" min="1" max="100" step="1"
               class="p-2 rounded app-input mono w-24" ${disabled}
-              value="${Math.min(10, Math.floor(credAvail / 2))}">
+              value="${defaultBet}">
             <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
             <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Reject</button>
           </div>
@@ -1361,17 +1355,17 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       const inp = $('bet-' + id);
       const amount = Number(inp?.value || 0);
       if (!Number.isFinite(amount) || amount <= 0) return toast('Enter a valid bet amount.', 2500, 'warning');
-      if (amount > 100) return toast('Maximum bet is 100 FONE.', 3000, 'warning');
+      if (amount > 100) return toast('Maximum bet is 100 demo FONE.', 3000, 'warning');
 
-      const avail = Number(State.balance?.credits || 0);
-      if (amount > avail) return toast('Not enough credits to place this bet.', 3000, 'error');
+      const avail = Number(State.demoBetBalance || 0);
+      if (amount > avail) return toast('Not enough demo balance to place this bet.', 3000, 'error');
 
-      State.balance.credits = avail - amount;
-      recalcTotals();
+      State.demoBetBalance = avail - amount;
 
       State.bets[id] = { amount, decision, status: 'pending', createdAt: Date.now() };
       savePersistentForAddress(getActiveAddress());
-      updateUI();
+      renderApostaPage();
+      toast('Bet placed (simulated). Waiting for majority…', 2800, 'info');
       setTimeout(() => settleBet(id), 3000);
     };
 
@@ -1385,8 +1379,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       const payout = userWin ? bet.amount * 1.75 : 0;
 
       if (payout > 0) {
-        State.balance.credits = Number(State.balance.credits || 0) + payout;
-        recalcTotals();
+        State.demoBetBalance = Number(State.demoBetBalance || 0) + payout;
       }
 
       bet.status = 'settled';
@@ -1397,19 +1390,18 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       const votedStr = bet.decision === 'approve' ? 'APPROVE' : 'REJECT';
       const majStr = majority === 'approve' ? 'APPROVED' : 'REJECTED';
       const gain = userWin
-        ? `Won +${(payout - bet.amount).toFixed(2)} FONE (received ${payout.toFixed(2)})`
-        : `Lost ${bet.amount.toFixed(2)} FONE`;
+        ? `Won +${(payout - bet.amount).toFixed(2)} demo FONE (received ${payout.toFixed(2)})`
+        : `Lost ${bet.amount.toFixed(2)} demo FONE`;
 
       State.history.push(
-        `[${new Date().toLocaleString()}] Bet: ${item.title} — vote ${votedStr}. ${gain} • majority: ${majStr}`
+        `[${new Date().toLocaleString()}] Bet (simulated): ${item.title} — vote ${votedStr}. ${gain} • majority: ${majStr}`
       );
       savePersistentForAddress(getActiveAddress());
       renderApostaPage();
-      updateUI();
       toast(
         userWin
-          ? `You won the bet! +${(payout - bet.amount).toFixed(2)} FONE`
-          : `You lost the bet: -${bet.amount.toFixed(2)} FONE`,
+          ? `You won the bet! (simulated) +${(payout - bet.amount).toFixed(2)} demo FONE`
+          : `You lost the bet (simulated): -${bet.amount.toFixed(2)} demo FONE`,
         3800
       );
     }
@@ -1700,7 +1692,6 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
 
       State.balance = {
         onchain: { available: 0, staked: 0, vested: 0, total: 0 },
-        credits: 0,
         totalUI: 0,
         disponivelUI: 0
       };
@@ -1710,6 +1701,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
       State.bets = {};
       State.missions = [];
       State.completedMissionIds = [];
+      State.demoBetBalance = 1000;
 
       buildMissions();
       buildReviewQueueAposta();
@@ -1761,6 +1753,7 @@ Private keys are NEVER saved on servers. You are only asked to sign transactions
           State.reputation = persisted.reputation || 0;
           State.reviewQueue = persisted.reviewQueue || [];
           State.bets = persisted.bets || {};
+          State.demoBetBalance = typeof persisted.demoBetBalance === 'number' ? persisted.demoBetBalance : 1000;
         }
       }
       buildMissions();
