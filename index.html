@@ -3,34 +3,34 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <title>Eco-Verify — FONE DePIN </title>
+  <title>Eco-Verify — FONE DePIN (Demo)</title>
   <link rel="shortcut icon" href="image.png" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root {
-      --accent:#06f30a;
-      --accent-2:#00e676;
-      --glass-border:rgba(255,255,255,.08);
-      --bg:linear-gradient(180deg,#05010a,#071022);
-      --card-bg:rgba(12,12,20,.5);
-      --muted:#9aa6bf;
-      --surface:#0b1220;
-      --input-bg:#071219;
-      --input-text:#e6eef8;
-      --code-bg:#0b1220;
-      --body-text:#e6eef8;
+      --accent:#22c55e;
+      --accent-2:#0ea5e9;
+      --glass-border:rgba(148,163,184,.35);
+      --bg:#020617;
+      --card-bg:rgba(15,23,42,.78);
+      --muted:#9ca3af;
+      --surface:#020617;
+      --input-bg:rgba(15,23,42,.94);
+      --input-text:#e5e7eb;
+      --code-bg:#020617;
+      --body-text:#e5e7eb;
       color-scheme:dark;
     }
     :root[data-theme="light"]{
-      --accent:#06c755;
-      --accent-2:#00e676;
-      --glass-border:rgba(15,23,42,.12);
-      --bg:#f3f4f6;
-      --card-bg:#ffffff;
-      --muted:#475569;
-      --surface:#ffffff;
+      --accent:#16a34a;
+      --accent-2:#0ea5e9;
+      --glass-border:rgba(148,163,184,.4);
+      --bg:#e5f3ff;
+      --card-bg:rgba(255,255,255,.94);
+      --muted:#64748b;
+      --surface:#f1f5f9;
       --input-bg:#ffffff;
       --input-text:#020617;
       --code-bg:#e5e7eb;
@@ -42,43 +42,127 @@
       margin:0;
       background:var(--bg);
       color:var(--body-text);
-      font-family:Inter,system-ui,Roboto,Arial,sans-serif;
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, "Inter", Roboto, Arial, sans-serif;
       -webkit-font-smoothing:antialiased;
       scroll-behavior:smooth;
     }
+
+    /* 3D animated background */
+    .bg-scene{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      z-index:-1;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56,189,248,.3), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(34,197,94,.28), transparent 55%),
+        radial-gradient(circle at 20% 100%, rgba(129,140,248,.28), transparent 55%),
+        radial-gradient(circle at 100% 20%, rgba(147,51,234,.26), transparent 60%);
+    }
+    .bg-grid{
+      position:absolute;
+      inset:20% -50% -40%;
+      background-image:
+        linear-gradient(to right, rgba(148,163,184,.18) 1px, transparent 1px),
+        linear-gradient(to top, rgba(148,163,184,.14) 1px, transparent 1px);
+      background-size:40px 40px;
+      transform-origin:center top;
+      transform:perspective(900px) rotateX(70deg) translateY(20px);
+      opacity:0.6;
+      filter:drop-shadow(0 10px 25px rgba(15,23,42,.9));
+      animation:gridMove 18s linear infinite;
+    }
+    @keyframes gridMove{
+      0%   { background-position:0 0, 0 0; opacity:.65; }
+      50%  { background-position:0 40px, 0 20px; opacity:.45; }
+      100% { background-position:0 80px,0 40px; opacity:.65; }
+    }
+    .bg-orb{
+      position:absolute;
+      border-radius:999px;
+      filter:blur(16px);
+      opacity:.55;
+      mix-blend-mode:screen;
+      pointer-events:none;
+      animation:floatOrb 22s ease-in-out infinite alternate;
+    }
+    .bg-orb.orb-1{
+      width:360px;height:360px;
+      background:radial-gradient(circle at 30% 20%,rgba(56,189,248,.95),transparent 65%);
+      top:-60px; left:-80px;
+      animation-duration:24s;
+    }
+    .bg-orb.orb-2{
+      width:280px;height:280px;
+      background:radial-gradient(circle at 60% 40%,rgba(34,197,94,.9),transparent 65%);
+      bottom:-40px; right:-40px;
+      animation-duration:28s;
+    }
+    .bg-orb.orb-3{
+      width:220px;height:220px;
+      background:radial-gradient(circle at 50% 30%,rgba(147,51,234,.9),transparent 65%);
+      bottom:15%; left:15%;
+      animation-duration:26s;
+    }
+    @keyframes floatOrb{
+      0%  { transform:translate3d(0,0,0) scale(1); }
+      50% { transform:translate3d(20px,-30px,0) scale(1.05); }
+      100%{ transform:translate3d(-10px,20px,0) scale(1.03); }
+    }
+
     .glass{
       background:var(--card-bg);
-      border:1px solid var(--glass-border);
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
-      border-radius:12px;
-      transition:transform .18s ease,box-shadow .18s ease,border-color .25s ease;
+      border:1px solid rgba(148,163,184,.28);
+      backdrop-filter:blur(18px) saturate(140%);
+      -webkit-backdrop-filter:blur(18px) saturate(140%);
+      border-radius:18px;
+      box-shadow:
+        0 18px 40px rgba(15,23,42,.75),
+        0 0 0 1px rgba(15,23,42,.3);
+      transition:
+        transform .18s ease-out,
+        box-shadow .2s ease-out,
+        border-color .22s ease-out,
+        background .2s ease-out;
+      transform-origin:center center;
     }
     .glass:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 24px rgba(0,0,0,.16);
+      transform:translateY(-4px) translateZ(0) rotateX(1.1deg) rotateY(-0.8deg);
+      box-shadow:
+        0 25px 60px rgba(15,23,42,.85),
+        0 0 0 1px rgba(59,130,246,.45);
+      border-color:rgba(59,130,246,.65);
     }
+
     .btn-accent{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      background:linear-gradient(120deg,var(--accent),var(--accent-2));
       color:#021124;
-      padding:.6rem .9rem;
-      border-radius:.65rem;
-      font-weight:800;
+      padding:.6rem .95rem;
+      border-radius:.9rem;
+      font-weight:700;
       border:none;
-      box-shadow:0 8px 20px rgba(0,230,118,.18);
+      letter-spacing:.02em;
+      box-shadow:0 12px 35px rgba(34,197,94,.28);
+      transform:translateY(0);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .btn-accent:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 45px rgba(34,197,94,.35);
+      filter:brightness(1.04);
     }
     .btn-muted{
-      background:rgba(255,255,255,.08);
+      background:rgba(15,23,42,.85);
       color:#cbd5e1;
       padding:.5rem .9rem;
-      border-radius:.65rem;
-      border:1px solid rgba(255,255,255,.12);
+      border-radius:.9rem;
+      border:1px solid rgba(148,163,184,.4);
     }
     .btn-ghost{
       background:transparent;
-      border:1px dashed rgba(255,255,255,.18);
-      padding:.45rem .85rem;
-      border-radius:.65rem;
+      border:1px dashed rgba(148,163,184,.45);
+      padding:.45rem .9rem;
+      border-radius:.9rem;
       color:var(--muted);
     }
     .mono{
@@ -94,23 +178,30 @@
       width:100%;
       max-height:260px;
       object-fit:cover;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.35);
     }
     .nav-link{
       display:flex;
       align-items:center;
       gap:10px;
-      padding:11px;
-      border-radius:10px;
+      padding:.65rem .75rem;
+      border-radius:12px;
       color:var(--muted);
       cursor:pointer;
+      transition:background .15s ease, color .15s ease, transform .12s ease;
+    }
+    .nav-link:hover{
+      background:rgba(15,23,42,.75);
+      color:#e5e7eb;
+      transform:translateX(2px);
     }
     .nav-link.active{
-      background:rgba(6,199,85,.12);
+      background:linear-gradient(120deg,rgba(34,197,94,.18),rgba(59,130,246,.22));
       color:var(--accent);
       font-weight:700;
     }
+
     @media (max-width:900px){
       #sidebar{
         position:fixed;
@@ -132,19 +223,23 @@
     @media (min-width:901px){
       #sidebar{
         position:fixed;
-        left:0;
-        top:0;
-        width:300px;
-        padding:24px;
-        height:100vh;
+        left:1.5rem;
+        top:1.5rem;
+        width:280px;
+        padding:20px 18px;
+        height:calc(100vh - 3rem);
         overflow-y:auto;
       }
-      main{margin-left:340px;padding:22px;}
+      main{
+        margin-left:340px;
+        padding:24px 24px 32px;
+      }
     }
     #sidebarBackdrop{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.45);
+      background:rgba(15,23,42,.75);
+      backdrop-filter:blur(4px);
       z-index:60;
       display:none;
     }
@@ -155,7 +250,7 @@
       display:none;
       align-items:center;
       justify-content:center;
-      background:rgba(0,0,0,.7);
+      background:rgba(15,23,42,.85);
       padding:16px;
     }
     .modal.show{display:flex;}
@@ -164,13 +259,14 @@
       word-break:break-word;
       background:var(--code-bg);
       padding:12px;
-      border-radius:8px;
-      border:1px solid #1f2937;
+      border-radius:10px;
+      border:1px solid rgba(30,64,175,.55);
     }
     .app-input{
       background:var(--input-bg);
       color:var(--input-text);
-      border-radius:0.5rem;
+      border-radius:0.75rem;
+      border:1px solid rgba(148,163,184,.4);
     }
     .app-input::placeholder{
       color:rgba(148,163,184,.8);
@@ -180,13 +276,16 @@
       color:var(--input-text);
     }
     html, body, #app, .glass {
-      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
     }
-
     [data-theme="light"] .glass{
       background:var(--card-bg);
       border-color:var(--glass-border);
-      box-shadow:0 1px 2px rgba(15,23,42,.06);
+      box-shadow:0 10px 25px rgba(15,23,42,.12);
     }
     [data-theme="light"] .btn-muted{
       background:#e5e7eb;
@@ -203,33 +302,41 @@
       color:#020617;
     }
     [data-theme="light"] pre{
-      border-color:#e5e7eb;
+      border-color:#d4d4d8;
     }
   </style>
 </head>
 <body>
-  <div id="app" class="min-h-screen" data-theme="dark">
+  <!-- 3D animated background -->
+  <div class="bg-scene">
+    <div class="bg-grid"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+  </div>
+
+  <div id="app" class="min-h-screen relative" data-theme="dark">
     <aside id="sidebar" class="glass md:block">
       <div class="flex items-center gap-3 mb-6">
-        <img src="image.png" alt="ecoverify-logo" width="90" height="70" style="border-radius:12px;"/>
+        <img src="image.png" alt="ecoverify-logo" width="80" height="80" style="border-radius:18px;"/>
         <div>
-          <div class="font-bold">Eco-Verify</div>
-          <div class="small-muted">FONE • DePIN</div>
+          <div class="font-bold tracking-tight text-lg">Eco-Verify</div>
+          <div class="small-muted">FONE • DePIN (Demo)</div>
         </div>
       </div>
-      <nav class="flex flex-col gap-2 mb-6">
-        <div class="nav-link active" data-route="dashboard"><i data-lucide="home" class="w-4 h-4"></i> Dashboard</div>
+      <nav class="flex flex-col gap-1.5 mb-6 text-sm">
+        <div class="nav-link active" data-route="dashboard"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard</div>
         <div class="nav-link" data-route="missions"><i data-lucide="map-pin" class="w-4 h-4"></i> Missions</div>
         <div class="nav-link" data-route="leaderboard"><i data-lucide="award" class="w-4 h-4"></i> Leaderboard</div>
-        <div class="nav-link" data-route="aposta"><i data-lucide="coins" class="w-4 h-4"></i> Betting</div>
+        <div class="nav-link" data-route="aposta"><i data-lucide="activity" class="w-4 h-4"></i> Betting</div>
         <div class="nav-link" data-route="send"><i data-lucide="send" class="w-4 h-4"></i> Send/Withdraw</div>
         <div class="nav-link" data-route="receive"><i data-lucide="qr-code" class="w-4 h-4"></i> Receive</div>
         <div class="nav-link" data-route="history"><i data-lucide="clock" class="w-4 h-4"></i> History</div>
-        <div class="nav-link" data-route="settings"><i data-lucide="settings" class="w-4 h-4"></i> Settings</div>
+        <div class="nav-link" data-route="settings"><i data-lucide="settings-2" class="w-4 h-4"></i> Settings</div>
       </nav>
       <div class="mt-auto text-xs small-muted space-y-2 pb-[env(safe-area-inset-bottom)]">
-        <div>Wallet: <div id="sidebarAddr" class="mono text-sm break-all">—</div></div>
-        <div>Reputation: <div id="sidebarRep" class="mono text-sm">0</div></div>
+        <div>Wallet: <div id="sidebarAddr" class="mono text-sm break-all mt-0.5">—</div></div>
+        <div>Reputation: <div id="sidebarRep" class="mono text-sm mt-0.5">0</div></div>
         <div class="mt-3"><button id="logoutBtn" class="btn-muted w-full">Logout</button></div>
       </div>
     </aside>
@@ -238,35 +345,50 @@
 
     <header class="md:hidden p-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="image.png" alt="ecoverify-logo" width="150" height="150" style="border-radius:12px;"/>
-        <div class="font-bold">Eco-Verify</div>
+        <img src="image.png" alt="ecoverify-logo" width="48" height="48" style="border-radius:14px;"/>
+        <div>
+          <div class="font-bold">Eco-Verify</div>
+          <div class="small-muted text-xxs">Demo • local only</div>
+        </div>
       </div>
       <div class="flex items-center gap-2">
-        <button id="mobileMenuBtn" class="btn-muted px-3 py-1">Menu</button>
-        <button id="mobileLoginBtn" class="btn-accent px-3 py-1">Import</button>
+        <button id="mobileMenuBtn" class="btn-muted px-3 py-1 text-xs">Menu</button>
+        <button id="mobileLoginBtn" class="btn-accent px-3 py-1 text-xs">Connect</button>
       </div>
     </header>
 
     <main>
       <div class="flex flex-col md:flex-row justify-between items-stretch md:items-start gap-4 mb-6 p-3 md:p-0">
         <div>
-          <h1 id="pageTitle" class="font-bold text-xl">Dashboard</h1>
-          <p class="text-sm small-muted" id="pageSub">Connect real-world actions → earn and simulate FONE</p>
+          <h1 id="pageTitle" class="font-bold text-xl md:text-2xl tracking-tight">Dashboard</h1>
+          <p class="text-sm small-muted" id="pageSub">
+            Explore missions, demo FONE transfers and reputation — all simulated locally.
+          </p>
         </div>
         <div class="flex flex-col gap-2 md:items-end w-full md:w-auto">
-          <div class="glass p-3 rounded text-right w-full md:w-[360px]">
-            <div class="text-xs small-muted">On-chain FONE balance (demo)</div>
-            <div id="topBalance" class="text-2xl font-bold mono">0.00 FONE</div>
+          <div class="glass p-3 rounded-xl text-right w-full md:w-[380px]">
+            <div class="flex items-center justify-between text-xs small-muted">
+              <span>On-chain FONE balance (demo)</span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Local only</span>
+              </span>
+            </div>
+            <div id="topBalance" class="text-2xl md:text-3xl font-bold mono mt-1.5">0.00 FONE</div>
             <div id="topBreakdown" class="text-xs small-muted mt-1">On-chain: 0.00 FONE</div>
             <div class="text-xs small-muted mt-2">Address</div>
-            <div id="topAddr" class="mono text-sm break-words">—</div>
+            <div id="topAddr" class="mono text-[11px] md:text-xs break-words mt-0.5">—</div>
           </div>
           <div class="flex gap-2 justify-end">
-            <button id="themeToggle" class="btn-ghost px-3 py-2">Theme</button>
-            <button id="openLoginBtn" class="btn-accent px-3 py-2">Connect</button>
+            <button id="themeToggle" class="btn-ghost px-3 py-2 text-xs md:text-sm flex items-center gap-1.5">
+              <i data-lucide="sun-moon" class="w-4 h-4"></i> Theme
+            </button>
+            <button id="openLoginBtn" class="btn-accent px-3 py-2 text-xs md:text-sm flex items-center gap-1.5">
+              <i data-lucide="link-2" class="w-4 h-4"></i> Connect
+            </button>
           </div>
-          <div class="text-xxs small-muted text-right">
-            Demo mode: all balances and missions are simulated in this browser. No real FONE is moved.
+          <div class="text-[11px] small-muted text-right max-w-xs md:max-w-sm ml-auto">
+            Demo mode: all balances, missions and betting are simulated in this browser. No real FONE is moved and no backend is required.
           </div>
         </div>
       </div>
@@ -278,19 +400,31 @@
             <div class="glass p-5 md:p-6">
               <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
-                  <h2 class="font-bold">Wallet</h2>
-                  <div class="text-sm small-muted">Manage your (demo) wallet and history.</div>
-                  <div class="mt-3">
-                    <div class="mono break-all" id="walletAddressDisplay">—</div>
-                    <div class="mt-2 text-xs small-muted">Status: <span id="uiMode">demo (offline)</span></div>
+                  <h2 class="font-bold text-lg">Wallet</h2>
+                  <div class="text-sm small-muted">Manage your demo wallet and activity.</div>
+                  <div class="mt-3 space-y-1">
+                    <div class="mono break-all text-xs md:text-sm" id="walletAddressDisplay">—</div>
+                    <div class="text-xs small-muted flex items-center gap-2">
+                      Status:
+                      <span id="uiMode" class="inline-flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                        demo (offline)
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div class="text-right">
-                  <button id="openWalletHistory" class="btn-accent">History</button>
+                  <button id="openWalletHistory" class="btn-accent text-sm md:text-base flex items-center gap-1.5 justify-center">
+                    <i data-lucide="history" class="w-4 h-4"></i> History
+                  </button>
                   <div class="mt-2">
-                    <button id="btnSyncAll" class="btn-muted text-sm w-full md:w-auto">Sync balance</button>
+                    <button id="btnSyncAll" class="btn-muted text-xs md:text-sm w-full md:w-auto flex items-center gap-1.5 justify-center">
+                      <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4"></i> Sync balance
+                    </button>
                   </div>
-                  <div class="text-xs small-muted mt-2">Reputation: <strong id="repScore">0</strong></div>
+                  <div class="text-xs small-muted mt-2">
+                    Reputation: <strong id="repScore">0</strong> pts
+                  </div>
                 </div>
               </div>
             </div>
@@ -298,7 +432,9 @@
             <div class="glass p-5 md:p-6">
               <div class="flex items-center justify-between">
                 <h3 class="font-bold">Nearby missions</h3>
-                <div class="text-sm text-teal-300 cursor-pointer" data-route="missions">See all</div>
+                <div class="text-sm text-teal-300 cursor-pointer flex items-center gap-1" data-route="missions">
+                  See all <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </div>
               </div>
               <div id="miniMissions" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
@@ -306,14 +442,13 @@
             <div class="glass p-5 md:p-6">
               <h3 class="font-bold">How it works (demo)</h3>
               <ol class="text-sm small-muted list-decimal list-inside mt-2 space-y-2">
-                <li>Create or import a demo FONE wallet (address + private key stay in this browser).</li>
-                <li>Complete missions to earn <strong>reputation</strong> and simulated rewards (local “credits”).</li>
-                <li>Use the Send/Withdraw screen to simulate FONE transfers between addresses.</li>
+                <li>Create or import a demo FONE wallet. Keys stay only in this browser.</li>
+                <li>Complete missions to earn <strong>reputation</strong> and simulated rewards (“credits”).</li>
+                <li>Use Betting and Send/Withdraw screens to explore possible on-chain flows in a safe sandbox.</li>
               </ol>
               <div class="mt-3 text-xs small-muted">
-                This public demo runs entirely in your browser. No real FONE is transacted and no
-                private data is sent to servers. In a production setup, the same UI could be plugged
-                into a real FONE node/backend.
+                In a production deployment, this interface would connect to a backend and a real FONE node.
+                For this public prototype, everything runs client-side for safety and ease of testing.
               </div>
             </div>
           </div>
@@ -321,11 +456,19 @@
           <aside class="space-y-4">
             <div class="glass p-4">
               <h4 class="font-bold">Quick actions</h4>
-              <div class="mt-3 grid gap-3">
-                <button data-route="missions" class="btn-accent w-full">Complete a mission</button>
-                <button data-route="leaderboard" class="btn-muted w-full">View ranking</button>
-                <button data-route="send" class="btn-muted w-full">Send/Withdraw</button>
-                <button data-route="receive" class="btn-muted w-full">Receive (QR)</button>
+              <div class="mt-3 grid gap-3 text-sm">
+                <button data-route="missions" class="btn-accent w-full flex items-center justify-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4"></i> Complete a mission
+                </button>
+                <button data-route="leaderboard" class="btn-muted w-full flex items-center justify-center gap-1.5">
+                  <i data-lucide="trophy" class="w-4 h-4"></i> View ranking
+                </button>
+                <button data-route="send" class="btn-muted w-full flex items-center justify-center gap-1.5">
+                  <i data-lucide="send" class="w-4 h-4"></i> Send / Withdraw
+                </button>
+                <button data-route="receive" class="btn-muted w-full flex items-center justify-center gap-1.5">
+                  <i data-lucide="qr-code" class="w-4 h-4"></i> Receive (QR)
+                </button>
               </div>
             </div>
 
@@ -339,7 +482,7 @@
         <!-- MISSIONS -->
         <div id="page-missions" class="hidden">
           <div class="glass p-5 md:p-6">
-            <h2 class="font-bold">Missions</h2>
+            <h2 class="font-bold text-lg">Missions</h2>
             <p class="text-sm small-muted">Click “Complete mission” to submit a photo and report (simulated validation).</p>
             <div id="missionsList" class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
           </div>
@@ -348,20 +491,20 @@
         <!-- COMPLETE MISSION -->
         <div id="page-upload" class="hidden">
           <div class="glass p-5 md:p-6 max-w-3xl">
-            <h2 class="font-bold">Complete mission</h2>
+            <h2 class="font-bold text-lg">Complete mission</h2>
             <div class="text-sm small-muted mt-1" id="uploadMissionTitle">Mission</div>
-            <label class="block mt-4">Photo (attach):
-              <input id="fileInput" accept="image/*" type="file" class="mt-2 w-full" />
+            <label class="block mt-4 text-sm">Photo (attach):
+              <input id="fileInput" accept="image/*" type="file" class="mt-2 w-full text-xs" />
             </label>
             <div id="previewWrap" class="mt-4 hidden">
               <img id="previewImg" class="thumb" src="" alt="preview" />
             </div>
-            <label class="block mt-4">Report:
-              <textarea id="reportText" rows="5" class="w-full mt-2 p-3 rounded app-input"></textarea>
+            <label class="block mt-4 text-sm">Report:
+              <textarea id="reportText" rows="5" class="w-full mt-2 p-3 rounded app-input text-sm" placeholder="Describe the evidence, location, and impact..."></textarea>
             </label>
             <div class="mt-4 flex flex-col sm:flex-row gap-3">
-              <button id="btnSubmitProof" class="btn-accent">Submit proof and complete mission</button>
-              <button id="btnCancelUpload" class="btn-muted">Cancel</button>
+              <button id="btnSubmitProof" class="btn-accent flex-1">Submit proof and complete mission</button>
+              <button id="btnCancelUpload" class="btn-muted flex-1">Cancel</button>
             </div>
             <div id="missionNotice" class="hidden mt-4 glass p-4">
               <div class="font-semibold mb-1">Mission approved ✅ (demo)</div>
@@ -373,9 +516,9 @@
         <!-- BETTING -->
         <div id="page-aposta" class="hidden">
           <div class="glass p-5 md:p-6 max-w-5xl">
-            <h2 class="font-bold">Betting (demo)</h2>
+            <h2 class="font-bold text-lg">Betting (demo)</h2>
             <p class="text-sm small-muted">
-              Bet up to 100 demo FONE by reviewing other users’ cases. If you follow the majority,
+              Bet up to <strong>100 demo FONE</strong> by reviewing other users’ cases. If you follow the majority,
               you receive your stake + 75%. All values here are simulated and local to this device.
             </p>
             <div class="mt-3 text-sm small-muted">
@@ -392,7 +535,7 @@
         <!-- SEND -->
         <div id="page-send" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
-            <h2 class="font-bold">Send / Withdraw FONE (demo)</h2>
+            <h2 class="font-bold text-lg">Send / Withdraw FONE (demo)</h2>
             <div class="mt-2 text-sm small-muted">
               <div>Available (demo on-chain): <strong id="sendAvail" class="mono">0.00</strong> FONE</div>
               <div class="mt-1" id="feeInfo">Network fee: simulated — no real network calls.</div>
@@ -403,11 +546,11 @@
               In a production environment, this screen would sign and broadcast real FONE transactions.
             </div>
 
-            <label class="block mt-4">Destination address
+            <label class="block mt-4 text-sm">Destination address
               <div class="flex gap-2 mt-2">
-                <input id="inputDest" list="contactsData" class="flex-1 p-3 rounded app-input mono" placeholder="Demo FONE address (f..., 0x..., ...)" />
-                <button id="btnScanQR" type="button" class="btn-muted">Scan QR</button>
-                <button id="btnSaveContact" type="button" class="btn-ghost">Save</button>
+                <input id="inputDest" list="contactsData" class="flex-1 p-3 rounded app-input mono text-xs md:text-sm" placeholder="Demo FONE address (f..., 0x..., ...)" />
+                <button id="btnScanQR" type="button" class="btn-muted text-xs px-3">Scan QR</button>
+                <button id="btnSaveContact" type="button" class="btn-ghost text-xs px-3">Save</button>
               </div>
               <datalist id="contactsData"></datalist>
               <div id="helpDest" class="mt-1 text-xs small-muted">Scan a QR or choose from your saved contacts.</div>
@@ -418,23 +561,23 @@
               <div class="glass p-4 w-full max-w-md rounded-lg">
                 <div class="flex items-center justify-between mb-3">
                   <h3 class="font-bold">Scan QR</h3>
-                  <button id="qrClose" class="btn-muted">Close</button>
+                  <button id="qrClose" class="btn-muted text-xs px-3">Close</button>
                 </div>
                 <div id="qr-reader" style="width:100%;"></div>
-                <div class="small-muted mt-2">Allow camera access (if available).</div>
+                <div class="small-muted mt-2 text-xs">Allow camera access (if available on this device).</div>
               </div>
             </div>
 
-            <label class="block mt-3">Amount (FONE)
+            <label class="block mt-3 text-sm">Amount (FONE)
               <div class="flex items-center gap-2 mt-2">
-                <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded app-input mono" />
-                <button id="btnMax" class="btn-ghost px-3 py-2">MAX</button>
+                <input id="inputAmt" type="number" step="0.01" inputmode="decimal" pattern="[0-9]*" class="flex-1 p-3 rounded app-input mono text-xs md:text-sm" />
+                <button id="btnMax" class="btn-ghost px-3 py-2 text-xs">MAX</button>
               </div>
               <div class="mt-1 text-xs small-muted">You can (simulatively) send up to your available demo balance.</div>
             </label>
 
-            <label class="block mt-3">Message (optional)
-              <input id="inputMsg" maxlength="100" class="w-full mt-2 p-3 rounded app-input" />
+            <label class="block mt-3 text-sm">Message (optional)
+              <input id="inputMsg" maxlength="100" class="w-full mt-2 p-3 rounded app-input text-xs md:text-sm" />
               <div class="mt-1 text-xs small-muted">Optional, up to 100 characters.</div>
             </label>
 
@@ -442,38 +585,44 @@
             <div id="sendErrors" class="mt-3 text-sm text-red-300"></div>
 
             <div class="mt-4 flex flex-col sm:flex-row gap-3">
-              <button id="btnSendTx" class="btn-accent" disabled>Send (demo)</button>
-              <button id="btnSyncBal" class="btn-muted">Sync (no-op in demo)</button>
+              <button id="btnSendTx" class="btn-accent flex-1 text-sm">Send (demo)</button>
+              <button id="btnSyncBal" class="btn-muted flex-1 text-sm">Sync (no-op in demo)</button>
             </div>
-            <pre id="sendResult" class="mt-4 text-sm mono small-muted"></pre>
+            <pre id="sendResult" class="mt-4 text-xs md:text-sm mono small-muted"></pre>
           </div>
         </div>
 
         <!-- RECEIVE -->
         <div id="page-receive" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
-            <h2 class="font-bold">Receive FONE (demo)</h2>
+            <h2 class="font-bold text-lg">Receive FONE (demo)</h2>
             <p class="text-sm small-muted mt-1">Share your address or QR code. In this demo, no real transfers happen.</p>
             <div class="mt-4">
               <div class="text-xs small-muted">Your address</div>
-              <div id="receiveAddr" class="mono mt-1 break-all">—</div>
+              <div id="receiveAddr" class="mono mt-1 break-all text-xs md:text-sm">—</div>
               <div class="mt-3 flex flex-wrap gap-2">
-                <button id="btnCopyAddr" class="btn-accent">Copy address</button>
-                <button id="btnShareAddr" class="btn-muted">Share</button>
-                <button id="btnDownloadQR" class="btn-muted">Download QR</button>
+                <button id="btnCopyAddr" class="btn-accent text-xs md:text-sm flex items-center gap-1.5">
+                  <i data-lucide="copy" class="w-3 h-3"></i> Copy address
+                </button>
+                <button id="btnShareAddr" class="btn-muted text-xs md:text-sm flex items-center gap-1.5">
+                  <i data-lucide="share-2" class="w-3 h-3"></i> Share
+                </button>
+                <button id="btnDownloadQR" class="btn-muted text-xs md:text-sm flex items-center gap-1.5">
+                  <i data-lucide="download" class="w-3 h-3"></i> Download QR
+                </button>
               </div>
             </div>
 
             <div class="mt-5">
               <div class="text-xs small-muted mb-2">QR Code</div>
-              <div id="qrWrap" class="inline-block p-3 rounded bg-white">
+              <div id="qrWrap" class="inline-block p-3 rounded bg-white shadow-lg">
                 <div id="qrCode"></div>
               </div>
             </div>
 
             <div class="mt-5 text-sm small-muted">
-              Only send real FONE to addresses supported by the FONE network. This demo does not receive
-              any on-chain transfers.
+              Only send real FONE on supported wallets and networks. This demo does not receive any
+              on-chain transfers and is safe to explore.
             </div>
           </div>
         </div>
@@ -481,16 +630,16 @@
         <!-- LEADERBOARD -->
         <div id="page-leaderboard" class="hidden">
           <div class="glass p-5 md:p-6 max-w-3xl">
-            <h2 class="font-bold">Leaderboard — Reputation</h2>
+            <h2 class="font-bold text-lg">Leaderboard — Reputation</h2>
             <p class="text-sm small-muted">Ranking by reputation points (simulated, local to this browser).</p>
-            <div id="leaderboardList" class="mt-4"></div>
+            <div id="leaderboardList" class="mt-4 space-y-2"></div>
           </div>
         </div>
 
         <!-- HISTORY -->
         <div id="page-history" class="hidden">
           <div class="glass p-5 md:p-6">
-            <h2 class="font-bold">History</h2>
+            <h2 class="font-bold text-lg">History</h2>
             <div id="historyList" class="mt-4 space-y-2 small-muted"></div>
           </div>
         </div>
@@ -498,36 +647,38 @@
         <!-- SETTINGS -->
         <div id="page-settings" class="hidden">
           <div class="glass p-5 md:p-6 max-w-2xl">
-            <h2 class="font-bold">Settings</h2>
+            <h2 class="font-bold text-lg">Settings</h2>
             <div class="mt-4 grid md:grid-cols-2 gap-4">
               <div>
-                <label class="block">Language
-                  <select id="selLang" class="mt-2 p-2 rounded app-input">
+                <label class="block text-sm">Language
+                  <select id="selLang" class="mt-2 p-2 rounded app-input text-sm">
                     <option value="en">English (US)</option>
                     <option value="pt">Portuguese (pt-BR)</option>
                   </select>
                 </label>
-                <label class="block mt-4">Theme
-                  <select id="selTheme" class="mt-2 p-2 rounded app-input">
+                <label class="block mt-4 text-sm">Theme
+                  <select id="selTheme" class="mt-2 p-2 rounded app-input text-sm">
                     <option value="dark">Dark</option>
                     <option value="light">Light</option>
                   </select>
                 </label>
-                <label class="block mt-4">Privacy Policy
-                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-sm small-muted">
+                <label class="block mt-4 text-sm">Privacy Policy
+                  <textarea rows="4" readonly class="w-full mt-2 p-2 rounded app-input text-xs small-muted">
 Private keys are NEVER saved on servers. In this public demo, all cryptographic operations and wallet data stay in your browser only.</textarea>
                 </label>
               </div>
               <div>
-                <h3 class="font-bold">Backend / Node</h3>
+                <h3 class="font-bold text-sm">Backend / Node</h3>
                 <p class="mt-2 text-sm small-muted">
                   This demo runs fully client-side. No backend or FONE node is required. In a real
-                  deployment, this UI could point to a backend that talks to a FONE node.
+                  deployment, this UI would talk to a backend that connects to a FONE node.
                 </p>
                 <div class="mt-3 flex gap-2">
-                  <button id="btnTestCfg" class="btn-muted">Test (demo)</button>
+                  <button id="btnTestCfg" class="btn-muted text-xs md:text-sm flex items-center gap-1.5">
+                    <i data-lucide="wifi-off" class="w-3 h-3"></i> Test (demo)
+                  </button>
                 </div>
-                <div id="cfgMsg" class="small-muted mt-2"></div>
+                <div id="cfgMsg" class="small-muted mt-2 text-xs"></div>
               </div>
             </div>
           </div>
@@ -540,132 +691,122 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
 
     <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal">
-      <div class="glass p-6 w-full max-w-2xl rounded-lg">
+      <div class="glass p-6 w-full max-w-2xl rounded-xl">
         <div class="flex items-center justify-between mb-4">
           <h2 class="font-bold text-xl">Create or Import Wallet</h2>
           <div class="text-sm small-muted">Your private key is sensitive — never share it.</div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
           <div>
-            <h3 class="font-bold">Create new wallet (demo)</h3>
-            <p class="text-sm small-muted">Generates a demo address and private key (shown once, only in this browser).</p>
-            <div class="mt-3 flex gap-3"><button id="btnCreateWallet" class="btn-accent w-full">Create wallet</button></div>
-            <div id="createdResult" class="mt-3 text-sm mono small-muted"></div>
+            <h3 class="font-bold text-sm">Create new wallet (demo)</h3>
+            <p class="text-xs small-muted">Generates a demo address and private key (shown once, only in this browser).</p>
+            <div class="mt-3 flex gap-3"><button id="btnCreateWallet" class="btn-accent w-full text-sm">Create wallet</button></div>
+            <div id="createdResult" class="mt-3 text-xs mono small-muted"></div>
           </div>
           <div>
-            <h3 class="font-bold">Import wallet (demo)</h3>
-            <p class="text-sm small-muted">Paste an existing private key. The address is derived locally for this demo.</p>
-            <input id="inputPrivate" class="mt-2 p-3 rounded app-input mono w-full" type="password" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Private key..." />
-            <div class="mt-3 flex gap-3"><button id="btnImportWallet" class="btn-muted w-full">Import</button></div>
-            <div id="importResult" class="mt-3 text-sm mono small-muted"></div>
+            <h3 class="font-bold text-sm">Import wallet (demo)</h3>
+            <p class="text-xs small-muted">Paste a private key. The address is derived locally for this prototype.</p>
+            <input id="inputPrivate" class="mt-2 p-3 rounded app-input mono w-full text-xs" type="password" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Private key..." />
+            <div class="mt-3 flex gap-3"><button id="btnImportWallet" class="btn-muted w-full text-sm">Import</button></div>
+            <div id="importResult" class="mt-3 text-xs mono small-muted"></div>
           </div>
         </div>
         <div class="mt-4 flex justify-end">
-          <button id="closeLogin" class="btn-muted">Close</button>
+          <button id="closeLogin" class="btn-muted text-sm">Close</button>
         </div>
       </div>
     </div>
 
     <!-- PRIVATE KEY MODAL -->
     <div id="privModal" class="modal">
-      <div class="glass p-6 w-full max-w-lg rounded-lg">
+      <div class="glass p-6 w-full max-w-lg rounded-xl">
         <h3 class="font-bold text-lg">⚠️ Save your private key</h3>
         <p class="mt-2 text-sm small-muted">This is the only time the private key will be displayed.</p>
-        <pre id="privText" class="mono mt-3 p-3 rounded text-sm small-muted"></pre>
+        <pre id="privText" class="mono mt-3 p-3 rounded text-xs small-muted"></pre>
         <div class="mt-4 flex gap-3">
-          <button id="btnCopyPriv" class="btn-accent">Copy</button>
-          <button id="btnPrivSaved" class="btn-muted">I have saved it — continue</button>
+          <button id="btnCopyPriv" class="btn-accent text-sm">Copy</button>
+          <button id="btnPrivSaved" class="btn-muted text-sm">I have saved it — continue</button>
         </div>
       </div>
     </div>
 
     <!-- WELCOME MODAL -->
     <div id="welcomeModal" class="modal">
-      <div class="glass p-6 w-full max-w-lg rounded-lg text-center">
+      <div class="glass p-6 w-full max-w-lg rounded-xl text-center">
         <h3 class="font-bold text-xl mb-2">Welcome to Eco-Verify (demo)</h3>
-        <p class="text-sm small-muted">Explore missions, betting, and FONE transfers in a safe, local simulation.</p>
+        <p class="text-sm small-muted">Explore missions, demo FONE transfers and reputation in a safe, local sandbox.</p>
         <div class="mt-5 flex gap-3 justify-center">
-          <button id="btnStart" class="btn-accent">Get started</button>
+          <button id="btnStart" class="btn-accent px-6 text-sm">Get started</button>
         </div>
       </div>
     </div>
 
     <!-- GATE PASSWORD MODAL -->
     <div id="gate" class="modal">
-      <div class="glass p-6 w-full max-w-sm rounded-lg">
+      <div class="glass p-6 w-full max-w-sm rounded-xl">
         <h3 class="font-bold text-lg mb-2">App password</h3>
 
         <div id="gateCreateView">
-          <p class="small-muted">Create a password to lock/unlock your wallet on this device.</p>
-          <label class="block mt-3">Password
-            <input id="newPass" type="password" class="mt-2 p-3 rounded app-input w-full" autocomplete="new-password">
+          <p class="small-muted text-sm">Create a password to lock/unlock your wallet on this device.</p>
+          <label class="block mt-3 text-sm">Password
+            <input id="newPass" type="password" class="mt-2 p-3 rounded app-input w-full text-sm" autocomplete="new-password">
           </label>
-          <label class="block mt-3">Confirm password
-            <input id="newPass2" type="password" class="mt-2 p-3 rounded app-input w-full" autocomplete="new-password">
+          <label class="block mt-3 text-sm">Confirm password
+            <input id="newPass2" type="password" class="mt-2 p-3 rounded app-input w-full text-sm" autocomplete="new-password">
           </label>
           <div class="mt-4 flex gap-2">
-            <button id="gateCreateBtn" class="btn-accent w-full">Create password</button>
+            <button id="gateCreateBtn" class="btn-accent w-full text-sm">Create password</button>
           </div>
-          <div id="gateMsg" class="small-muted mt-2"></div>
+          <div id="gateMsg" class="small-muted mt-2 text-xs"></div>
         </div>
 
         <div id="gateUnlockView" class="hidden">
-          <p class="small-muted">Enter your app password to continue.</p>
-          <input id="gatePass" type="password" class="mt-3 p-3 rounded app-input w-full" autocomplete="current-password">
+          <p class="small-muted text-sm">Enter your app password to continue.</p>
+          <input id="gatePass" type="password" class="mt-3 p-3 rounded app-input w-full text-sm" autocomplete="current-password">
           <div class="mt-4 flex gap-2">
-            <button id="gateBtn" class="btn-accent w-full">Unlock</button>
+            <button id="gateBtn" class="btn-accent w-full text-sm">Unlock</button>
           </div>
-          <div id="gateMsg2" class="small-muted mt-2"></div>
+          <div id="gateMsg2" class="small-muted mt-2 text-xs"></div>
         </div>
       </div>
     </div>
 
     <!-- AUTH MODAL -->
     <div id="authModal" class="modal">
-      <div class="glass p-6 w-full max-w-sm rounded-lg">
+      <div class="glass p-6 w-full max-w-sm rounded-xl">
         <h3 id="authTitle" class="font-bold text-lg mb-2">Confirm action</h3>
-        <p id="authHint" class="small-muted">Enter your password to continue.</p>
-        <input id="authPass" type="password" class="mt-3 p-3 rounded app-input w-full" autocomplete="current-password">
+        <p id="authHint" class="small-muted text-sm">Enter your password to continue.</p>
+        <input id="authPass" type="password" class="mt-3 p-3 rounded app-input w-full text-sm" autocomplete="current-password">
         <div class="mt-4 flex gap-2">
-          <button id="authCancel" class="btn-muted w-1/2">Cancel</button>
-          <button id="authOk" class="btn-accent w-1/2">Confirm</button>
+          <button id="authCancel" class="btn-muted w-1/2 text-sm">Cancel</button>
+          <button id="authOk" class="btn-accent w-1/2 text-sm">Confirm</button>
         </div>
-        <div id="authMsg" class="small-muted mt-2"></div>
+        <div id="authMsg" class="small-muted mt-2 text-xs"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // ---------- CONSTANTS ----------
-    const DEMO_MODE = true; // true = no backend/API, fully local demo
+    const DEMO_MODE = true;
 
     const LS_LAST_WALLET = 'ev_last_wallet';
     const LS_WALLET_PREFIX = 'ev_wallet_';
     const LS_THEME = 'ev_theme';
     const LS_WELCOME = 'ev_welcome_seen';
-    const PASS_HASH = 'ev_pass_hash'; // legacy
     const GATE_FLAG = 'ev_gate_ok';
 
-    // Backend URL (unused in DEMO_MODE, but kept for future use)
-    const BACKEND_BASE = 'https://eco-verify-backend.onrender.com';
-
-    // App password verifier
     const PASS_SALT = 'ev_pass_salt';
     const PASS_VER = 'ev_pass_ver';
     const PASS_ITER = 'ev_pass_iter';
-
-    // Private key in SESSION only (not persisted)
     const SS_PK_PREFIX = 'ev_pk_';
 
     const REQUIRE_PWD_FOR_SEND = true;
     const REQUIRE_PWD_FOR_LOGOUT = true;
 
-    // Password helpers
     const enc = new TextEncoder();
     const toHex = (u8) => Array.from(u8).map(b => b.toString(16).padStart(2,'0')).join('');
     const fromHex = (hex) => new Uint8Array((hex.match(/.{2}/g)||[]).map(h => parseInt(h,16)));
 
-    // Demo helpers (random addr/keys)
     function demoRandomHex(bytes=32){
       const arr = crypto.getRandomValues(new Uint8Array(bytes));
       return Array.from(arr).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -703,112 +844,13 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       const check = await deriveHex(pass, saltHex, iter);
       return check === ver;
     }
-    function isPasswordSet() {
-      return !!localStorage.getItem(PASS_VER);
-    }
-    function isUnlocked() {
-      return sessionStorage.getItem(GATE_FLAG) === '1';
-    }
+    function isPasswordSet() { return !!localStorage.getItem(PASS_VER); }
+    function isUnlocked() { return sessionStorage.getItem(GATE_FLAG) === '1'; }
     function setUnlocked(flag) {
       if (flag) sessionStorage.setItem(GATE_FLAG, '1');
       else sessionStorage.removeItem(GATE_FLAG);
     }
-    function showGate(show) {
-      const el = $('gate');
-      if (el) el.classList.toggle('show', !!show);
-    }
-    function showAuthModal(show) {
-      $('authModal')?.classList.toggle('show', !!show);
-      if (show) {
-        const i = $('authPass');
-        if (i) { i.value=''; i.focus(); }
-        const m = $('authMsg'); if (m) m.textContent='';
-      }
-    }
-    function requireActionPassword({ title = 'Confirm action', hint = 'Enter your password to continue.' } = {}) {
-      return new Promise((resolve) => {
-        $('authTitle').textContent = title;
-        $('authHint').textContent = hint;
-        showAuthModal(true);
 
-        const onOk = async () => {
-          const pass = ($('authPass')?.value || '').trim();
-          if (!pass) { $('authMsg').textContent = 'Please enter your password.'; return; }
-          if (await verifyAppPassword(pass)) {
-            showAuthModal(false); resolve(true);
-          } else {
-            $('authMsg').textContent = 'Incorrect password.'; $('authPass')?.select();
-          }
-        };
-        const onCancel = () => { showAuthModal(false); resolve(false); };
-
-        $('authOk').onclick = onOk;
-        $('authCancel').onclick = onCancel;
-        $('authPass').onkeydown = (e) => {
-          if (e.key === 'Enter') onOk();
-          if (e.key === 'Escape') onCancel();
-        };
-      });
-    }
-    function bindGateUI() {
-      const hasPwd = isPasswordSet();
-      const createView = $('gateCreateView');
-      const unlockView = $('gateUnlockView');
-      if (createView) createView.classList.toggle('hidden', hasPwd);
-      if (unlockView) unlockView.classList.toggle('hidden', !hasPwd);
-
-      $('gateCreateBtn')?.addEventListener('click', async () => {
-        const p1 = ($('newPass')?.value || '').trim();
-        const p2 = ($('newPass2')?.value || '').trim();
-        const msg = $('gateMsg');
-        if (p1.length < 6) { msg.textContent = 'Use at least 6 characters.'; return; }
-        if (p1 !== p2) { msg.textContent = 'Passwords do not match.'; return; }
-        await setAppPassword(p1);
-        setUnlocked(true);
-        showGate(false);
-        toast('Password created. App unlocked.', 1800);
-      });
-
-      $('gateBtn')?.addEventListener('click', async () => {
-        const pass = ($('gatePass')?.value || '').trim();
-        const msg = $('gateMsg2');
-        if (!pass) { msg.textContent = 'Please enter your password.'; return; }
-        if (await verifyAppPassword(pass)) {
-          setUnlocked(true);
-          showGate(false);
-          toast('Unlocked 👌', 1500);
-        } else {
-          msg.textContent = 'Incorrect password.'; $('gatePass')?.select();
-        }
-      });
-
-      $('gatePass')?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') $('gateBtn')?.click();
-      });
-      $('newPass2')?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') $('gateCreateBtn')?.click();
-      });
-    }
-    function initPasswordLock() {
-      if (!isPasswordSet()) {
-        showGate(true);
-        bindGateUI();
-        return;
-      }
-
-      if (isUnlocked()) {
-        showGate(false);
-        return;
-      }
-
-      showGate(true);
-      bindGateUI();
-    }
-    function lockApp() {
-      setUnlocked(false);
-    }
-
-    // ---------- GLOBAL STATE ----------
     const State = {
       wallet: null,
       persistedWalletAddress: localStorage.getItem(LS_LAST_WALLET) || null,
@@ -825,7 +867,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       reviewQueue: [],
       bets: {},
       syncing: false,
-      demoBetBalance: 1000 // local, simulated “credits” for betting
+      demoBetBalance: 1000
     };
     const $ = (id) => document.getElementById(id);
 
@@ -847,7 +889,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       const el = document.createElement('div');
       el.className = `glass p-3 border ${colors[type] || colors.info}`;
       el.style.minWidth = '220px';
-      el.innerHTML = `<div class="font-medium">${msg}</div>`;
+      el.innerHTML = `<div class="font-medium text-sm">${msg}</div>`;
       $('toast')?.appendChild(el);
       setTimeout(() => el.remove(), time);
     }
@@ -888,26 +930,17 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       }
     }
 
-    // Private key in session only
     function savePrivateKeySession(addr, pk) {
       if (!addr || !pk) return;
-      try {
-        sessionStorage.setItem(SS_PK_PREFIX + addr, pk);
-      } catch {}
+      try { sessionStorage.setItem(SS_PK_PREFIX + addr, pk); } catch {}
     }
     function getPrivateKeySession(addr) {
       if (!addr) return null;
-      try {
-        return sessionStorage.getItem(SS_PK_PREFIX + addr) || null;
-      } catch {
-        return null;
-      }
+      try { return sessionStorage.getItem(SS_PK_PREFIX + addr) || null; } catch { return null; }
     }
     function clearPrivateKeySession(addr) {
       if (!addr) return;
-      try {
-        sessionStorage.removeItem(SS_PK_PREFIX + addr);
-      } catch {}
+      try { sessionStorage.removeItem(SS_PK_PREFIX + addr); } catch {}
     }
 
     function recalcTotals() {
@@ -947,9 +980,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       applySendValidationUI();
       savePersistentForAddress(getActiveAddress());
 
-      try {
-        lucide.createIcons();
-      } catch {}
+      try { lucide.createIcons(); } catch {}
     }
 
     function showPage(name) {
@@ -977,200 +1008,11 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       return State.wallet?.address || State.persistedWalletAddress || null;
     }
 
-    function normBackendBase(u) {
-      return (u || '').replace(/\/+$/, '');
-    }
-
-    // In demo mode we don't call the backend. This is kept for future real integration.
-    async function api(path, method = 'GET', body) {
-      if (DEMO_MODE) {
-        // no-op; return empty object or fake responses if needed
-        return {};
-      }
-      const url = normBackendBase(BACKEND_BASE) + path;
-      const headers = { 'Accept': 'application/json' };
-      if (body) headers['Content-Type'] = 'application/json';
-
-      const res = await fetch(url, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined
-      });
-
-      const txt = await res.text();
-      let data;
-      try { data = txt ? JSON.parse(txt) : {}; }
-      catch { data = { raw: txt }; }
-
-      if (!res.ok) {
-        throw new Error(data.error || res.statusText || `HTTP ${res.status}`);
-      }
-      return data;
-    }
-
-    async function createWalletFlow() {
-      try {
-        let addr, priv;
-        if (DEMO_MODE) {
-          addr = demoRandomAddr();
-          priv = demoRandomHex(32);
-        } else {
-          const data = await api('/api/fone/wallet/create', 'POST');
-          addr = data.address;
-          priv = data.privateKey;
-        }
-        if (!addr || !priv) throw new Error('Failed to create wallet.');
-
-        State.wallet = { address: addr };
-        State.persistedWalletAddress = addr;
-        localStorage.setItem(LS_LAST_WALLET, addr);
-
-        savePrivateKeySession(addr, priv);
-
-        // Give some demo FONE to play with
-        State.balance.onchain.available = 100;
-        State.balance.onchain.total = 100;
-        recalcTotals();
-
-        State.demoBetBalance = 1000;
-        $('createdResult').innerText = `Address: ${addr}`;
-        showModal('privModal', true);
-        $('privText').innerText = priv;
-
-        if (!DEMO_MODE) {
-          await syncAll();
-        }
-        updateUI();
-        showModal('loginModal', false);
-        toast('Demo wallet created.', 2200, 'success');
-      } catch (e) {
-        $('createdResult').innerText = 'Error: ' + e.message;
-      }
-    }
-
-    async function importWalletFlow(pk) {
-      pk = String(pk || '').trim();
-      if (!pk || pk.length < 6) {
-        $('importResult').innerText = 'Invalid private key.';
-        return;
-      }
-      try {
-        let addr;
-        if (DEMO_MODE) {
-          addr = demoAddrFromPk(pk);
-        } else {
-          const data = await api('/api/fone/wallet/import', 'POST', { privateKey: pk });
-          addr = data.address;
-        }
-
-        if (!addr) throw new Error('Response without address.');
-        const persisted = loadPersistentForAddress(addr);
-        if (persisted) {
-          State.persistedWalletAddress = addr;
-          State.balance = persisted.balance || State.balance;
-          State.history = persisted.history || [];
-          State.missions = persisted.missions || [];
-          State.completedMissionIds = persisted.completedMissionIds || [];
-          State.leaderboard = persisted.leaderboard || {};
-          State.reputation = persisted.reputation || 0;
-          State.reviewQueue = persisted.reviewQueue || [];
-          State.bets = persisted.bets || {};
-          State.demoBetBalance = typeof persisted.demoBetBalance === 'number' ? persisted.demoBetBalance : 1000;
-        } else {
-          State.persistedWalletAddress = addr;
-          State.balance = {
-            onchain: { available: 50, staked: 0, vested: 0, total: 50 },
-            totalUI: 0,
-            disponivelUI: 0
-          };
-          State.history = [];
-          State.completedMissionIds = [];
-          State.leaderboard = {};
-          State.reputation = 0;
-          State.reviewQueue = [];
-          State.bets = {};
-          State.demoBetBalance = 1000;
-          buildMissions();
-          buildReviewQueueAposta();
-          recalcTotals();
-        }
-        State.wallet = { address: addr };
-        localStorage.setItem(LS_LAST_WALLET, addr);
-
-        savePrivateKeySession(addr, pk);
-
-        $('importResult').innerText = `Wallet imported (demo): ${addr}`;
-        if (!DEMO_MODE) {
-          await syncAll();
-        }
-        updateUI();
-        showModal('loginModal', false);
-        toast('Wallet imported (demo).', 2200, 'success');
-      } catch (e) {
-        $('importResult').innerText = 'Error: ' + e.message;
-      }
-    }
-
-    function txLine(tx, me) {
-      const when = new Date(tx.timestamp).toLocaleString();
-      const isOut = (tx.sender || '').toLowerCase() === (me || '').toLowerCase();
-      const peer = isOut ? tx.recipient : tx.sender;
-      const dir = isOut ? 'Sent' : 'Received';
-      const msg = tx.message ? ` (${tx.message})` : '';
-      const st = tx.status === 1 ? ' [pending]' : '';
-      return `[${when}] ${dir} ${tx.amount} FONE ${isOut ? '->' : '<-'} ${peer}${msg}${st}`;
-    }
-
-    async function syncAll() {
-      const addr = getActiveAddress();
-      if (!addr) return;
-
-      State.syncing = true;
-      updateUI();
-
-      try {
-        if (!DEMO_MODE) {
-          const data = await api(
-            `/api/fone/wallet/${encodeURIComponent(addr)}/transactions`,
-            'GET'
-          );
-
-          const addrData = data?.addressData || data || {};
-
-          let balRaw =
-            addrData.addressBalance ??
-            addrData.balance ??
-            data.balance ??
-            0;
-
-          let balNum = Number(balRaw);
-          if (!Number.isFinite(balNum)) balNum = 0;
-
-          State.balance.onchain.available = balNum;
-          State.balance.onchain.total = balNum;
-          State.balance.onchain.staked = 0;
-          State.balance.onchain.vested = 0;
-          recalcTotals();
-
-          const txs =
-            addrData.addressTransactions ||
-            data.transactions ||
-            [];
-          const known = new Set(State.history || []);
-          txs.forEach(tx => {
-            const line = txLine(tx, addr);
-            if (!known.has(line)) State.history.push(line);
-          });
-        } else {
-          // In demo, just simulate a short delay
-          await new Promise(r => setTimeout(r, 300));
-        }
-      } catch (e) {
-        toast('Failed to sync: ' + e.message, 2600, 'error');
-      }
-
-      State.syncing = false;
-      updateUI();
+    async function deriveHexWrapper(pass) {
+      const saltHex = localStorage.getItem(PASS_SALT);
+      const iter = parseInt(localStorage.getItem(PASS_ITER) || '150000', 10);
+      if (!saltHex) return null;
+      return deriveHex(pass, saltHex, iter);
     }
 
     function isValidFoneAddress(a) {
@@ -1213,28 +1055,16 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
     }
 
     async function sendTransactionFlow(privateKey, recipient, amount, message) {
-      if (DEMO_MODE) {
-        const amt = Number(amount);
-        State.balance.onchain.available = Math.max(0, Number(State.balance.onchain.available || 0) - amt);
-        State.balance.onchain.total = State.balance.onchain.available;
-        recalcTotals();
-        const me = getActiveAddress() || 'demo';
-        const line = `[${new Date().toLocaleString()}] Sent (demo) ${amt} FONE -> ${recipient}${message ? ' ('+message+')':''}`;
-        State.history.push(line);
-        return { ok: true, demo: true, sender: me, recipient, amount: amt, message };
-      } else {
-        const payload = {
-          privateKey,
-          recipient,
-          amount: Number(amount),
-          ...(message ? { message } : {})
-        };
-        const res = await api('/api/fone/transaction/send', 'POST', payload);
-        return res;
-      }
+      const amt = Number(amount);
+      State.balance.onchain.available = Math.max(0, Number(State.balance.onchain.available || 0) - amt);
+      State.balance.onchain.total = State.balance.onchain.available;
+      recalcTotals();
+      const me = getActiveAddress() || 'demo';
+      const line = `[${new Date().toLocaleString()}] Sent (demo) ${amt} FONE -> ${recipient}${message ? ' ('+message+')':''}`;
+      State.history.push(line);
+      return { ok: true, demo: true, sender: me, recipient, amount: amt, message };
     }
 
-    // ----- MISSIONS / BETTING (simulated) -----
     function buildMissions() {
       if (State.missions && State.missions.length) return;
       State.missions = [
@@ -1260,15 +1090,20 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       side.innerHTML = '';
       const available = State.missions.filter(m => !State.completedMissionIds.includes(m.id));
       available.slice(0, 4).forEach(m => {
-        el.innerHTML += `<div class="p-4 rounded app-surface">
-          <div class="font-semibold">${m.title}</div>
-          <div class="text-sm small-muted">${m.location} • ${m.reward} FONE (sim.)</div>
-          <div class="mt-3"><button class="btn-accent" onclick="openMission('${m.id}')">Complete mission</button></div>
+        el.innerHTML += `<div class="p-4 rounded-xl app-surface border border-slate-700/60">
+          <div class="font-semibold text-sm">${m.title}</div>
+          <div class="text-xs small-muted mt-0.5">${m.location} • ${m.reward} FONE (sim.)</div>
+          <div class="mt-3">
+            <button class="btn-accent w-full text-xs" onclick="openMission('${m.id}')">Complete mission</button>
+          </div>
         </div>`;
       });
       State.missions.forEach(m => {
         if (!State.completedMissionIds.includes(m.id)) {
-          side.innerHTML += `<li class="flex justify-between"><span>${m.title}</span><span class="text-sm small-muted">${m.reward} F (sim.)</span></li>`;
+          side.innerHTML += `<li class="flex justify-between items-center">
+            <span>${m.title}</span>
+            <span class="text-xs small-muted">${m.reward} F (sim.)</span>
+          </li>`;
         }
       });
     }
@@ -1288,13 +1123,13 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
           <div class="text-sm small-muted mt-1">${m.description}</div>
           <div class="text-xs small-muted mt-2">${m.location} • Reward: <strong>${m.reward} FONE</strong> (simulated) • <em>${m.difficulty.toUpperCase()}</em></div>
           <div class="mt-3">
-            <div class="w-full h-2.5 bg-black/20 rounded overflow-hidden">
-              <div class="h-2.5 rounded" style="width:${prog}%; background:linear-gradient(90deg, var(--accent), var(--accent-2))"></div>
+            <div class="w-full h-2.5 bg-black/20 rounded-full overflow-hidden">
+              <div class="h-2.5 rounded-full" style="width:${prog}%; background:linear-gradient(90deg, var(--accent), var(--accent-2))"></div>
             </div>
             <div class="mt-2 flex items-center gap-2">
-              <div class="text-sm small-muted">${prog}% complete</div>
+              <div class="text-xs small-muted">${prog}% complete</div>
               <div class="ml-auto">
-                ${done ? '<span class="small-muted">Completed ✅</span>' : `<button class="btn-accent" onclick="openMission('${m.id}')">Complete mission</button>`}
+                ${done ? '<span class="small-muted text-xs">Completed ✅</span>' : `<button class="btn-accent text-xs" onclick="openMission('${m.id}')">Complete mission</button>`}
               </div>
             </div>
           </div>
@@ -1341,7 +1176,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       toast('Validating mission… (simulated)', 1800, 'info');
       try {
         await uploadStaging();
-        await new Promise(r => setTimeout(r, 800));
+        await new Promise(r => setTimeout(r, 600));
         if (!State.completedMissionIds.includes(m.id)) State.completedMissionIds.push(m.id);
         const repAdd = repFor(m.difficulty);
         State.reputation = Number(State.reputation || 0) + repAdd;
@@ -1426,18 +1261,16 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
           <div class="mt-3 text-xs small-muted">Bet up to 100 demo FONE (local simulated “credits”)</div>
           <div class="mt-1 flex items-center gap-2">
             <input id="bet-${item.id}" type="number" min="1" max="100" step="1"
-              class="p-2 rounded app-input mono w-24" ${disabled}
+              class="p-2 rounded app-input mono w-24 text-xs" ${disabled}
               value="${defaultBet}">
-            <button class="btn-accent" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
-            <button class="btn-muted" ${disabled} onclick="placeBet('${item.id}','reject')">Reject</button>
+            <button class="btn-accent text-xs" ${disabled} onclick="placeBet('${item.id}','approve')">Validate</button>
+            <button class="btn-muted text-xs" ${disabled} onclick="placeBet('${item.id}','reject')">Reject</button>
           </div>
           ${statusLine}`;
         wrap.appendChild(div);
       });
 
-      try {
-        lucide.createIcons();
-      } catch {}
+      try { lucide.createIcons(); } catch {}
     }
 
     window.placeBet = function placeBet(id, decision) {
@@ -1499,7 +1332,6 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       );
     }
 
-    // ---------- CONTACTS & QR SCAN ----------
     const LS_CONTACTS = 'ev_contacts';
     function getContacts() {
       try { return JSON.parse(localStorage.getItem(LS_CONTACTS) || '[]'); } catch { return []; }
@@ -1564,20 +1396,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       }
       showModal('scanModal', false);
     }
-    $('btnScanQR')?.addEventListener('click', openScan);
-    $('qrClose')?.addEventListener('click', closeScan);
 
-    $('btnSaveContact')?.addEventListener('click', () => {
-      const addr = ($('inputDest')?.value || '').trim();
-      if (!addr) return toast('Enter an address to save.', 1800, 'warning');
-      if (!isValidFoneAddress(addr)) return toast('Invalid address.', 1800, 'error');
-      const label = prompt('Label for this address (optional):') || '';
-      saveContact(addr, label.trim());
-    });
-
-    renderContactsDatalist();
-
-    // ---------- HISTORY & LEADERBOARD ----------
     function renderHistory() {
       const el = $('historyList');
       if (!el) return;
@@ -1610,12 +1429,12 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
         const isMe = me && me === u.addr;
         const row = document.createElement('div');
         row.className = 'p-3 glass rounded flex items-center gap-3';
-        row.innerHTML = `<div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#021124">${idx + 1}</div>
+        row.innerHTML = `<div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#021124;font-size:.9rem;">${idx + 1}</div>
           <div style="flex:1">
-            <div class="font-semibold">${isMe ? 'You' : (u.addr)}</div>
-            <div class="text-xs small-muted">Reputation: <strong>${u.rep}</strong></div>
+            <div class="font-semibold text-sm">${isMe ? 'You' : (u.addr)}</div>
+            <div class="text-[11px] small-muted">Reputation: <strong>${u.rep}</strong> pts</div>
           </div>
-          <div class="text-sm small-muted">${u.rep} pts</div>`;
+          <div class="text-xs small-muted">${u.rep} pts</div>`;
         el.appendChild(row);
       });
     }
@@ -1637,7 +1456,107 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       }
     }
 
-    // ---------- NAV & UI EVENTS ----------
+    function isPasswordSetApp() { return !!localStorage.getItem(PASS_VER); }
+
+    function lockApp() { setUnlocked(false); }
+
+    function showGate(show) {
+      const el = $('gate');
+      if (el) el.classList.toggle('show', !!show);
+    }
+
+    function bindGateUI() {
+      const hasPwd = isPasswordSetApp();
+      const createView = $('gateCreateView');
+      const unlockView = $('gateUnlockView');
+      if (createView) createView.classList.toggle('hidden', hasPwd);
+      if (unlockView) unlockView.classList.toggle('hidden', !hasPwd);
+
+      $('gateCreateBtn')?.addEventListener('click', async () => {
+        const p1 = ($('newPass')?.value || '').trim();
+        const p2 = ($('newPass2')?.value || '').trim();
+        const msg = $('gateMsg');
+        if (p1.length < 6) { msg.textContent = 'Use at least 6 characters.'; return; }
+        if (p1 !== p2) { msg.textContent = 'Passwords do not match.'; return; }
+        await setAppPassword(p1);
+        setUnlocked(true);
+        showGate(false);
+        toast('Password created. App unlocked.', 1800);
+      });
+
+      $('gateBtn')?.addEventListener('click', async () => {
+        const pass = ($('gatePass')?.value || '').trim();
+        const msg = $('gateMsg2');
+        if (!pass) { msg.textContent = 'Please enter your password.'; return; }
+        if (await verifyAppPassword(pass)) {
+          setUnlocked(true);
+          showGate(false);
+          toast('Unlocked 👌', 1500);
+        } else {
+          msg.textContent = 'Incorrect password.'; $('gatePass')?.select();
+        }
+      });
+
+      $('gatePass')?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') $('gateBtn')?.click();
+      });
+      $('newPass2')?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') $('gateCreateBtn')?.click();
+      });
+    }
+
+    function initPasswordLock() {
+      if (!isPasswordSetApp()) {
+        showGate(true);
+        bindGateUI();
+        return;
+      }
+
+      if (isUnlocked()) {
+        showGate(false);
+        return;
+      }
+
+      showGate(true);
+      bindGateUI();
+    }
+
+    function requireActionPassword({ title = 'Confirm action', hint = 'Enter your password to continue.' } = {}) {
+      return new Promise((resolve) => {
+        $('authTitle').textContent = title;
+        $('authHint').textContent = hint;
+        $('authModal')?.classList.add('show');
+        const onOk = async () => {
+          const pass = ($('authPass')?.value || '').trim();
+          if (!pass) { $('authMsg').textContent = 'Please enter your password.'; return; }
+          if (await verifyAppPassword(pass)) {
+            $('authModal')?.classList.remove('show');
+            resolve(true);
+          } else {
+            $('authMsg').textContent = 'Incorrect password.'; $('authPass')?.select();
+          }
+        };
+        const onCancel = () => { $('authModal')?.classList.remove('show'); resolve(false); };
+
+        $('authOk').onclick = onOk;
+        $('authCancel').onclick = onCancel;
+        $('authPass').onkeydown = (e) => {
+          if (e.key === 'Enter') onOk();
+          if (e.key === 'Escape') onCancel();
+        };
+      });
+    }
+
+    function bindSaveCfgWatcher() {
+      const btnTest = $('btnTestCfg');
+      if (btnTest) {
+        btnTest.addEventListener('click', async () => {
+          $('cfgMsg').innerText = 'Demo mode: backend/API are not used.';
+          toast('Demo mode: no backend calls are performed.', 2000, 'info');
+        });
+      }
+    }
+
     document.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', () => {
       const r = a.dataset.route;
       showPage(r);
@@ -1646,10 +1565,12 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
         $('sidebarBackdrop').style.display = 'none';
       }
     }));
+
     document.querySelectorAll('[data-route]')?.forEach(el => el.addEventListener('click', () => {
       const r = el.dataset.route;
       if (r) showPage(r);
     }));
+
     $('openWalletHistory')?.addEventListener('click', () => showPage('history'));
     $('mobileMenuBtn')?.addEventListener('click', () => {
       $('sidebar')?.classList.add('open');
@@ -1662,6 +1583,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
     $('mobileLoginBtn')?.addEventListener('click', () => showModal('loginModal', true));
     $('openLoginBtn')?.addEventListener('click', () => showModal('loginModal', true));
     $('closeLogin')?.addEventListener('click', () => showModal('loginModal', false));
+
     $('themeToggle')?.addEventListener('click', () => {
       const cur = localStorage.getItem(LS_THEME) || 'dark';
       const next = cur === 'light' ? 'dark' : 'light';
@@ -1675,6 +1597,7 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       localStorage.setItem(LS_THEME, v);
       updateUI();
     });
+
     $('btnCreateWallet')?.addEventListener('click', createWalletFlow);
     $('btnImportWallet')?.addEventListener('click', async () => {
       const pk = ($('inputPrivate')?.value || '').trim();
@@ -1737,7 +1660,6 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       applySendValidationUI();
     });
 
-    // SEND: ask only for app password; use private key from session (demo)
     $('btnSendTx')?.addEventListener('click', async () => {
       const v = validateSendForm();
       if (!v.ok) return applySendValidationUI();
@@ -1811,32 +1733,6 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       toast('Logged out.', 2000, 'info');
     });
 
-    function bindSaveCfgWatcher() {
-      const btnTest = $('btnTestCfg');
-
-      if (btnTest) {
-        btnTest.addEventListener('click', async () => {
-          if (DEMO_MODE) {
-            $('cfgMsg').innerText = 'Demo mode: backend/API are not used.';
-            toast('Demo mode: no backend calls are performed.', 2000, 'info');
-            return;
-          }
-
-          $('cfgMsg').innerText = 'Testing backend connection...';
-
-          try {
-            await api('/api/fone/wallet/create', 'POST');
-            $('cfgMsg').innerText = 'Backend OK (can create a test wallet).';
-            toast('Backend connection OK.', 1600, 'success');
-          } catch (e) {
-            $('cfgMsg').innerText =
-              'Failed: ' + e.message + ' (check backend / CORS)';
-            toast('Failed to connect to backend.', 2000, 'error');
-          }
-        });
-      }
-    }
-
     $('btnStart')?.addEventListener('click', () => {
       $('welcomeModal')?.classList.remove('show');
       showModal('loginModal', true);
@@ -1883,11 +1779,9 @@ Private keys are NEVER saved on servers. In this public demo, all cryptographic 
       window.addEventListener('load', () => {
         initPasswordLock();
         bindSaveCfgWatcher();
-        if (DEMO_MODE) {
-          toast('Demo mode: no backend or node required. All actions are simulated locally.', 5000, 'info');
-        }
+        toast('Demo mode: no backend or node required. All actions are simulated locally.', 4800, 'info');
       });
-      window.Eco = { State, api, syncAll, showPage };
+      window.Eco = { State, syncAll, showPage };
     })();
   </script>
   <script src="https://unpkg.com/html5-qrcode"></script>
