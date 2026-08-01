@@ -196,6 +196,12 @@
             font-size: 1rem;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .nav-links {
             display: flex;
             gap: 8px;
@@ -217,6 +223,31 @@
             background: rgba(16, 185, 129, 0.1);
         }
 
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-card);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .lang-btn.active {
+            color: var(--primary-light);
+        }
+
         .nav-hamburger {
             display: none;
             flex-direction: column;
@@ -235,18 +266,21 @@
             transition: all 0.3s ease;
         }
 
-        /* ===== HERO / LAUNCH STATUS ===== */
+        /* ===== HERO / APP BANNER SECTION ===== */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
+            justify-content: space-between;
             padding: 120px 24px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 40px;
         }
 
         .hero-content {
-            max-width: 750px;
+            max-width: 580px;
+            text-align: left;
         }
 
         .launch-badge {
@@ -260,7 +294,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--primary-light);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             text-transform: uppercase;
             letter-spacing: 1px;
             animation: pulseBadge 2s ease-in-out infinite;
@@ -284,22 +318,10 @@
             50% { opacity: 0.3; }
         }
 
-        .hero-icon {
-            font-size: 5rem;
-            margin-bottom: 24px;
-            display: block;
-            animation: pulse3d 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse3d {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.05) rotate(5deg); }
-        }
-
         .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 1.15;
             margin-bottom: 20px;
             letter-spacing: -1px;
         }
@@ -312,19 +334,64 @@
         }
 
         .hero .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 40px;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Form / CTA */
+        .cta-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cta-form input {
+            flex: 1;
+            min-width: 240px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .cta-form input:focus {
+            border-color: var(--primary);
+        }
+
+        .cta-form button {
+            padding: 14px 24px;
+            border-radius: 10px;
+            border: none;
+            background: var(--gradient-eco);
+            color: #0a0f0d;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .cta-form button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .micro-copy {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
         }
 
         /* Progress Bar */
         .progress-container {
-            max-width: 400px;
-            margin: 0 auto 32px;
+            max-width: 100%;
+            margin-bottom: 28px;
         }
 
         .progress-label {
@@ -379,6 +446,50 @@
             color: var(--primary-light);
             font-family: 'JetBrains Mono', monospace;
             font-weight: 500;
+        }
+
+        /* Hero Mobile Mockup */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            width: 270px;
+            height: 500px;
+            background: var(--bg-card);
+            border: 8px solid var(--border);
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            width: 60px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .phone-screen {
+            text-align: center;
+            color: var(--primary-light);
+            font-weight: 600;
+            padding: 20px;
+        }
+
+        .phone-screen .icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
         }
 
         /* Status Cards */
@@ -1158,6 +1269,20 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .cta-form {
+                justify-content: center;
+            }
+
             .webapp-grid {
                 grid-template-columns: 1fr;
             }
@@ -1273,39 +1398,53 @@
                 <div class="logo-icon">🌱</div>
                 <span>Eco Verify</span>
             </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#launch-status">Status do App</a></li>
-                <li><a href="#webapp">O Projeto</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#about">Sobre Mim</a></li>
-            </ul>
-            <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#launch-status" id="nav-item-1">Status do App</a></li>
+                    <li><a href="#webapp" id="nav-item-2">O Projeto</a></li>
+                    <li><a href="#roadmap" id="nav-item-3">Roadmap</a></li>
+                    <li><a href="#about" id="nav-item-4">Sobre Mim</a></li>
+                </ul>
+
+                <!-- Language Switcher Button -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btn-pt" onclick="setLanguage('pt')">🇧🇷 PT</button>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">|</span>
+                    <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">🇺🇸 EN</button>
+                </div>
+
+                <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- ======================== -->
-    <!--   HERO / MVP STATUS      -->
+    <!--   HERO / APP BANNER      -->
     <!-- ======================== -->
     <section class="hero" id="launch-status">
         <div class="hero-content">
             <div class="launch-badge">
                 <span class="dot"></span>
-                MVP em fase de finalização
+                <span id="txt-badge">🚀 MVP em fase de finalização</span>
             </div>
-            <span class="hero-icon">🚀</span>
-            <h1>O <span class="gradient-text">Eco Verify</span> está chegando!</h1>
-            <p class="subtitle">
-                A aplicação web (MVP) está nos ajustes finais e entrando na etapa de testes. 
-                Em breve o sistema estará aberto para você testar, explorar as funcionalidades e compartilhar sua opinião!
+            <h1 id="txt-hero-title">O <span class="gradient-text">Eco Verify</span> está chegando!</h1>
+            <p class="subtitle" id="txt-hero-desc">
+                Sua experiência de verificação sustentável agora a um toque de distância. Inscreva-se para garantir seu acesso antecipado ao app assim que for liberado!
             </p>
+
+            <form class="cta-form" onsubmit="event.preventDefault();">
+                <input type="email" id="txt-input-email" placeholder="Digite seu e-mail" required />
+                <button type="submit" id="txt-btn-cta">Garantir Acesso Antecipado</button>
+            </form>
+            <p class="micro-copy" id="txt-micro">🔒 Seja o primeiro a saber do lançamento. Sem spam, prometemos.</p>
 
             <div class="progress-container">
                 <div class="progress-label">
-                    <span>Ajustes Finais do MVP</span>
+                    <span id="txt-prog-label">Ajustes Finais do MVP</span>
                     <span>90%</span>
                 </div>
                 <div class="progress-bar-bg">
@@ -1313,27 +1452,40 @@
                 </div>
             </div>
             <p class="eta-text">✨ Lançamento para testes em breve...</p>
+        </div>
 
-            <div class="status-grid">
-                <div class="status-card">
-                    <span class="status-icon">💻</span>
-                    <div class="status-label">Desenvolvimento</div>
-                    <div class="status-value online">● Concluído</div>
-                </div>
-                <div class="status-card">
-                    <span class="status-icon">🧪</span>
-                    <div class="status-label">Fase de Testes</div>
-                    <div class="status-value progress">● Preparando</div>
-                </div>
-                <div class="status-card">
-                    <span class="status-icon">🎉</span>
-                    <div class="status-label">Acesso Público</div>
-                    <div class="status-value soon">● Em breve</div>
+        <div class="hero-visual">
+            <div class="phone-mockup">
+                <div class="phone-screen" id="txt-mockup-screen">
+                    <span class="icon">📱</span>
+                    <strong>Prévia do App</strong><br>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Eco Verify Mobile</span>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="container">
+        <div class="status-grid">
+            <div class="status-card">
+                <span class="status-icon">💻</span>
+                <div class="status-label" id="txt-st-label1">Desenvolvimento</div>
+                <div class="status-value online" id="txt-st-val1">● Concluído</div>
+            </div>
+            <div class="status-card">
+                <span class="status-icon">🧪</span>
+                <div class="status-label" id="txt-st-label2">Fase de Testes</div>
+                <div class="status-value progress" id="txt-st-val2">● Preparando</div>
+            </div>
+            <div class="status-card">
+                <span class="status-icon">🎉</span>
+                <div class="status-label" id="txt-st-label3">Acesso Público</div>
+                <div class="status-value soon" id="txt-st-val3">● Em breve</div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
     <div class="separator"></div>
 
     <!-- ======================== -->
@@ -1342,9 +1494,9 @@
     <section class="webapp-section" id="webapp">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag">🌍 O Projeto</div>
-                <h2 class="section-title">O que é o Eco Verify?</h2>
-                <p class="section-desc">
+                <div class="section-tag" id="txt-web-tag">🌍 O Projeto</div>
+                <h2 class="section-title" id="txt-web-title">O que é o Eco Verify?</h2>
+                <p class="section-desc" id="txt-web-desc">
                     Uma plataforma premiada internacionalmente, focada em sustentabilidade e verificação
                     ecológica, que conquistou o 3º lugar em uma competição mundial.
                 </p>
@@ -1362,7 +1514,7 @@
                         <div class="mockup-body">
                             <span class="mock-icon">🌎</span>
                             <h4>Eco Verify WebApp</h4>
-                            <p>Plataforma inteligente de verificação ecológica para empresas e consumidores conscientes.</p>
+                            <p id="txt-mock-desc">Plataforma inteligente de verificação ecológica para empresas e consumidores conscientes.</p>
                             <div class="mockup-features">
                                 <span>🔍 Verificação</span>
                                 <span>📊 Relatórios</span>
@@ -1374,14 +1526,14 @@
                 </div>
 
                 <div class="webapp-info">
-                    <h2>Verificação ecológica <span class="gradient-text">inteligente</span></h2>
-                    <p>
+                    <h2 id="txt-web-info-h2">Verificação ecológica <span class="gradient-text">inteligente</span></h2>
+                    <p id="txt-web-info-p1">
                         O <strong>Eco Verify</strong> é uma plataforma web desenvolvida para trazer
                         <strong>transparência e confiabilidade</strong> ao mercado de sustentabilidade.
                         Através de verificações inteligentes, o sistema ajuda consumidores e empresas a
                         validarem práticas ecológicas de forma acessível e confiável.
                     </p>
-                    <p>
+                    <p id="txt-web-info-p2">
                         O projeto nasceu da necessidade de combater o <strong>greenwashing</strong> — quando
                         empresas fazem alegações ambientais falsas — e oferecer uma ferramenta real para
                         quem se importa com o planeta.
@@ -1390,19 +1542,19 @@
                     <ul class="feature-list">
                         <li>
                             <span class="check">✓</span>
-                            <span><strong>Verificação Ecológica:</strong> Sistema inteligente para validar práticas sustentáveis de empresas e produtos</span>
+                            <span id="txt-ft-1"><strong>Verificação Ecológica:</strong> Sistema inteligente para validar práticas sustentáveis de empresas e produtos</span>
                         </li>
                         <li>
                             <span class="check">✓</span>
-                            <span><strong>Transparência Ambiental:</strong> Relatórios claros e acessíveis sobre o impacto ambiental real</span>
+                            <span id="txt-ft-2"><strong>Transparência Ambiental:</strong> Relatórios claros e acessíveis sobre o impacto ambiental real</span>
                         </li>
                         <li>
                             <span class="check">✓</span>
-                            <span><strong>Combate ao Greenwashing:</strong> Ferramentas para identificar e denunciar falsas alegações ecológicas</span>
+                            <span id="txt-ft-3"><strong>Combate ao Greenwashing:</strong> Ferramentas para identificar e denunciar falsas alegações ecológicas</span>
                         </li>
                         <li>
                             <span class="check">✓</span>
-                            <span><strong>Reconhecimento Global:</strong> 3º lugar em competição mundial, representando o Brasil (Nordeste)</span>
+                            <span id="txt-ft-4"><strong>Reconhecimento Global:</strong> 3º lugar em competição mundial, representando o Brasil (Nordeste)</span>
                         </li>
                     </ul>
                 </div>
@@ -1418,9 +1570,9 @@
     <section class="roadmap-section" id="roadmap">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag">🗺️ Roadmap</div>
-                <h2 class="section-title">A Caminho do Lançamento</h2>
-                <p class="section-desc">
+                <div class="section-tag" id="txt-rm-tag">🗺️ Roadmap</div>
+                <h2 class="section-title" id="txt-rm-title">A Caminho do Lançamento</h2>
+                <p class="section-desc" id="txt-rm-desc">
                     Veja o que já foi concluído e os próximos passos antes da plataforma oficial ir ao ar.
                 </p>
             </div>
@@ -1429,36 +1581,36 @@
                 <div class="roadmap-item done">
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
-                        <span class="phase-tag">✅ Concluído</span>
-                        <h3>MVP & Competição Global</h3>
-                        <p>Desenvolvimento da estrutura do MVP, participação na competição internacional e conquista do 3º lugar mundial representando o Nordeste do Brasil.</p>
+                        <span class="phase-tag" id="txt-rm-p1-tag">✅ Concluído</span>
+                        <h3 id="txt-rm-p1-title">MVP & Competição Global</h3>
+                        <p id="txt-rm-p1-desc">Desenvolvimento da estrutura do MVP, participação na competição internacional e conquista do 3º lugar mundial representando o Nordeste do Brasil.</p>
                     </div>
                 </div>
 
                 <div class="roadmap-item done">
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
-                        <span class="phase-tag">✅ Concluído</span>
-                        <h3>Design System & Refatoração</h3>
-                        <p>Interface modernizada no Figma, arquitetura reconstruída no frontend e aperfeiçoamento da experiência do usuário.</p>
+                        <span class="phase-tag" id="txt-rm-p2-tag">✅ Concluído</span>
+                        <h3 id="txt-rm-p2-title">Design System & Refatoração</h3>
+                        <p id="txt-rm-p2-desc">Interface modernizada no Figma, arquitetura reconstruída no frontend e aperfeiçoamento da experiência do usuário.</p>
                     </div>
                 </div>
 
                 <div class="roadmap-item active">
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
-                        <span class="phase-tag">🔥 Estágio Atual</span>
-                        <h3>Finalização & Testes Internos</h3>
-                        <p>Ajustes finos no sistema, otimização de performance e preparação do ambiente para receber as primeiras opiniões dos usuários.</p>
+                        <span class="phase-tag" id="txt-rm-p3-tag">🔥 Estágio Atual</span>
+                        <h3 id="txt-rm-p3-title">Finalização & Testes Internos</h3>
+                        <p id="txt-rm-p3-desc">Ajustes finos no sistema, otimização de performance e preparação do ambiente para receber as primeiras opiniões dos usuários.</p>
                     </div>
                 </div>
 
                 <div class="roadmap-item planned">
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
-                        <span class="phase-tag">⏳ Próximo Passo</span>
-                        <h3>Lançamento Beta Público & Feedbacks</h3>
-                        <p>Liberação do MVP para a comunidade testar e enviar sugestões, ajudando a moldar as próximas atualizações da plataforma.</p>
+                        <span class="phase-tag" id="txt-rm-p4-tag">⏳ Próximo Passo</span>
+                        <h3 id="txt-rm-p4-title">Lançamento Beta Público & Feedbacks</h3>
+                        <p id="txt-rm-p4-desc">Liberação do MVP para a comunidade testar e enviar sugestões, ajudando a moldar as próximas atualizações da plataforma.</p>
                     </div>
                 </div>
             </div>
@@ -1473,8 +1625,8 @@
     <section class="about-section" id="about">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag">👨‍💻 Desenvolvedor</div>
-                <h2 class="section-title">Quem está por trás do Eco Verify?</h2>
+                <div class="section-tag" id="txt-ab-tag">👨‍💻 Desenvolvedor</div>
+                <h2 class="section-title" id="txt-ab-title">Quem está por trás do Eco Verify?</h2>
             </div>
 
             <div class="about-hero-grid">
@@ -1493,13 +1645,13 @@
                 <div class="about-text">
                     <h2>Douglas <span class="gradient-text">Gabriel</span></h2>
                     <p class="tagline">🚀 Full Stack Developer & UX/UI Designer</p>
-                    <p>
+                    <p id="txt-ab-p1">
                         Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> no
                         <strong>Senac MedioTec Recife</strong>. Sou apaixonado por transformar ideias
                         complexas em soluções digitais completas, unindo o olhar crítico do
                         <strong>UX/UI Design</strong> com a robustez do <strong>desenvolvimento Full Stack</strong>.
                     </p>
-                    <p>
+                    <p id="txt-ab-p2">
                         Estou focado em criar softwares que não apenas funcionam, mas que
                         <strong>resolvem problemas reais da sociedade</strong>. Cada linha de código
                         que escrevo tem um propósito: causar impacto positivo no mundo.
@@ -1508,8 +1660,8 @@
                     <!-- Achievement -->
                     <div class="achievement-card">
                         <span class="trophy">🏆</span>
-                        <h3>Eco Verify — <span>3º Lugar Mundial</span></h3>
-                        <p>
+                        <h3 id="txt-ach-title">Eco Verify — <span>3º Lugar Mundial</span></h3>
+                        <p id="txt-ach-desc">
                             Fui o <strong>ÚNICO</strong> responsável por representar o
                             <strong>Brasil (Nordeste)</strong> em uma competição global, conquistando
                             o terceiro lugar com um projeto focado em <strong>sustentabilidade e
@@ -1517,9 +1669,9 @@
                             e menções em diversos portais de tecnologia.
                         </p>
                         <div class="achievement-badges">
-                            <div class="achievement-badge">🌍 Reconhecimento Internacional</div>
-                            <div class="achievement-badge">🇧🇷 Representante do Brasil</div>
-                            <div class="achievement-badge">🥉 Top 3 Global</div>
+                            <div class="achievement-badge" id="txt-ach-b1">🌍 Reconhecimento Internacional</div>
+                            <div class="achievement-badge" id="txt-ach-b2">🇧🇷 Representante do Brasil</div>
+                            <div class="achievement-badge" id="txt-ach-b3">🥉 Top 3 Global</div>
                         </div>
                     </div>
                 </div>
@@ -1564,9 +1716,9 @@
             <!-- Current Project -->
             <div class="current-project">
                 <div class="project-info">
-                    <div class="project-label">📈 Projeto Atual em Desenvolvimento</div>
-                    <h3>Sistema Integrado de Fiscalização Urbana</h3>
-                    <p>
+                    <div class="project-label" id="txt-cp-label">📈 Projeto Atual em Desenvolvimento</div>
+                    <h3 id="txt-cp-title">Sistema Integrado de Fiscalização Urbana</h3>
+                    <p id="txt-cp-desc">
                         Além do Eco Verify, estou atualmente desenvolvendo um sistema focado em
                         <strong>otimizar o fluxo de denúncias</strong> e a <strong>produtividade de
                         fiscais e gestores públicos</strong>. Uma solução que une design centrado
@@ -1596,7 +1748,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>Tem dúvidas, sugestões ou opiniões sobre o app?</p>
+            <p id="txt-footer-q">Tem dúvidas, sugestões ou opiniões sobre o app?</p>
             <div class="footer-contact">
                 <a href="mailto:douglasgabriel9628@gmail.com" class="footer-contact-link">
                     ✉️ douglasgabriel9628@gmail.com
@@ -1605,7 +1757,7 @@
             <p>
                 Feito com <span class="heart">❤️</span> por <strong>Douglas Gabriel</strong> — 2026
             </p>
-            <p style="margin-top: 8px; font-size: 0.7rem;">
+            <p style="margin-top: 8px; font-size: 0.7rem;" id="txt-footer-sub">
                 Transformando ideias em impacto real, uma linha de código por vez. 🌱
             </p>
         </div>
@@ -1615,6 +1767,178 @@
     <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
 
     <script>
+        /* ===== TRANSLATION DATA ===== */
+        const translations = {
+            pt: {
+                nav1: "Status do App", nav2: "O Projeto", nav3: "Roadmap", nav4: "Sobre Mim",
+                badge: "🚀 MVP em fase de finalização",
+                heroTitle: "O <span class='gradient-text'>Eco Verify</span> está chegando!",
+                heroDesc: "Sua experiência de verificação sustentável agora a um toque de distância. Inscreva-se para garantir seu acesso antecipado ao app assim que for liberado!",
+                placeholder: "Digite seu e-mail",
+                btnCta: "Garantir Acesso Antecipado",
+                micro: "🔒 Seja o primeiro a saber do lançamento. Sem spam, prometemos.",
+                progLabel: "Ajustes Finais do MVP",
+                mockupScreen: "<span class='icon'>📱</span><strong>Prévia do App</strong><br><span style='font-size: 0.85rem; color: var(--text-secondary);'>Eco Verify Mobile</span>",
+                stLabel1: "Desenvolvimento", stVal1: "● Concluído",
+                stLabel2: "Fase de Testes", stVal2: "● Preparando",
+                stLabel3: "Acesso Público", stVal3: "● Em breve",
+                webTag: "🌍 O Projeto", webTitle: "O que é o Eco Verify?",
+                webDesc: "Uma plataforma premiada internacionalmente, focada em sustentabilidade e verificação ecológica, que conquistou o 3º lugar em uma competição mundial.",
+                mockDesc: "Plataforma inteligente de verificação ecológica para empresas e consumidores conscientes.",
+                webInfoH2: "Verificação ecológica <span class='gradient-text'>inteligente</span>",
+                webInfoP1: "O <strong>Eco Verify</strong> é uma plataforma web desenvolvida para trazer <strong>transparência e confiabilidade</strong> ao mercado de sustentabilidade. Através de verificações inteligentes, o sistema ajuda consumidores e empresas a validarem práticas ecológicas de forma acessível e confiável.",
+                webInfoP2: "O projeto nasceu da necessidade de combater o <strong>greenwashing</strong> — quando empresas fazem alegações ambientais falsas — e oferecer uma ferramenta real para quem se importa com o planeta.",
+                ft1: "<strong>Verificação Ecológica:</strong> Sistema inteligente para validar práticas sustentáveis de empresas e produtos",
+                ft2: "<strong>Transparência Ambiental:</strong> Relatórios claros e acessíveis sobre o impacto ambiental real",
+                ft3: "<strong>Combate ao Greenwashing:</strong> Ferramentas para identificar e denunciar falsas alegações ecológicas",
+                ft4: "<strong>Reconhecimento Global:</strong> 3º lugar em competição mundial, representando o Brasil (Nordeste)",
+                rmTag: "🗺️ Roadmap", rmTitle: "A Caminho do Lançamento", rmDesc: "Veja o que já foi concluído e os próximos passos antes da plataforma oficial ir ao ar.",
+                rmP1Tag: "✅ Concluído", rmP1Title: "MVP & Competição Global", rmP1Desc: "Desenvolvimento da estrutura do MVP, participação na competição internacional e conquista do 3º lugar mundial representando o Nordeste do Brasil.",
+                rmP2Tag: "✅ Concluído", rmP2Title: "Design System & Refatoração", rmP2Desc: "Interface modernizada no Figma, arquitetura reconstruída no frontend e aperfeiçoamento da experiência do usuário.",
+                rmP3Tag: "🔥 Estágio Atual", rmP3Title: "Finalização & Testes Internos", rmP3Desc: "Ajustes finos no sistema, otimização de performance e preparação do ambiente para receber as primeiras opiniões dos usuários.",
+                rmP4Tag: "⏳ Próximo Passo", rmP4Title: "Lançamento Beta Público & Feedbacks", rmP4Desc: "Liberação do MVP para a comunidade testar e enviar sugestões, ajudando a moldar as próximas atualizações da plataforma.",
+                abTag: "👨‍💻 Desenvolvedor", abTitle: "Quem está por trás do Eco Verify?",
+                abP1: "Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> no <strong>Senac MedioTec Recife</strong>. Sou apaixonado por transformar ideias complexas em soluções digitais completas, unindo o olhar crítico do <strong>UX/UI Design</strong> com a robustez do <strong>desenvolvimento Full Stack</strong>.",
+                abP2: "Estou focado em criar softwares que não apenas funcionam, mas que <strong>resolvem problemas reais da sociedade</strong>. Cada linha de código que escrevo tem um propósito: causar impacto positivo no mundo.",
+                achTitle: "Eco Verify — <span>3º Lugar Mundial</span>",
+                achDesc: "Fui o <strong>ÚNICO</strong> responsável por representar o <strong>Brasil (Nordeste)</strong> em uma competição global, conquistando o terceiro lugar com um projeto focado em <strong>sustentabilidade e verificação ecológica</strong>. O projeto teve reconhecimento internacional e menções em diversos portais de tecnologia.",
+                achB1: "🌍 Reconhecimento Internacional", achB2: "🇧🇷 Representante do Brasil", achB3: "🥉 Top 3 Global",
+                cpLabel: "📈 Projeto Atual em Desenvolvimento", cpTitle: "Sistema Integrado de Fiscalização Urbana",
+                cpDesc: "Além do Eco Verify, estou atualmente desenvolvendo um sistema focado em <strong>otimizar o fluxo de denúncias</strong> e a <strong>produtividade de fiscais e gestores públicos</strong>. Uma solução que une design centrado no usuário com tecnologia robusta para resolver problemas reais de gestão urbana.",
+                footerQ: "Tem dúvidas, sugestões ou opiniões sobre o app?",
+                footerSub: "Transformando ideias em impacto real, uma linha de código por vez. 🌱",
+                etaDots: ['✨ Lançamento para testes em breve.', '✨ Lançamento para testes em breve..', '✨ Lançamento para testes em breve...']
+            },
+            en: {
+                nav1: "App Status", nav2: "The Project", nav3: "Roadmap", nav4: "About Me",
+                badge: "🚀 MVP in Final Testing Phase",
+                heroTitle: "<span class='gradient-text'>Eco Verify</span> is Coming Soon!",
+                heroDesc: "Your favorite eco-verification experience, now just a tap away. Subscribe to get early access to the app as soon as we go live!",
+                placeholder: "Enter your email address",
+                btnCta: "Get Early Access",
+                micro: "🔒 Be the first to know when we go live. No spam, ever.",
+                progLabel: "MVP Final Adjustments",
+                mockupScreen: "<span class='icon'>📱</span><strong>App Preview</strong><br><span style='font-size: 0.85rem; color: var(--text-secondary);'>Eco Verify Mobile</span>",
+                stLabel1: "Development", stVal1: "● Completed",
+                stLabel2: "Testing Phase", stVal2: "● Preparing",
+                stLabel3: "Public Access", stVal3: "● Coming Soon",
+                webTag: "🌍 The Project", webTitle: "What is Eco Verify?",
+                webDesc: "An internationally awarded platform focused on sustainability and eco-verification, which won 3rd place in a global competition.",
+                mockDesc: "Intelligent eco-verification platform for eco-conscious businesses and consumers.",
+                webInfoH2: "Smart ecological <span class='gradient-text'>verification</span>",
+                webInfoP1: "<strong>Eco Verify</strong> is a web platform designed to bring <strong>transparency and trust</strong> to the sustainability market. Through smart verifications, the system helps consumers and companies validate eco practices in an accessible, reliable way.",
+                webInfoP2: "The project was born out of the need to combat <strong>greenwashing</strong> — when companies make deceptive environmental claims — and provide a genuine tool for those who truly care about the planet.",
+                ft1: "<strong>Eco Verification:</strong> Smart system to validate sustainable practices of companies and products",
+                ft2: "<strong>Environmental Transparency:</strong> Clear and accessible reports on real environmental impact",
+                ft3: "<strong>Combating Greenwashing:</strong> Tools to identify and expose false environmental claims",
+                ft4: "<strong>Global Recognition:</strong> 3rd place in a worldwide competition, representing Brazil (Northeast)",
+                rmTag: "🗺️ Roadmap", rmTitle: "Road to Launch", rmDesc: "See what has been completed and the next steps before the official platform goes live.",
+                rmP1Tag: "✅ Completed", rmP1Title: "MVP & Global Competition", rmP1Desc: "Development of the MVP structure, participation in the international competition, and securing 3rd place worldwide representing Northeast Brazil.",
+                rmP2Tag: "✅ Completed", rmP2Title: "Design System & Refactoring", rmP2Desc: "Modernized interface in Figma, rebuilt frontend architecture, and refined user experience.",
+                rmP3Tag: "🔥 Current Stage", rmP3Title: "Finalization & Internal Testing", rmP3Desc: "Fine-tuning the system, optimizing performance, and preparing the environment to receive initial user feedback.",
+                rmP4Tag: "⏳ Next Step", rmP4Title: "Public Beta Launch & Feedback", rmP4Desc: "Releasing the MVP for the community to test and submit feedback, helping shape the platform's next updates.",
+                abTag: "👨‍💻 Developer", abTitle: "Who is behind Eco Verify?",
+                abP1: "I am a student of <strong>Systems Analysis and Development</strong> at <strong>Senac MedioTec Recife</strong>. I am passionate about transforming complex ideas into complete digital solutions, blending the critical eye of <strong>UX/UI Design</strong> with the robustness of <strong>Full Stack development</strong>.",
+                abP2: "I am focused on creating software that doesn't just work, but <strong>solves real societal problems</strong>. Every line of code I write has a clear purpose: making a positive impact on the world.",
+                achTitle: "Eco Verify — <span>3rd Place Worldwide</span>",
+                achDesc: "I was the <strong>SOLE</strong> representative for <strong>Brazil (Northeast)</strong> in a global competition, winning 3rd place with a project focused on <strong>sustainability and eco-verification</strong>. The project gained international recognition and was featured in several tech portals.",
+                achB1: "🌍 International Recognition", achB2: "🇧🇷 Representing Brazil", achB3: "🥉 Top 3 Worldwide",
+                cpLabel: "📈 Current Project in Development", cpTitle: "Integrated Urban Inspection System",
+                cpDesc: "In addition to Eco Verify, I am currently building a system focused on <strong>optimizing complaint workflows</strong> and the <strong>productivity of public inspectors and managers</strong>. A solution uniting user-centered design with robust tech to solve real urban management problems.",
+                footerQ: "Have questions, feedback, or ideas about the app?",
+                footerSub: "Turning ideas into real impact, one line of code at a time. 🌱",
+                etaDots: ['✨ Launching for testing soon.', '✨ Launching for testing soon..', '✨ Launching for testing soon...']
+            }
+        };
+
+        let currentLang = 'pt';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Navbar
+            document.getElementById('nav-item-1').innerText = t.nav1;
+            document.getElementById('nav-item-2').innerText = t.nav2;
+            document.getElementById('nav-item-3').innerText = t.nav3;
+            document.getElementById('nav-item-4').innerText = t.nav4;
+
+            // Hero
+            document.getElementById('txt-badge').innerHTML = t.badge;
+            document.getElementById('txt-hero-title').innerHTML = t.heroTitle;
+            document.getElementById('txt-hero-desc').innerHTML = t.heroDesc;
+            document.getElementById('txt-input-email').placeholder = t.placeholder;
+            document.getElementById('txt-btn-cta').innerText = t.btnCta;
+            document.getElementById('txt-micro').innerText = t.micro;
+            document.getElementById('txt-prog-label').innerText = t.progLabel;
+            document.getElementById('txt-mockup-screen').innerHTML = t.mockupScreen;
+
+            // Status
+            document.getElementById('txt-st-label1').innerText = t.stLabel1;
+            document.getElementById('txt-st-val1').innerText = t.stVal1;
+            document.getElementById('txt-st-label2').innerText = t.stLabel2;
+            document.getElementById('txt-st-val2').innerText = t.stVal2;
+            document.getElementById('txt-st-label3').innerText = t.stLabel3;
+            document.getElementById('txt-st-val3').innerText = t.stVal3;
+
+            // Webapp Section
+            document.getElementById('txt-web-tag').innerText = t.webTag;
+            document.getElementById('txt-web-title').innerText = t.webTitle;
+            document.getElementById('txt-web-desc').innerText = t.webDesc;
+            document.getElementById('txt-mock-desc').innerText = t.mockDesc;
+            document.getElementById('txt-web-info-h2').innerHTML = t.webInfoH2;
+            document.getElementById('txt-web-info-p1').innerHTML = t.webInfoP1;
+            document.getElementById('txt-web-info-p2').innerHTML = t.webInfoP2;
+            document.getElementById('txt-ft-1').innerHTML = t.ft1;
+            document.getElementById('txt-ft-2').innerHTML = t.ft2;
+            document.getElementById('txt-ft-3').innerHTML = t.ft3;
+            document.getElementById('txt-ft-4').innerHTML = t.ft4;
+
+            // Roadmap
+            document.getElementById('txt-rm-tag').innerText = t.rmTag;
+            document.getElementById('txt-rm-title').innerText = t.rmTitle;
+            document.getElementById('txt-rm-desc').innerText = t.rmDesc;
+            document.getElementById('txt-rm-p1-tag').innerText = t.rmP1Tag;
+            document.getElementById('txt-rm-p1-title').innerText = t.rmP1Title;
+            document.getElementById('txt-rm-p1-desc').innerText = t.rmP1Desc;
+            document.getElementById('txt-rm-p2-tag').innerText = t.rmP2Tag;
+            document.getElementById('txt-rm-p2-title').innerText = t.rmP2Title;
+            document.getElementById('txt-rm-p2-desc').innerText = t.rmP2Desc;
+            document.getElementById('txt-rm-p3-tag').innerText = t.rmP3Tag;
+            document.getElementById('txt-rm-p3-title').innerText = t.rmP3Title;
+            document.getElementById('txt-rm-p3-desc').innerText = t.rmP3Desc;
+            document.getElementById('txt-rm-p4-tag').innerText = t.rmP4Tag;
+            document.getElementById('txt-rm-p4-title').innerText = t.rmP4Title;
+            document.getElementById('txt-rm-p4-desc').innerText = t.rmP4Desc;
+
+            // About Me
+            document.getElementById('txt-ab-tag').innerText = t.abTag;
+            document.getElementById('txt-ab-title').innerText = t.abTitle;
+            document.getElementById('txt-ab-p1').innerHTML = t.abP1;
+            document.getElementById('txt-ab-p2').innerHTML = t.abP2;
+            document.getElementById('txt-ach-title').innerHTML = t.achTitle;
+            document.getElementById('txt-ach-desc').innerHTML = t.achDesc;
+            document.getElementById('txt-ach-b1').innerText = t.achB1;
+            document.getElementById('txt-ach-b2').innerText = t.achB2;
+            document.getElementById('txt-ach-b3').innerText = t.achB3;
+            document.getElementById('txt-cp-label').innerText = t.cpLabel;
+            document.getElementById('txt-cp-title').innerText = t.cpTitle;
+            document.getElementById('txt-cp-desc').innerHTML = t.cpDesc;
+
+            // Footer
+            document.getElementById('txt-footer-q').innerText = t.footerQ;
+            document.getElementById('txt-footer-sub').innerText = t.footerSub;
+
+            // Lang Buttons UI
+            if (lang === 'pt') {
+                document.getElementById('btn-pt').classList.add('active');
+                document.getElementById('btn-en').classList.remove('active');
+            } else {
+                document.getElementById('btn-en').classList.add('active');
+                document.getElementById('btn-pt').classList.remove('active');
+            }
+        }
+
         // ===== Navbar Scroll =====
         const navbar = document.getElementById('navbar');
         const scrollTopBtn = document.getElementById('scrollTop');
@@ -1675,16 +1999,12 @@
 
         // ===== Typing ETA =====
         const etaText = document.querySelector('.eta-text');
-        const dots = [
-            '✨ Lançamento para testes em breve.',
-            '✨ Lançamento para testes em breve..',
-            '✨ Lançamento para testes em breve...'
-        ];
         let dotIndex = 0;
 
         setInterval(() => {
-            etaText.textContent = dots[dotIndex];
-            dotIndex = (dotIndex + 1) % dots.length;
+            const dotsList = translations[currentLang].etaDots;
+            etaText.textContent = dotsList[dotIndex];
+            dotIndex = (dotIndex + 1) % dotsList.length;
         }, 600);
 
         // ===== Floating Leaves =====
