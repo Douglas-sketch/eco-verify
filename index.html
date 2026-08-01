@@ -340,58 +340,83 @@
             margin-bottom: 30px;
         }
 
-        /* Form / CTA */
-        .cta-form {
+        /* CTA Buttons (Substituindo o formulário) */
+        .hero-action-btns {
             display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 16px;
+            margin-bottom: 32px;
             flex-wrap: wrap;
         }
 
-        .cta-form input {
-            flex: 1;
-            min-width: 240px;
-            padding: 14px 18px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .cta-form input:focus {
-            border-color: var(--primary);
-        }
-
-        .cta-form button {
-            padding: 14px 24px;
-            border-radius: 10px;
-            border: none;
+        .btn-primary-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
             background: var(--gradient-eco);
             color: #0a0f0d;
             font-weight: 700;
             font-size: 0.95rem;
-            cursor: pointer;
-            transition: transform 0.3s, opacity 0.3s;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
         }
 
-        .cta-form button:hover {
+        .btn-primary-action:hover {
             transform: translateY(-2px);
-            opacity: 0.9;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
         }
 
-        .micro-copy {
+        .btn-secondary-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: transform 0.3s, border-color 0.3s, background 0.3s;
+        }
+
+        .btn-secondary-action:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            background: var(--bg-card-hover);
+        }
+
+        /* Hero Quick Stats Highlights */
+        .hero-highlights {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .highlight-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .highlight-label {
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-bottom: 32px;
         }
 
         /* Progress Bar */
         .progress-container {
             max-width: 100%;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
         .progress-label {
@@ -1279,7 +1304,11 @@
                 max-width: 100%;
             }
 
-            .cta-form {
+            .hero-action-btns {
+                justify-content: center;
+            }
+
+            .hero-highlights {
                 justify-content: center;
             }
 
@@ -1376,6 +1405,11 @@
             .achievement-card {
                 padding: 24px 20px;
             }
+
+            .btn-primary-action, .btn-secondary-action {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -1433,15 +1467,34 @@
             </div>
             <h1 id="txt-hero-title">O <span class="gradient-text">Eco Verify</span> está chegando!</h1>
             <p class="subtitle" id="txt-hero-desc">
-                Sua experiência de verificação sustentável agora a um toque de distância. Inscreva-se para garantir seu acesso antecipado ao app assim que for liberado!
+                Uma solução inovadora de verificação sustentável desenhada para trazer transparência ecológica de forma simples, rápida e confiável.
             </p>
 
-            <form class="cta-form" onsubmit="event.preventDefault();">
-                <input type="email" id="txt-input-email" placeholder="Digite seu e-mail" required />
-                <button type="submit" id="txt-btn-cta">Garantir Acesso Antecipado</button>
-            </form>
-            <p class="micro-copy" id="txt-micro">🔒 Seja o primeiro a saber do lançamento. Sem spam, prometemos.</p>
-        
+            <!-- Ações Rápidas (Substituindo o formulário antigo) -->
+            <div class="hero-action-btns">
+                <a href="#webapp" class="btn-primary-action" id="txt-btn-action1">
+                    🔍 Ver Prévia do App
+                </a>
+                <a href="mailto:douglasgabriel9628@gmail.com" class="btn-secondary-action" id="txt-btn-action2">
+                    ✉️ Entrar em Contato
+                </a>
+            </div>
+
+            <!-- Destaques Rápidos em Texto -->
+            <div class="hero-highlights">
+                <div class="highlight-item">
+                    <span class="highlight-number">90%</span>
+                    <span class="highlight-label" id="txt-hl-1">Desenvolvimento</span>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-number">Global</span>
+                    <span class="highlight-label" id="txt-hl-2">Reconhecimento</span>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-number">2 Langs</span>
+                    <span class="highlight-label" id="txt-hl-3">PT / EN Disponível</span>
+                </div>
+            </div>
 
             <div class="progress-container">
                 <div class="progress-label">
@@ -1774,10 +1827,12 @@
                 nav1: "Status do App", nav2: "O Projeto", nav3: "Roadmap", nav4: "Sobre Mim",
                 badge: "🚀 MVP em fase de finalização",
                 heroTitle: "O <span class='gradient-text'>Eco Verify</span> está chegando!",
-                heroDesc: "Sua experiência de verificação sustentável agora a um toque de distância. Inscreva-se para garantir seu acesso antecipado ao app assim que for liberado!",
-                placeholder: "Digite seu e-mail",
-                btnCta: "Garantir Acesso Antecipado",
-                micro: "🔒 Seja o primeiro a saber do lançamento. Sem spam, prometemos.",
+                heroDesc: "Uma solução inovadora de verificação sustentável desenhada para trazer transparência ecológica de forma simples, rápida e confiável.",
+                btnAction1: "🔍 Ver Prévia do App",
+                btnAction2: "✉️ Entrar em Contato",
+                hl1: "Desenvolvimento",
+                hl2: "Reconhecimento",
+                hl3: "PT / EN Disponível",
                 progLabel: "Ajustes Finais do MVP",
                 mockupScreen: "<span class='icon'>📱</span><strong>Prévia do App</strong><br><span style='font-size: 0.85rem; color: var(--text-secondary);'>Eco Verify Mobile</span>",
                 stLabel1: "Desenvolvimento", stVal1: "● Concluído",
@@ -1814,10 +1869,12 @@
                 nav1: "App Status", nav2: "The Project", nav3: "Roadmap", nav4: "About Me",
                 badge: "🚀 MVP in Final Testing Phase",
                 heroTitle: "<span class='gradient-text'>Eco Verify</span> is Coming Soon!",
-                heroDesc: "Your favorite eco-verification experience, now just a tap away. Subscribe to get early access to the app as soon as we go live!",
-                placeholder: "Enter your email address",
-                btnCta: "Get Early Access",
-                micro: "🔒 Be the first to know when we go live. No spam, ever.",
+                heroDesc: "An innovative eco-verification solution designed to bring environmental transparency in a simple, fast, and trustworthy way.",
+                btnAction1: "🔍 View App Preview",
+                btnAction2: "✉️ Get in Touch",
+                hl1: "Development",
+                hl2: "Recognition",
+                hl3: "PT / EN Available",
                 progLabel: "MVP Final Adjustments",
                 mockupScreen: "<span class='icon'>📱</span><strong>App Preview</strong><br><span style='font-size: 0.85rem; color: var(--text-secondary);'>Eco Verify Mobile</span>",
                 stLabel1: "Development", stVal1: "● Completed",
@@ -1868,9 +1925,11 @@
             document.getElementById('txt-badge').innerHTML = t.badge;
             document.getElementById('txt-hero-title').innerHTML = t.heroTitle;
             document.getElementById('txt-hero-desc').innerHTML = t.heroDesc;
-            document.getElementById('txt-input-email').placeholder = t.placeholder;
-            document.getElementById('txt-btn-cta').innerText = t.btnCta;
-            document.getElementById('txt-micro').innerText = t.micro;
+            document.getElementById('txt-btn-action1').innerText = t.btnAction1;
+            document.getElementById('txt-btn-action2').innerText = t.btnAction2;
+            document.getElementById('txt-hl-1').innerText = t.hl1;
+            document.getElementById('txt-hl-2').innerText = t.hl2;
+            document.getElementById('txt-hl-3').innerText = t.hl3;
             document.getElementById('txt-prog-label').innerText = t.progLabel;
             document.getElementById('txt-mockup-screen').innerHTML = t.mockupScreen;
 
