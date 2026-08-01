@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Eco Verify é uma plataforma premiada de sustentabilidade e verificação ecológica, criada para combater o greenwashing e tornar práticas ambientais mais transparentes e confiáveis.">
-    <title>🔧 Em Manutenção | Eco Verify</title>
+    <meta name="description" content="Eco Verify é uma plataforma premiada de sustentabilidade e verificação ecológica. O MVP do nosso webapp está em fase final de testes e prestes a ser lançado!">
+    <title>🚀 MVP em Finalização | Eco Verify</title>
     <link rel="shortcut icon" href="image.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -235,7 +235,7 @@
             transition: all 0.3s ease;
         }
 
-        /* ===== HERO / MAINTENANCE ===== */
+        /* ===== HERO / LAUNCH STATUS ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -249,17 +249,17 @@
             max-width: 750px;
         }
 
-        .maintenance-badge {
+        .launch-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 8px 20px;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 100px;
             font-size: 0.8rem;
             font-weight: 600;
-            color: var(--warning);
+            color: var(--primary-light);
             margin-bottom: 32px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -267,14 +267,14 @@
         }
 
         @keyframes pulseBadge {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.2); }
-            50% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.2); }
+            50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
         }
 
-        .maintenance-badge .dot {
+        .launch-badge .dot {
             width: 8px;
             height: 8px;
-            background: var(--warning);
+            background: var(--primary-light);
             border-radius: 50%;
             animation: blink 1.5s ease-in-out infinite;
         }
@@ -316,7 +316,7 @@
             color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: 40px;
-            max-width: 600px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -349,7 +349,7 @@
             width: 0%;
             background: var(--gradient-eco);
             border-radius: 100px;
-            animation: fillProgress 3s ease-out 1s forwards;
+            animation: fillProgress 2.5s ease-out 0.5s forwards;
             position: relative;
         }
 
@@ -366,7 +366,7 @@
         }
 
         @keyframes fillProgress {
-            to { width: 65%; }
+            to { width: 90%; }
         }
 
         @keyframes shimmer {
@@ -376,8 +376,9 @@
 
         .eta-text {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--primary-light);
             font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
         }
 
         /* Status Cards */
@@ -683,15 +684,15 @@
 
         .roadmap-item.done .roadmap-dot { border-color: var(--success); background: var(--success); }
         .roadmap-item.active .roadmap-dot {
-            border-color: var(--warning);
-            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2);
             animation: pulseActive 2s ease-in-out infinite;
         }
         .roadmap-item.planned .roadmap-dot { border-color: var(--text-muted); }
 
         @keyframes pulseActive {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2); }
-            50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2); }
+            50% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
         }
 
         .roadmap-card {
@@ -720,7 +721,7 @@
         }
 
         .roadmap-item.done .phase-tag { background: rgba(16, 185, 129, 0.15); color: var(--success); }
-        .roadmap-item.active .phase-tag { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .roadmap-item.active .phase-tag { background: rgba(6, 182, 212, 0.15); color: var(--accent-light); }
         .roadmap-item.planned .phase-tag { background: rgba(100, 116, 139, 0.15); color: var(--text-muted); }
 
         .roadmap-card h3 {
@@ -1072,17 +1073,44 @@
         /* ===== FOOTER ===== */
         .footer {
             border-top: 1px solid var(--border);
-            padding: 40px 0;
+            padding: 50px 0;
             text-align: center;
         }
 
         .footer p {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         .footer p strong {
             color: var(--text-secondary);
+        }
+
+        .footer-contact {
+            margin-top: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 12px;
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact-link:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            color: #fff;
         }
 
         .footer .heart {
@@ -1246,7 +1274,7 @@
                 <span>Eco Verify</span>
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#maintenance">Status</a></li>
+                <li><a href="#launch-status">Status do App</a></li>
                 <li><a href="#webapp">O Projeto</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#about">Sobre Mim</a></li>
@@ -1260,46 +1288,46 @@
     </nav>
 
     <!-- ======================== -->
-    <!--   HERO / MAINTENANCE     -->
+    <!--   HERO / MVP STATUS      -->
     <!-- ======================== -->
-    <section class="hero" id="maintenance">
+    <section class="hero" id="launch-status">
         <div class="hero-content">
-            <div class="maintenance-badge">
+            <div class="launch-badge">
                 <span class="dot"></span>
-                Manutenção Programada
+                MVP em fase de finalização
             </div>
-            <span class="hero-icon">🌿</span>
-            <h1>O <span class="gradient-text">Eco Verify</span> está evoluindo.</h1>
+            <span class="hero-icon">🚀</span>
+            <h1>O <span class="gradient-text">Eco Verify</span> está chegando!</h1>
             <p class="subtitle">
-                Nossa plataforma de sustentabilidade e verificação ecológica está passando por melhorias
-                significativas. Estamos trabalhando para entregar uma experiência ainda mais completa e impactante.
+                A aplicação web (MVP) está nos ajustes finais e entrando na etapa de testes. 
+                Em breve o sistema estará aberto para você testar, explorar as funcionalidades e compartilhar sua opinião!
             </p>
 
             <div class="progress-container">
                 <div class="progress-label">
-                    <span>Progresso da Atualização</span>
-                    <span>65%</span>
+                    <span>Ajustes Finais do MVP</span>
+                    <span>90%</span>
                 </div>
                 <div class="progress-bar-bg">
                     <div class="progress-bar-fill"></div>
                 </div>
             </div>
-            <p class="eta-text">⏱ Previsão de retorno: Em breve</p>
+            <p class="eta-text">✨ Lançamento para testes em breve...</p>
 
             <div class="status-grid">
                 <div class="status-card">
-                    <span class="status-icon">🗄️</span>
-                    <div class="status-label">Banco de Dados</div>
-                    <div class="status-value online">● Online</div>
+                    <span class="status-icon">💻</span>
+                    <div class="status-label">Desenvolvimento</div>
+                    <div class="status-value online">● Concluído</div>
                 </div>
                 <div class="status-card">
-                    <span class="status-icon">🔧</span>
-                    <div class="status-label">Aplicação</div>
-                    <div class="status-value progress">● Atualizando</div>
+                    <span class="status-icon">🧪</span>
+                    <div class="status-label">Fase de Testes</div>
+                    <div class="status-value progress">● Preparando</div>
                 </div>
                 <div class="status-card">
-                    <span class="status-icon">🎨</span>
-                    <div class="status-label">Nova Interface</div>
+                    <span class="status-icon">🎉</span>
+                    <div class="status-label">Acesso Público</div>
                     <div class="status-value soon">● Em breve</div>
                 </div>
             </div>
@@ -1333,7 +1361,7 @@
                         </div>
                         <div class="mockup-body">
                             <span class="mock-icon">🌎</span>
-                            <h4>Eco Verify Dashboard</h4>
+                            <h4>Eco Verify WebApp</h4>
                             <p>Plataforma inteligente de verificação ecológica para empresas e consumidores conscientes.</p>
                             <div class="mockup-features">
                                 <span>🔍 Verificação</span>
@@ -1391,10 +1419,9 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-tag">🗺️ Roadmap</div>
-                <h2 class="section-title">Ideias Futuras & Melhorias</h2>
+                <h2 class="section-title">A Caminho do Lançamento</h2>
                 <p class="section-desc">
-                    Veja o que já conquistamos, o que está em andamento e os próximos passos
-                    para tornar o Eco Verify ainda mais impactante.
+                    Veja o que já foi concluído e os próximos passos antes da plataforma oficial ir ao ar.
                 </p>
             </div>
 
@@ -1404,7 +1431,7 @@
                     <div class="roadmap-card">
                         <span class="phase-tag">✅ Concluído</span>
                         <h3>MVP & Competição Global</h3>
-                        <p>Desenvolvimento do MVP completo, participação na competição internacional e conquista do 3º lugar mundial representando o Nordeste do Brasil.</p>
+                        <p>Desenvolvimento da estrutura do MVP, participação na competição internacional e conquista do 3º lugar mundial representando o Nordeste do Brasil.</p>
                     </div>
                 </div>
 
@@ -1412,35 +1439,26 @@
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
                         <span class="phase-tag">✅ Concluído</span>
-                        <h3>Design System & Prototipagem</h3>
-                        <p>Criação do design system completo no Figma, prototipagem de alta fidelidade de todas as telas e fluxos de usuário testados e validados.</p>
+                        <h3>Design System & Refatoração</h3>
+                        <p>Interface modernizada no Figma, arquitetura reconstruída no frontend e aperfeiçoamento da experiência do usuário.</p>
                     </div>
                 </div>
 
                 <div class="roadmap-item active">
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
-                        <span class="phase-tag">🔨 Em Desenvolvimento</span>
-                        <h3>Refatoração & Nova Interface</h3>
-                        <p>Reconstrução do frontend com tecnologias atualizadas, novo design mais intuitivo, melhorias de performance e acessibilidade aprimorada.</p>
+                        <span class="phase-tag">🔥 Estágio Atual</span>
+                        <h3>Finalização & Testes Internos</h3>
+                        <p>Ajustes finos no sistema, otimização de performance e preparação do ambiente para receber as primeiras opiniões dos usuários.</p>
                     </div>
                 </div>
 
                 <div class="roadmap-item planned">
                     <div class="roadmap-dot"></div>
                     <div class="roadmap-card">
-                        <span class="phase-tag">📋 Planejado</span>
-                        <h3>API de Verificação & Integrações</h3>
-                        <p>API pública para que empresas integrem o selo Eco Verify em seus sites. Integração com bases de dados ambientais e certificadoras reconhecidas.</p>
-                    </div>
-                </div>
-
-                <div class="roadmap-item planned">
-                    <div class="roadmap-dot"></div>
-                    <div class="roadmap-card">
-                        <span class="phase-tag">📋 Planejado</span>
-                        <h3>Comunidade & Gamificação</h3>
-                        <p>Sistema de recompensas para consumidores conscientes, ranking de empresas sustentáveis, badges de verificação e comunidade ativa de eco-verificadores.</p>
+                        <span class="phase-tag">⏳ Próximo Passo</span>
+                        <h3>Lançamento Beta Público & Feedbacks</h3>
+                        <p>Liberação do MVP para a comunidade testar e enviar sugestões, ajudando a moldar as próximas atualizações da plataforma.</p>
                     </div>
                 </div>
             </div>
@@ -1465,9 +1483,9 @@
                         <div class="avatar-inner">👨‍💻</div>
                     </div>
                     <div class="about-social-links">
+                        <a href="mailto:douglasgabriel9628@gmail.com" class="social-link" title="E-mail">✉️</a>
                         <a href="#" class="social-link" title="GitHub">🐙</a>
                         <a href="#" class="social-link" title="LinkedIn">💼</a>
-                        <a href="#" class="social-link" title="Email">✉️</a>
                         <a href="#" class="social-link" title="Portfolio">🌐</a>
                     </div>
                 </div>
@@ -1578,8 +1596,14 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
+            <p>Tem dúvidas, sugestões ou opiniões sobre o app?</p>
+            <div class="footer-contact">
+                <a href="mailto:douglasgabriel9628@gmail.com" class="footer-contact-link">
+                    ✉️ douglasgabriel9628@gmail.com
+                </a>
+            </div>
             <p>
-                Feito com <span class="heart">❤️</span> por <strong>Douglas Gabriel</strong> — 2025
+                Feito com <span class="heart">❤️</span> por <strong>Douglas Gabriel</strong> — 2026
             </p>
             <p style="margin-top: 8px; font-size: 0.7rem;">
                 Transformando ideias em impacto real, uma linha de código por vez. 🌱
@@ -1652,9 +1676,9 @@
         // ===== Typing ETA =====
         const etaText = document.querySelector('.eta-text');
         const dots = [
-            '⏱ Previsão de retorno: Em breve.',
-            '⏱ Previsão de retorno: Em breve..',
-            '⏱ Previsão de retorno: Em breve...'
+            '✨ Lançamento para testes em breve.',
+            '✨ Lançamento para testes em breve..',
+            '✨ Lançamento para testes em breve...'
         ];
         let dotIndex = 0;
 
